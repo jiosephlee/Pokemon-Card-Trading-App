@@ -1,0 +1,4 @@
+ivanG -- 2019-11-17 14:22
+    Created gitignore
+    Reworked structure to the app
+    Added base template
