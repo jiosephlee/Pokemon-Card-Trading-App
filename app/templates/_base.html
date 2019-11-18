@@ -1,3 +1,5 @@
+{% from "macros/render_flashes.html" import render_flashes %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,21 +24,51 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- left side of navbar -->
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#">Welcome</a>
+                <a class="nav-link" href="{{ url_for('index') }}">Welcome</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Log In</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Sign Up</a>
-            </li>
+
+            {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('user.home') }}">Home</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('auth.login') }}">Log In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('auth.signup') }}">Sign Up</a>
+                </li>
+            {% endif %}
+        </ul>
+
+        <!-- right side of navbar -->
+        <ul class="navbar-nav navbar-right">
+
+            {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link disabled"> Logged in as {{ current_user.username }} </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a>
+                </li>
+            {% endif %}
         </ul>
     </div>
 </nav>
 
 <div class="container">
+    {{ render_flashes() }}
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            {% for block in request.path.split('/') %}
+                <li class="breadcrumb-item active" aria-current="page">{{ block }}</li>
+            {% endfor %}
+        </ol>
+    </nav>
 
     {% block content %}
 
