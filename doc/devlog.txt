@@ -19,3 +19,6 @@ leeJo -- 2019 11-19 8:10
     While we could have not used libraries and flask objects, Ivan stressed that it's what's used in the real
     world so we decided it'd be a good learning experience for all of us, as long as we took the time
     to understand it. After talking to Mykolyk, we also started making a QAF post.
+
+leeJO -- 2019-11-19 8:35
+    Updated design doc with front-end framework clarification and updated APIs
