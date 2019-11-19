@@ -1,3 +1,8 @@
+Team Hmmmmmmm - Amanda Chen, Ivan Galakhov, Eric Lam, Joseph Lee
+SoftDev1 pd1
+P01 -- The Silcoon Road
+2019-11-15 
+
 ivanG -- 2019-11-17 14:22
     Created gitignore
     Reworked structure to the app
