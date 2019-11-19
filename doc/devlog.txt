@@ -23,13 +23,15 @@ ivanG -- 2019-11-17 20:42
     Added login management
     Added flash support
     Added breadcrumbs
-
-leeJo -- 2019 11-19 8:10
+leeJo -- 2019-11-19 8:10
     After Ivan created the login system, we decided that we needed to understand the code before we moved on.
     While we could have not used libraries and flask objects, Ivan stressed that it's what's used in the real
     world so we decided it'd be a good learning experience for all of us, as long as we took the time
     to understand it. After talking to MR.Mykolyk, we made a QAF post about it.
 
+ivanG -- 2019-11-19 8:29
+        Added another table to the database. Will start working on more tables and relationships soon.
+        
 leeJo -- 2019-11-19 8:35
     Updated design doc with front-end framework clarification and updated APIs
 
