@@ -43,7 +43,7 @@ def login():
                 return redirect(session['next'])
             else:
                 flash('Logged in successfully!', 'success')
-                return redirect(url_for('user.home'))
+                return redirect(url_for('user.mycards'))
 
     return render_template('login.html', form=log_in_form)
 
