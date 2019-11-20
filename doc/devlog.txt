@@ -4,9 +4,10 @@ P01 -- The Silcoon Road
 2019-11-15
 
 leeJo -- 2019-11-16 22:10
-    We all started working on the design doc. Ivan mainly handled the diagrams for the back-end, I worked on the site map
-    and task division, Eric worked on the component map, and Amanda handled the description features of the design doc and helped
-    wherever possible.
+    We all started working on the design doc. Ivan mainly handled the diagrams
+    for the back-end, I worked on the site map and task division, Eric worked on
+    the component map, and Amanda handled the description features of the design
+    doc and helped wherever possible.
 
 ivanG -- 2019-11-17 14:22
     Created gitignore
@@ -14,8 +15,9 @@ ivanG -- 2019-11-17 14:22
     Added base template
 
 leeJo -- 2019-11-17 18:41
-    Being relatively finished with the design doc, Ivan requested access to start the login system and I gave him
-    permission as it's necessary for any kind of website.
+    Being relatively finished with the design doc, Ivan requested access to
+    start the login system and I gave him permission as it's necessary for any
+    kind of website.
 
 ivanG -- 2019-11-17 20:42
     Added ORM
@@ -23,22 +25,34 @@ ivanG -- 2019-11-17 20:42
     Added login management
     Added flash support
     Added breadcrumbs
-leeJo -- 2019-11-19 8:10
-    After Ivan created the login system, we decided that we needed to understand the code before we moved on.
-    While we could have not used libraries and flask objects, Ivan stressed that it's what's used in the real
-    world so we decided it'd be a good learning experience for all of us, as long as we took the time
-    to understand it. After talking to MR.Mykolyk, we made a QAF post about it.
 
-ivanG -- 2019-11-19 8:29
-        Added another table to the database. Will start working on more tables and relationships soon.
-        
-leeJo -- 2019-11-19 8:35
+leeJo -- 2019-11-19 08:10
+    After Ivan created the login system, we decided that we needed to understand
+    the code before we moved on. While we could have not used libraries and
+    flask objects, Ivan stressed that it's what's used in the real world so we
+    decided it'd be a good learning experience for all of us, as long as we took
+    the time to understand it. After talking to MR.Mykolyk, we made a QAF post
+    about it.
+
+ivanG -- 2019-11-19 08:29
+    Added another table to the database. Will start working on more tables and
+    relationships soon.
+
+leeJo -- 2019-11-19 08:35
     Updated design doc with front-end framework clarification and updated APIs
 
-leeJO -- 2019-11-19 17:35
-    Contacted team and divided short term tasks which would be done by the night of 11-20.
-      - Eric would finish the API card for pokemon cards and start on the back-end for trading
+leeJo -- 2019-11-19 17:35
+    Contacted team and divided short term tasks which would be done by the night
+    of 11-20.
+      - Eric would finish the API card for pokemon cards and start on the back-
+        end for trading
       - Ivan would finish the back-end for initializing cards and selling them
-      - Amanda would work on showing owned cards and money accordingly to the currency of the user's location
-    We also decided that it'd be best if I learned SQLAlchemy and made a QAF post, since Ivan already knew how it works. However, Ivan
-    accordingly add to and review the post before I posted it.
+      - Amanda would work on showing owned cards and money accordingly to the
+        currency of the user's location
+    We also decided that it'd be best if I learned SQLAlchemy and made a QAF
+    post, since Ivan already knew how it works. However, Ivan accordingly add to
+    and review the post before I posted it.
+
+chenA -- 2019-11-19 23:34
+    Created routes for marketplace and user's cards. Added place in the
+    navigation bar where the user's money will go.
