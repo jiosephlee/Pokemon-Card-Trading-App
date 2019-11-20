@@ -30,15 +30,19 @@ leeJo -- 2019-11-19 8:10
     to understand it. After talking to MR.Mykolyk, we made a QAF post about it.
 
 ivanG -- 2019-11-19 8:29
-        Added another table to the database. Will start working on more tables and relationships soon.
-        
+    Added another table to the database. Will start working on more tables and relationships soon.
+
 leeJo -- 2019-11-19 8:35
     Updated design doc with front-end framework clarification and updated APIs
 
-leeJO -- 2019-11-19 17:35
+leeJo -- 2019-11-19 17:35
     Contacted team and divided short term tasks which would be done by the night of 11-20.
       - Eric would finish the API card for pokemon cards and start on the back-end for trading
       - Ivan would finish the back-end for initializing cards and selling them
       - Amanda would work on showing owned cards and money accordingly to the currency of the user's location
     We also decided that it'd be best if I learned SQLAlchemy and made a QAF post, since Ivan already knew how it works. However, Ivan
     accordingly add to and review the post before I posted it.
+
+leeJo -- 2019-11-19 22:10
+    After reading many articles, I finished writing up the QAF post for SQLAlchemy on a google doc. I then shared the doc
+    to Ivan to confirm/add anything. He cleaned up the code, I asked him a few questions, and then posted on the QAF.
