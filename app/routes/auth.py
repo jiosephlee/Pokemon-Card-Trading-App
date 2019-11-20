@@ -1,5 +1,5 @@
 from flask import Blueprint, session
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for
 from flask_login import login_user, logout_user
 
 from app.forms import SignUpForm, LogInForm
@@ -43,7 +43,7 @@ def login():
                 return redirect(session['next'])
             else:
                 flash('Logged in successfully!', 'success')
-                return redirect(url_for('user.home'))
+                return redirect(url_for('user.mycards'))
 
     return render_template('login.html', form=log_in_form)
 
