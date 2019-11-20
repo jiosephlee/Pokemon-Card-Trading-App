@@ -32,8 +32,12 @@
 
             {% if current_user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('user.home') }}">Home</a>
+                    <a class="nav-link" href="{{ url_for('user.mycards') }}">My Cards</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('user.marketplace') }}">Marketplace</a>
+                </li>
+                <p>$$$</p>
             {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('auth.login') }}">Log In</a>
