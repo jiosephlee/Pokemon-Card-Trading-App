@@ -34,6 +34,13 @@ card_move_association = db.Table(
     db.Column('move_id', db.Integer, db.ForeignKey('move.id'))
 )
 
+user_log_association = db.Table(
+    'user_log_association',
+    db.Column('log_id', db.Integer, db.ForeignKey('log.id')),
+    db.Column('first_user_id', db.Integer, db.ForeignKey('card.id')),
+    db.Column('second_user_id', db.Integer, db.ForeignKey('card.id'))
+)
+
 class User(db.Model, UserMixin):
     # columns
     id = db.Column(db.Integer, primary_key=True)
@@ -43,6 +50,7 @@ class User(db.Model, UserMixin):
 
     # relationships
     cards = db.relationship('Card', secondary=user_card_association)
+    logs = db.relationship('Log', secondary=user_log_association)
 
     def __init__(self, username, password):
         self.username = username
