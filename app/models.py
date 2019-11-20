@@ -41,6 +41,7 @@ user_log_association = db.Table(
     db.Column('second_user_id', db.Integer, db.ForeignKey('card.id'))
 )
 
+
 class User(db.Model, UserMixin):
     # columns
     id = db.Column(db.Integer, primary_key=True)
@@ -86,13 +87,14 @@ class Trade(db.Model):
     request_card_id = db.Column(db.ForeignKey('card.id'))
     given_card_id = db.Column(db.ForeignKey('card.id'))
 
-    #relationships
+    # relationships
     request_card = db.relationship('Card', foreign_keys=[request_card_id])
     given_card = db.relationship('Card', foreign_keys=[given_card_id])
 
     def __init__(self, request_id, given_id):
         self.request_id = request_id
         self.given_id = given_id
+
 
 class Sale(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -107,6 +109,7 @@ class Sale(db.Model):
         self.cost = cost
         self.status = status
 
+
 class Type(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String(80), nullable=False)
@@ -116,9 +119,10 @@ class Type(db.Model):
     def __init__(self, type):
         self.type = type
 
+
 class Move(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    card_id  = db.Column(db.ForeignKey('card.id'))
+    card_id = db.Column(db.ForeignKey('card.id'))
     description = db.Column(db.Text, nullable=False)
 
     cards = db.relationship('Card')
@@ -126,6 +130,7 @@ class Move(db.Model):
     def __init__(self, card, description):
         self.card = card
         self.description = description
+
 
 class Log(db.Model):
     id = db.Column(db.Integer, primary_key=True)
