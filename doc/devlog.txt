@@ -60,3 +60,6 @@ leeJo -- 2019-11-19 22:10
 chenA -- 2019-11-19 23:34
     Created routes for marketplace and user's cards. Added place in the
     navigation bar where the user's money will go.
+
+ivanG -- 2019-11-19 8:27
+    Added more tables (trade and relationship between user and card )to the model
