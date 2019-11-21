@@ -26,9 +26,6 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- left side of navbar -->
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('index') }}">Welcome</a>
-            </li>
 
             {% if current_user.is_authenticated %}
                 <li class="nav-item">
@@ -42,10 +39,7 @@
                 </li>
             {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('auth.login') }}">Log In</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('auth.signup') }}">Sign Up</a>
+                    <a class="nav-link" href="{{ url_for('index') }}">Welcome</a>
                 </li>
             {% endif %}
         </ul>
