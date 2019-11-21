@@ -38,7 +38,7 @@ user_log_association = db.Table(
     'user_log_association',
     db.Column('log_id', db.Integer, db.ForeignKey('log.id')),
     db.Column('first_user_id', db.Integer, db.ForeignKey('user.id')),
-    db.Column('second_user_id', db.Integer, db.ForeignKey('user..id'))
+    db.Column('second_user_id', db.Integer, db.ForeignKey('user.id'))
 )
 
 
@@ -69,7 +69,8 @@ class Card(db.Model):
 
     # relationships
     users = db.relationship('User', secondary=user_card_association)
-    trades = db.relationship('Trade', secondary=card_trade_association, primaryjoin=card_trade_association.c.request_card_id == id)
+    trades = db.relationship('Trade', secondary=card_trade_association,
+                             primaryjoin=card_trade_association.c.request_card_id == id)
     sales = db.relationship('Sale', secondary=card_sale_association)
     type = db.relationship('Type', foreign_keys=[type_id])
     moves = db.relationship('Move', secondary=card_move_association)
