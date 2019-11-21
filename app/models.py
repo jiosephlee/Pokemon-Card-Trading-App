@@ -9,18 +9,6 @@ user_card_association = db.Table(
     db.Column('card_id', db.Integer, db.ForeignKey('card.id'))
 )
 
-card_trade_association = db.Table(
-    'card_trade_association',
-    db.Column('trade_id', db.Integer, db.ForeignKey('trade.id')),
-    db.Column('request_card_id', db.Integer, db.ForeignKey('card.id')),
-    db.Column('given_card_id', db.Integer, db.ForeignKey('card.id'))
-)
-
-card_sale_association = db.Table(
-    'card_sale_association',
-    db.Column('sale_id', db.Integer, db.ForeignKey('sale.id')),
-    db.Column('card_id', db.Integer, db.ForeignKey('card.id'))
-)
 
 type_card_association = db.Table(
     'type_card_association',
@@ -28,18 +16,6 @@ type_card_association = db.Table(
     db.Column('card_id', db.Integer, db.ForeignKey('card.type_id'))
 )
 
-card_move_association = db.Table(
-    'card_move_association',
-    db.Column('card_id', db.Integer, db.ForeignKey('card.id')),
-    db.Column('move_id', db.Integer, db.ForeignKey('move.id'))
-)
-
-user_log_association = db.Table(
-    'user_log_association',
-    db.Column('log_id', db.Integer, db.ForeignKey('log.id')),
-    db.Column('first_user_id', db.Integer, db.ForeignKey('user.id')),
-    db.Column('second_user_id', db.Integer, db.ForeignKey('user.id'))
-)
 
 
 class User(db.Model, UserMixin):
@@ -51,7 +27,6 @@ class User(db.Model, UserMixin):
 
     # relationships
     cards = db.relationship('Card', secondary=user_card_association)
-    logs = db.relationship('Log', secondary=user_log_association, primaryjoin=user_log_association.c.first_user_id==id)
 
     def __init__(self, username, password):
         self.username = username
@@ -69,11 +44,7 @@ class Card(db.Model):
 
     # relationships
     users = db.relationship('User', secondary=user_card_association)
-    trades = db.relationship('Trade', secondary=card_trade_association,
-                             primaryjoin=card_trade_association.c.request_card_id == id)
-    sales = db.relationship('Sale', secondary=card_sale_association)
     type = db.relationship('Type', foreign_keys=[type_id])
-    moves = db.relationship('Move', secondary=card_move_association)
 
     def __init__(self, name, picture_url, description, type):
         self.name = name
@@ -119,18 +90,6 @@ class Type(db.Model):
 
     def __init__(self, type):
         self.type = type
-
-
-class Move(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    card_id = db.Column(db.ForeignKey('card.id'))
-    description = db.Column(db.Text, nullable=False)
-
-    cards = db.relationship('Card')
-
-    def __init__(self, card, description):
-        self.card = card
-        self.description = description
 
 
 class Log(db.Model):

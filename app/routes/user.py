@@ -24,4 +24,4 @@ def mycards():
 @user.route('/marketplace')
 @login_required
 def marketplace():
-    return render_template('marketplace.html')
+    return render_template('marketplace.html', featured=[], new=[], popular=[], value=[])
