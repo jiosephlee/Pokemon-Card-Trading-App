@@ -80,9 +80,18 @@ amandaC -- 2019-11-20 21:29
 amandaC -- 2019-11-20 21:37
     Changed log in and sign up to buttons and removed welcome item after user
     logs in.
-    
+
 josephL -- 2019-11-20 21:40
     Grouped up with team members and re-assigned short term tasks, re-clarified structure
     and flow of the website -> update design doc.
     Read the ego reading together through a discord call and wrote some actions
     we could take
+
+josephL -- 2019-11-20 22:35
+    the environment is crucial for successful communication; establishing an environment where everyone throws
+    out their bias of other group members and where everyone is equal is key to a communicative and learning
+    experience. We realize that Ivan comes with a lot of knowledge and experience and so this kind of creates
+    a power dynamic that's hard to throw out. One thing we're going to strive for is working together in person.
+    Working in person makes asking questions and talking a lot more natural. And talking about the project helps
+    us understand each other's thought processes, which in turns helps us trust each other more.
+    Thus, we have planned to meet in the CSDojo tomorrow, and plan to work in Discord calls more often. 
