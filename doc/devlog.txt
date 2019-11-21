@@ -76,3 +76,7 @@ ericL -- 2019-11-20 21:00
 
 amandaC -- 2019-11-20 21:29
     Added user's balance to navigation bar
+
+amandaC -- 2019-11-20 21:37
+    Changed log in and sign up to buttons and removed welcome item after user
+    logs in.
