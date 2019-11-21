@@ -1,7 +1,53 @@
 {% extends "_base.html" %}
 
 {% block content %}
-    <h2>The Silcoon Road</h2>
+    <h1>The Marketplace</h1>
     <hr>
-    <p>Welcome, {{ current_user.username }}</p>
+    <h3>Featured</h3>
+    {% for card in featured %}
+        <div class="card">
+            <img class="card-img-top" src={{card.image}} alt={{card.name}}>
+            <div class="card-body">
+                <h5 class="card-title">{{card.name}}</h5>
+                <p class="card-text">{{card.price}}</p>
+                <a href="#" class="btn btn-primary">Buy</a>
+            </div>
+        </div>
+    {% endfor %}
+    <hr>
+    <h3>New</h3>
+    {% for card in new %}
+        <div class="card">
+            <img class="card-img-top" src={{card.image}} alt={{card.name}}>
+            <div class="card-body">
+                <h5 class="card-title">{{card.name}}</h5>
+                <p class="card-text">{{card.price}}</p>
+                <a href="#" class="btn btn-primary">Buy</a>
+            </div>
+        </div>
+    {% endfor %}
+    <hr>
+    <h3>Popular</h3>
+    {% for card in popular %}
+        <div class="card">
+            <img class="card-img-top" src={{card.image}} alt={{card.name}}>
+            <div class="card-body">
+                <h5 class="card-title">{{card.name}}</h5>
+                <p class="card-text">{{card.price}}</p>
+                <a href="#" class="btn btn-primary">Buy</a>
+            </div>
+        </div>
+    {% endfor %}
+    <hr>
+    <h3>High Value</h3>
+    {% for card in value %}
+        <div class="card">
+            <img class="card-img-top" src={{card.image}} alt={{card.name}}>
+            <div class="card-body">
+                <h5 class="card-title">{{card.name}}</h5>
+                <p class="card-text">{{card.price}}</p>
+                <a href="#" class="btn btn-primary">Buy</a>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock content %}
