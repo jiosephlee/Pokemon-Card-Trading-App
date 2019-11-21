@@ -54,15 +54,18 @@ leeJo -- 2019-11-19 17:35
     and review the post before I posted it.
 
 leeJo -- 2019-11-19 22:10
-    After reading many articles, I finished writing up the QAF post for SQLAlchemy on a google doc. I then shared the doc
-    to Ivan to confirm/add anything. He cleaned up the code, I asked him a few questions, and then posted on the QAF.
+    After reading many articles, I finished writing up the QAF post for
+    SQLAlchemy on a google doc. I then shared the doc to Ivan to confirm/add
+    anything. He cleaned up the code, I asked him a few questions, and then
+    posted on the QAF.
 
 chenA -- 2019-11-19 23:34
     Created routes for marketplace and user's cards. Added place in the
     navigation bar where the user's money will go.
 
 ivanG -- 2019-11-19 8:27
-    Added more tables (trade and relationship between user and card )to the model
+    Added more tables (trade and relationship between user and card )to the
+    model
 
 ericL -- 2019-11-20 10:00
     Added remaining tables to the model
@@ -71,6 +74,13 @@ ericL -- 2019-11-20 10:00
 ericL -- 2019-11-20 21:00
     Fixed error with references between tables
 
+amandaC -- 2019-11-20 21:29
+    Added user's balance to navigation bar
+
+amandaC -- 2019-11-20 21:37
+    Changed log in and sign up to buttons and removed welcome item after user
+    logs in.
+    
 josephL -- 2019-11-20 21:40
     Grouped up with team members and re-assigned short term tasks, re-clarified structure
     and flow of the website -> update design doc.

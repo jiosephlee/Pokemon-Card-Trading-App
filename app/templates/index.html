@@ -2,4 +2,11 @@
 
 {% block content %}
     <h1>Welcome!</h1>
+
+    <button type="button" class="btn btn-light">
+        <a href="{{ url_for('auth.login') }}">Log In</a>
+    </button>
+    <button type="button" class="btn btn-light">
+        <a href="{{ url_for('auth.signup') }}">Sign Up</a>
+    </button>
 {% endblock content %}

@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask import render_template
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 user = Blueprint('user', __name__)
 
@@ -17,8 +17,9 @@ def mycards():
     #         user_id == user
     #     '''
     # allcards = c.fetchall()
+    #allcards = card_ownership.query.filter_by(user_id == user).all()
     return render_template('mycards.html')
-                            #cards = allcards)
+                            #cards = current_user.cards)
 
 @user.route('/marketplace')
 @login_required
