@@ -51,7 +51,7 @@ class User(db.Model, UserMixin):
 
     # relationships
     cards = db.relationship('Card', secondary=user_card_association)
-    logs = db.relationship('Log', secondary=user_log_association)
+    logs = db.relationship('Log', secondary=user_log_association, primaryjoin=user_log_association.c.first_user_id==id)
 
     def __init__(self, username, password):
         self.username = username
