@@ -41,6 +41,11 @@ class Card(db.Model):
     picture_url = db.Column(db.String(80), nullable=False)
     description = db.Column(db.String(80), nullable=False)
     type_id = db.Column(db.ForeignKey('type.id'))
+    set = db.Column(db.String(80), nullable=False)
+    series = db.Column(db.String(80), nullable=False)
+    subtype = db.Column(db.String(80), nullable=False)
+    supertype = db.Column(db.String(80), nullable=False)
+    rarity = db.Column(db.String(80), nullable=False)
 
     # relationships
     users = db.relationship('User', secondary=user_card_association)
