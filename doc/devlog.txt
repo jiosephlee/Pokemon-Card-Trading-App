@@ -3,7 +3,7 @@ SoftDev1 pd1
 P01 -- The Silcoon Road
 2019-11-15
 
-leeJo -- 2019-11-16 22:10
+josephL -- 2019-11-16 22:10
     We all started working on the design doc. Ivan mainly handled the diagrams
     for the back-end, I worked on the site map and task division, Eric worked on
     the component map, and Amanda handled the description features of the design
@@ -14,7 +14,7 @@ ivanG -- 2019-11-17 14:22
     Reworked structure to the app
     Added base template
 
-leeJo -- 2019-11-17 18:41
+josephL -- 2019-11-17 18:41
     Being relatively finished with the design doc, Ivan requested access to
     start the login system and I gave him permission as it's necessary for any
     kind of website.
@@ -26,7 +26,7 @@ ivanG -- 2019-11-17 20:42
     Added flash support
     Added breadcrumbs
 
-leeJo -- 2019-11-19 08:10
+josephL -- 2019-11-19 08:10
     After Ivan created the login system, we decided that we needed to understand
     the code before we moved on. While we could have not used libraries and
     flask objects, Ivan stressed that it's what's used in the real world so we
@@ -38,10 +38,10 @@ ivanG -- 2019-11-19 08:29
     Added another table to the database. Will start working on more tables and
     relationships soon.
 
-leeJo -- 2019-11-19 08:35
+josephL -- 2019-11-19 08:35
     Updated design doc with front-end framework clarification and updated APIs
 
-leeJo -- 2019-11-19 17:35
+josephL -- 2019-11-19 17:35
     Contacted team and divided short term tasks which would be done by the night
     of 11-20.
       - Eric would finish the API card for pokemon cards and start on the back-
@@ -53,13 +53,12 @@ leeJo -- 2019-11-19 17:35
     post, since Ivan already knew how it works. However, Ivan accordingly add to
     and review the post before I posted it.
 
-leeJo -- 2019-11-19 22:10
+josephL -- 2019-11-19 22:10
     After reading many articles, I finished writing up the QAF post for
     SQLAlchemy on a google doc. I then shared the doc to Ivan to confirm/add
     anything. He cleaned up the code, I asked him a few questions, and then
     posted on the QAF.
-
-chenA -- 2019-11-19 23:34
+amandaC -- 2019-11-19 23:34
     Created routes for marketplace and user's cards. Added place in the
     navigation bar where the user's money will go.
 
@@ -87,11 +86,10 @@ josephL -- 2019-11-20 21:40
     Read the ego reading together through a discord call and wrote some actions
     we could take
 
-josephL -- 2019-11-20 22:35
-    the environment is crucial for successful communication; establishing an environment where everyone throws
-    out their bias of other group members and where everyone is equal is key to a communicative and learning
-    experience. We realize that Ivan comes with a lot of knowledge and experience and so this kind of creates
-    a power dynamic that's hard to throw out. One thing we're going to strive for is working together in person.
-    Working in person makes asking questions and talking a lot more natural. And talking about the project helps
-    us understand each other's thought processes, which in turns helps us trust each other more.
-    Thus, we have planned to meet in the CSDojo tomorrow, and plan to work in Discord calls more often. 
+ericL -- 2019-11-20 22:50
+    Protocols to make more awesome:
+    1. Share and explain our code to each other to facilitate collaborative programming.
+    2. Request assistance and/or explanations as needed, first from each other then from external sources (crediting as necessary).
+
+josephL -- 2019-11-20 23:14
+    3. Working together in person: We have planned to meet in the CSDojo tomorrow, and plan to work in Discord calls more often.
