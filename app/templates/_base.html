@@ -54,7 +54,6 @@
         <ul class="navbar-nav navbar-right">
 
             {% if current_user.is_authenticated %}
-                <p>Current Balance: ${{ current_user.balance }}</p>
                 <li class="nav-item">
                     <a class="nav-link disabled"> Logged in as {{ current_user.username }} </a>
                 </li>
