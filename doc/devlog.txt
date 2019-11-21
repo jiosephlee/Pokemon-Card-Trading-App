@@ -63,3 +63,10 @@ chenA -- 2019-11-19 23:34
 
 ivanG -- 2019-11-19 8:27
     Added more tables (trade and relationship between user and card )to the model
+
+ericL -- 2019-11-20 10:00
+    Added remaining tables to the model
+    Updated project name and logo
+
+ericL -- 2019-11-20 21:00
+    Fixed error with references between tables
