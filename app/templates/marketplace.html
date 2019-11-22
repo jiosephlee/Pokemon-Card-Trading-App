@@ -4,18 +4,20 @@
     <h1>The Marketplace</h1>
     <hr>
     <h3>Featured</h3>
-    <div class="card-deck">
-    {% for card in featured %}
-        <div class="card">
-            <img class="card-img-top" src={{card.image_hires}} alt={{card.name}}>
-            <div class="card-body">
-                <h5 class="card-title">{{card.name}}</h5>
-                <p class="card-text">$100.00{# {{card.price}} #}</p>
-                <a href="#" class="btn btn-primary">Buy</a>
-            </div>
+    {% for half in featured %}
+        <div class="card-deck">
+        {% for card in half %}
+                <div class="card">
+                    <img class="card-img-top" src={{card.image_hires}} alt={{card.name}}>
+                    <div class="card-body">
+                        <h5 class="card-title">{{card.name}}</h5>
+                        <p class="card-text">$100.00{# {{card.price}} #}</p>
+                        <a href="#" class="btn btn-primary">Buy</a>
+                    </div>
+                </div>
+        {% endfor %}
         </div>
     {% endfor %}
-    </div>
     <hr>
     <h3>New</h3>
     <div class="card-deck">
