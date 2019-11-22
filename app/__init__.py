@@ -49,7 +49,9 @@ with app.app_context():
             end = 901
         while (i < end):
             name = data['cards'][i]['name']
-            image = data['cards'][i]['imageUrlHiRes']
+            id_str = data['cards'][i]['id']
+            image = data['cards'][i]['imageUrl']
+            hires = data['cards'][i]['imageUrlHiRes']
             card_set = data['cards'][i]['set']
             series = data['cards'][i]['series']
             if ('rarity' in data['cards'][i]):
@@ -68,7 +70,7 @@ with app.app_context():
             else:
                 subtype = None
             supertype = data['cards'][i]['supertype']
-            card = Card(name,image,types,card_set,series,subtype,supertype,rarity)
+            card = Card(name,id_str,image,hires,types,card_set,series,subtype,supertype,rarity)
             db.session.add(card)
             i += 1
         x += 1

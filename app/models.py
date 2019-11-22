@@ -30,7 +30,9 @@ class Card(db.Model):
     # columns
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
-    picture_url = db.Column(db.String(80), nullable=False)
+    id_str = db.Column(db.String(80), nullable=False)
+    image_small = db.Column(db.String(80), nullable=False)
+    image_hires = db.Column(db.String(80), nullable=False)
     type = db.Column(db.String(80), nullable=True)
     set_name = db.Column(db.String(80), nullable=False)
     series = db.Column(db.String(80), nullable=False)
@@ -41,14 +43,16 @@ class Card(db.Model):
     # relationships
     users = db.relationship('User', secondary=user_card_association)
 
-    def __init__(self, name, picture_url, type, set_name, series, subtype, supertype, rarity):
+    def __init__(self, name, id_str, image_small, image_hires, type, set_name, series, subtype, supertype, rarity):
         self.name = name
-        self.picture_url = picture_url
+        self.id_str = id_str
+        self.image_small = image_small
+        self.image_hires = image_hires
         self.type = type
         self.set_name = set_name
         self.series = series
         self.subtype = subtype
-        self.supertype =supertype
+        self.supertype = supertype
         self.rarity = rarity
 
 

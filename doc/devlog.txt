@@ -112,3 +112,6 @@ ericL -- 2019-11-21 19:45
 
 ericL -- 2019-11-21 21:30
     Loaded every card into the database
+
+ericL -- 2019-11-21 23:15
+    Added some featured cards
