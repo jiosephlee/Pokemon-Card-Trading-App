@@ -96,6 +96,10 @@ josephL -- 2019-11-20 23:14
 
 josephL -- 2019-11-20 5:15
     Met up at the CSDojo and got some work done and learned more about table relationships from Ivan
+
 ivanG -- 2019-11-21 8:09
     Fixed database errors that we have had before. We likely will still need to fix things but it
     will work fine for now.
+
+josephL -- 2019-11-21 0:14
+    Updated Final Deliverables
