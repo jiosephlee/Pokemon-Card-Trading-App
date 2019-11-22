@@ -33,3 +33,8 @@ def marketplace():
     f = [get_card(n) for n in f]
     featured = [f[:5],f[5:]]
     return render_template('marketplace.html', featured=featured, new=[], popular=[], value=[])
+
+@user.route('/trade')
+@login_required
+def trade():
+    return ''
