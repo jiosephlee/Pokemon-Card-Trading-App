@@ -106,3 +106,6 @@ ericL -- 2019-11-21 8:40
 amandaC -- 2019-11-21 16:54
     Finished writing script adding all pokemon cards and the relevant
     information to a file
+
+ericL -- 2019-11-21 19:45
+    Added remaining cards to cardbank
