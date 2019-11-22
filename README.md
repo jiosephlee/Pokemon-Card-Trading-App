@@ -24,11 +24,13 @@ Ivan Galakhov
 ## APIs
 Pokémon TCG
 - This API will be used to get information about the Pokemon cards such as the image and name of the Pokemon
+- https://docs.google.com/document/d/1EKiVhWTMo_SuI1Gs8DcHxlvQl2XnFe0mqs9oLaQlaRU/
 IP Location
 - This API will be used to determine the user’s location
+- https://docs.google.com/document/d/1FazBlCH4SoM5bKaCs5vr4B7aEgTUVlvFv-1W-LoQmUA/
 Foreign Exchange Rates
 - This API will be used to calculate the prices of Pokemon Cards in the marketplace to show prices in terms of their location’s currency
-
+- https://docs.google.com/document/d/1BDjby5I0kwVJHwZqG5sdHL-vToQsQI_oxhmlBbA87bM/
 ## Launch Codes
 1. run "git clone https://github.com/jiosephlee/Softdev-P01.git" to clone the repo
 2. run "pip install -r <path-to-file>requirements.txt" to get necessary packages
