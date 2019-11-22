@@ -3,7 +3,7 @@
 {% block content %}
     <h1>The Marketplace</h1>
     <hr>
-    <h3>Featured</h3>
+    <h3>Featured</h3><br>
     {% for half in featured %}
         <div class="card-deck">
         {% for card in half %}
@@ -12,11 +12,14 @@
                     <div class="card-body">
                         <h5 class="card-title">{{card.name}}</h5>
                         <p class="card-text">$100.00{# {{card.price}} #}</p>
+                    </div>
+                    <div class="card-footer bg-transparent">
                         <a href="#" class="btn btn-primary">Buy</a>
                     </div>
                 </div>
         {% endfor %}
         </div>
+        <br>
     {% endfor %}
     <hr>
     <h3>New</h3>
