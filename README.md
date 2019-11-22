@@ -20,3 +20,16 @@ Ivan Galakhov
 - Backend: Buying, Selling, and Login/Registration
 - Managing: checking for logical setup of database tables
 
+
+## APIs
+Pokémon TCG
+- This API will be used to get information about the Pokemon cards such as the image and name of the Pokemon
+IP Location
+- This API will be used to determine the user’s location
+Foreign Exchange Rates
+- This API will be used to calculate the prices of Pokemon Cards in the marketplace to show prices in terms of their location’s currency
+
+## Launch Codes
+1. run "git clone https://github.com/jiosephlee/Softdev-P01.git" to clone the repo
+2. run "pip install -r <path-to-file>requirements.txt" to get necessary packages
+3. run "python run.py" to start the app
