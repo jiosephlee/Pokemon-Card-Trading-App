@@ -33,5 +33,5 @@ This website is an interactive experience for Pokemon Trading Card Game enthusia
 - https://docs.google.com/document/d/1BDjby5I0kwVJHwZqG5sdHL-vToQsQI_oxhmlBbA87bM/
 ## Launch Codes
 1. run "git clone https://github.com/jiosephlee/Softdev-P01.git" to clone the repo
-2. run "pip install -r <path-to-file>requirements.txt" to get necessary packages
+2. run "pip install -r doc/requirements.txt" to get necessary packages
 3. run "python run.py" to start the app
