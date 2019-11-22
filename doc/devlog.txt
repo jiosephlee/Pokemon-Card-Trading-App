@@ -109,3 +109,6 @@ amandaC -- 2019-11-21 16:54
 
 ericL -- 2019-11-21 19:45
     Added remaining cards to cardbank
+
+ericL -- 2019-11-21 21:30
+    Loaded every card into the database
