@@ -56,6 +56,16 @@ class Card(db.Model):
         self.rarity = rarity
 
 
+class Set(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True, nullable=False)
+    logo = db.Column(db.String(80), nullable=False)
+
+    def __init__(self, name, logo):
+        self.name = name
+        self.logo = logo
+
+
 class Trade(db.Model):
     # columns
     id = db.Column(db.Integer, primary_key=True)
