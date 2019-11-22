@@ -94,24 +94,12 @@ ericL -- 2019-11-20 22:50
 josephL -- 2019-11-20 23:14
     3. Working together in person: We have planned to meet in the CSDojo tomorrow, and plan to work in Discord calls more often.
 
+josephL -- 2019-11-20 5:15
+    Met up at the CSDojo and got some work done and learned more about table relationships from Ivan
+
 ivanG -- 2019-11-21 8:09
     Fixed database errors that we have had before. We likely will still need to fix things but it
     will work fine for now.
 
-ericL -- 2019-11-21 8:40
-    Cleaned up models
-    Removed underlines from buttons
-    Started Marketplace
-
-amandaC -- 2019-11-21 16:54
-    Finished writing script adding all pokemon cards and the relevant
-    information to a file
-
-ericL -- 2019-11-21 19:45
-    Added remaining cards to cardbank
-
-ericL -- 2019-11-21 21:30
-    Loaded every card into the database
-
-ericL -- 2019-11-21 23:15
-    Added some featured cards
+josephL -- 2019-11-21 0:14
+    Updated Final Deliverables
