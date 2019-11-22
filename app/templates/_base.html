@@ -32,7 +32,15 @@
                     <a class="nav-link" href="{{ url_for('user.mycards') }}">My Cards</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('user.marketplace') }}">Marketplace</a>
+                  <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Marketplace
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="{{url_for('buy_page')}}">Buy</a>
+                          <a class="dropdown-item" href="{{url_for('trade_page')}}">Trade</a>
+                      </div>
+                  </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled">Current Balance: ${{ current_user.balance }}</a>
