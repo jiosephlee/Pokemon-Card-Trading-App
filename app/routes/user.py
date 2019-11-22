@@ -25,7 +25,6 @@ def mycards():
     return render_template('mycards.html')
     # cards = current_user.cards)
 
-
 @user.route('/marketplace')
 @login_required
 def marketplace():
@@ -34,7 +33,7 @@ def marketplace():
     featured = [f[:5],f[5:]]
     return render_template('marketplace.html', featured=featured, new=[], popular=[], value=[])
 
-@user.route('/trade')
+@user.route('/marketplace/trade')
 @login_required
 def trade():
     return ''
