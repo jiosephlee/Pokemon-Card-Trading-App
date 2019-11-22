@@ -4,8 +4,12 @@
     <h2>My Cards</h2>
     <hr>
     <p>Your current cards:</p>
-    {% for card in cards %}
-      <img src="{{ mycard[card] }}">
-      <br>
-    {% endfor %}
+    <div class="card-deck" style="width: 25%">
+      <div class="card">
+          <img class="card-img-top" src={{card.image_hires}} alt={{card.name}}>
+          <div class="card-body">
+              <h5 class="card-title">{{card.name}}</h5>
+          </div>
+        </div>
+    </div>
 {% endblock content %}
