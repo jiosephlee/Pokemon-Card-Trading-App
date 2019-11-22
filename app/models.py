@@ -10,14 +10,6 @@ user_card_association = db.Table(
 )
 
 
-type_card_association = db.Table(
-    'type_card_association',
-    db.Column('type_id', db.Integer, db.ForeignKey('type.id')),
-    db.Column('card_id', db.Integer, db.ForeignKey('card.type_id'))
-)
-
-
-
 class User(db.Model, UserMixin):
     # columns
     id = db.Column(db.Integer, primary_key=True)
@@ -37,25 +29,27 @@ class User(db.Model, UserMixin):
 class Card(db.Model):
     # columns
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), unique=True, nullable=False)
+    name = db.Column(db.String(80), nullable=False)
     picture_url = db.Column(db.String(80), nullable=False)
-    description = db.Column(db.String(80), nullable=False)
-    type_id = db.Column(db.ForeignKey('type.id'))
-    set = db.Column(db.String(80), nullable=False)
+    type = db.Column(db.String(80), nullable=True)
+    set_name = db.Column(db.String(80), nullable=False)
     series = db.Column(db.String(80), nullable=False)
-    subtype = db.Column(db.String(80), nullable=False)
+    subtype = db.Column(db.String(80))
     supertype = db.Column(db.String(80), nullable=False)
-    rarity = db.Column(db.String(80), nullable=False)
+    rarity = db.Column(db.String(80))
 
     # relationships
     users = db.relationship('User', secondary=user_card_association)
-    type = db.relationship('Type', foreign_keys=[type_id])
 
-    def __init__(self, name, picture_url, description, type):
+    def __init__(self, name, picture_url, type, set_name, series, subtype, supertype, rarity):
         self.name = name
         self.picture_url = picture_url
-        self.description = description
-        self.type_id = type.id
+        self.type = type
+        self.set_name = set_name
+        self.series = series
+        self.subtype = subtype
+        self.supertype =supertype
+        self.rarity = rarity
 
 
 class Trade(db.Model):
@@ -85,16 +79,6 @@ class Sale(db.Model):
         self.card_id = card_id
         self.cost = cost
         self.status = status
-
-
-class Type(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    type = db.Column(db.String(80), nullable=False)
-
-    cards = db.relationship('Card', secondary=type_card_association)
-
-    def __init__(self, type):
-        self.type = type
 
 
 class Log(db.Model):
