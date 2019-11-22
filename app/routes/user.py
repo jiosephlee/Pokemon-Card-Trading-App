@@ -36,3 +36,4 @@ def buy_page():
 @user.route('/marketplace/trade')
 @login_required
 def trade_page():
+    return render_template('trade.html')
