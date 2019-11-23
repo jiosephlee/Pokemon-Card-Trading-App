@@ -49,9 +49,9 @@ def cards():
 @user.route('/marketplace/packs')
 @login_required
 def packs():
-    return ''
+    return render_template('packs.html', featured=[], new=[], popular=[])
 
 @user.route('/marketplace/trades')
 @login_required
 def trades():
-    return ''
+    return render_template('trades.html', new=[], popular=[])
