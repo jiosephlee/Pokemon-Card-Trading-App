@@ -42,8 +42,9 @@ def marketplace():
     n = [c for c in get_set(newest_set)]
     n = sample(n,10)
     new = [n[:5],n[5:]]
-
-    return render_template('marketplace.html', featured=featured, new=new, popular=[])
+    p = Card.query.order_by(Card.num_sales)[:10]
+    popular = [p[:5],p[5:]]
+    return render_template('marketplace.html', featured=featured, new=new, popular=popular)
 
 @user.route('/marketplace/trade')
 @login_required

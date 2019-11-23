@@ -30,7 +30,7 @@ class Card(db.Model):
     # columns
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
-    id_str = db.Column(db.String(80), nullable=False)
+    id_str = db.Column(db.String(80), unique=True, nullable=False)
     image_small = db.Column(db.String(80), nullable=False)
     image_hires = db.Column(db.String(80), nullable=False)
     type = db.Column(db.String(80), nullable=True)
@@ -39,6 +39,7 @@ class Card(db.Model):
     subtype = db.Column(db.String(80))
     supertype = db.Column(db.String(80), nullable=False)
     rarity = db.Column(db.String(80))
+    num_sales = db.Column(db.Integer, nullable=False)
 
     # relationships
     users = db.relationship('User', secondary=user_card_association)
@@ -54,6 +55,7 @@ class Card(db.Model):
         self.subtype = subtype
         self.supertype = supertype
         self.rarity = rarity
+        self.num_sales = 0
 
 
 class Set(db.Model):
