@@ -3,19 +3,17 @@
 {% block style %}
     .carousel-control-next {
         filter: invert(100%);
-        margin-right: -150px;
+        margin-right: -8rem;
     }
     .carousel-control-prev {
         filter: invert(100%);
-        margin-left: -150px;
-    }
-    .card {
-        height: 30rem;
+        margin-left: -8rem;
     }
 {% endblock %}
 
 {% macro sales_carousel(list,name) -%}
-    <div id={{ name }} class="carousel slide" data-ride="carousel">
+    <br><div>
+    <div id={{ name }} class="carousel slide" data-interval="false">
         <div class="carousel-inner">
                 <div class='carousel-item active'>
                     <div class="card-deck">
@@ -27,7 +25,7 @@
                                 <p class="card-text">$100.00</p>
                             </div>
                             <div class="card-footer bg-transparent">
-                                <a href="#" class="btn btn-primary">Buy</a>
+                                <a href="#" class="btn btn-primary btn-block">Buy</a>
                             </div>
                         </div>
                         {% endfor %}
@@ -44,7 +42,7 @@
                                 <p class="card-text">$100.00</p>
                             </div>
                             <div class="card-footer bg-transparent">
-                                <a href="#" class="btn btn-primary">Buy</a>
+                                <a href="#" class="btn btn-primary btn-block">Buy</a>
                             </div>
                         </div>
                         {% endfor %}
@@ -52,29 +50,26 @@
                 </div>
             {% endfor %}
         </div>
-        <a class="carousel-control-prev" href={{ name }} role="button" data-slide="prev" style=": black">
+        <a class="carousel-control-prev" href={{ '#'+name }} role="button" data-slide="prev" style=": black">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
-        <a class="carousel-control-next" href={{ name }} role="button" data-slide="next" style="color: black">
+        <a class="carousel-control-next" href={{ '#'+name }} role="button" data-slide="next" style="color: black">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
+    </div><br>
 {%- endmacro %}
 
 {% block content %}
     <h1>The Marketplace</h1>
     <hr>
-    <h3>Featured</h3><br>
+    <h3>Featured</h3>
         {{ sales_carousel(featured,'featured-carousel') }}
-    </div><br>
     <hr>
     <h3>New</h3>
         {{ sales_carousel(new,'new-carousel') }}
     <hr>
     <h3>Popular</h3>
         {{ sales_carousel(popular,'popular-carousel') }}
-    <hr>
-    <h3>High Value</h3>
-        {{ sales_carousel(value,'value-carousel') }}
 {% endblock content %}

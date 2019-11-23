@@ -8,7 +8,7 @@ from app.models import db, User
 from app.routes.auth import auth
 from app.routes.user import user
 
-from app.ip_address import get_location
+#from app.ip_address import get_location
 
 import urllib.request as urllib
 import json
@@ -113,6 +113,7 @@ login_manager.login_message_category = 'danger'
 def load_user(user_id):
     return User.query.get(user_id)
 
+'''
 @app.context_processor
 def make_global_variables():
     ip = request.remote_addr
@@ -122,6 +123,7 @@ def make_global_variables():
     return dict(
         ip_location=get_location(ip)
         )
+'''
 
 @app.route('/')
 @app.route('/index')
