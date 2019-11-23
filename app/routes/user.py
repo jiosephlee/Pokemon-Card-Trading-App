@@ -16,6 +16,8 @@ def get_card(id_str):
 def get_set(set):
     return Card.query.filter_by(set_name=set)
 
+newest_set = 'Cosmic Eclipse'
+
 @user.route('/mycards')
 @login_required
 def mycards():
@@ -47,9 +49,9 @@ def cards():
 @user.route('/marketplace/packs')
 @login_required
 def packs():
-    return ''
+    return render_template('packs.html', featured=[], new=[], popular=[])
 
 @user.route('/marketplace/trades')
 @login_required
 def trades():
-    return ''
+    return render_template('trades.html', new=[], popular=[])
