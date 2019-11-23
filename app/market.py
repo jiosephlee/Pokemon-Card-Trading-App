@@ -1,10 +1,8 @@
-from models import Set, Card
-import random
+from app.models import Card
+from random import sample
 
-def getPack(setName):
-    cards = Card.query.filter_by(set='setName').all()
-    pack = []
-    while (i < 10):
-        r = random.randint(0,len(cards))
-        pack[i] = cards[r]
+def get_pack(setName):
+    n = [c for c in Card.query.filter_by(set_name=setName)]
+    n = sample(n,10)
+    pack = [n[:5],n[5:]]
     return pack

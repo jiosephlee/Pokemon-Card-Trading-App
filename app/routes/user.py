@@ -2,9 +2,11 @@ from flask import Blueprint
 from flask import render_template
 from flask_login import login_required, current_user
 
-from app.models import Card
+from app.models import Card, Set
 
 from random import sample
+
+from app.market import get_pack
 
 user = Blueprint('user', __name__)
 
@@ -17,20 +19,9 @@ def get_set(set):
 @user.route('/mycards')
 @login_required
 def mycards():
-    # command='''
-    #     SELECT
-    #         card_id
-    #     FROM
-    #         card_ownership
-    #     WHERE
-    #         user_id == user
-    #     '''
-    # allcards = c.fetchall()
-    # allcards = card_ownership.query.filter_by(user_id == user).all()
     c = get_card('dp6-90')
     print(c)
     return render_template('mycards.html', card = c)
-    # cards = current_user.cards)
 
 @user.route('/marketplace')
 @login_required
@@ -43,7 +34,14 @@ def marketplace():
     n = sample(n,10)
     new = [n[:5],n[5:]]
 
-    return render_template('marketplace.html', featured=featured, new=new, popular=[])
+    p = ['Base', 'Team Rocket', 'Burning Shadows', 'Ancient Origins', 'Ruby & Sapphire']
+    packs = [Set.query.filter_by(name=n).first() for n in p]
+    # print(packs)
+    # print("!!!!!!!!!!!!!!!!!")
+    # for set in packs:
+    #     print(set.logo)
+
+    return render_template('marketplace.html', featured=featured, new=new, popular=packs)
 
 @user.route('/marketplace/trade')
 @login_required

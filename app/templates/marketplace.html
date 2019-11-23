@@ -70,6 +70,19 @@
     <h3>New</h3>
         {{ sales_carousel(new,'new-carousel') }}
     <hr>
-    <h3>Popular</h3>
-        {{ sales_carousel(popular,'popular-carousel') }}
+    <h3>Packs</h3>
+        <div class="card-deck">
+            {% for set in popular %}
+            <div class="card">
+                <img class="card-img-top" src={{ set.logo }} alt={{ set.name }}>
+                <div class="card-body">
+                    <h5 class="card-title">{{ set.name }}</h5>
+                    <p class="card-text">$100.00</p>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <a href="#" class="btn btn-primary btn-block">Buy</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
 {% endblock content %}
