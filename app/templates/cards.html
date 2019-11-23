@@ -32,7 +32,7 @@
     <hr>
     <h3>Packs</h3>
         <div class="card-deck">
-            {% for set in popular %}
+            {% for set in packs %}
             <div class="card">
                 <img class="card-img-top" src={{ set.logo }} alt={{ set.name }}>
                 <div class="card-body">
@@ -45,4 +45,5 @@
             </div>
             {% endfor %}
         </div>
+
 {% endblock content %}
