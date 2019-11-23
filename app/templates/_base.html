@@ -43,9 +43,11 @@
                         Marketplace
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ url_for('user.marketplace') }}">Buy/Sell</a>
+                        <a class="dropdown-item" href="{{ url_for('user.cards') }}">Cards</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url_for('user.trade') }}">Trade</a>
+                        <a class="dropdown-item" href="{{ url_for('user.packs') }}">Packs</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ url_for('user.trades') }}">Trades</a>
                     </div>
                 </li>
                 <li class="nav-item">

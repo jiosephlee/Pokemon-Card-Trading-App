@@ -3,11 +3,11 @@
 {% block style %}
     .carousel-control-next {
         filter: invert(100%);
-        margin-right: -8rem;
+        margin-right: -15%;
     }
     .carousel-control-prev {
         filter: invert(100%);
-        margin-left: -8rem;
+        margin-left: -15%;
     }
 {% endblock %}
 
@@ -70,12 +70,9 @@
     <h3>New</h3>
         {{ sales_carousel(new,'new-carousel') }}
     <hr>
-    <h3>Popular</h3>
-        {{ sales_carousel(popular,'popular-carousel') }}
-    <hr>
     <h3>Packs</h3>
         <div class="card-deck">
-            {% for set in packs %}
+            {% for set in popular %}
             <div class="card">
                 <img class="card-img-top" src={{ set.logo }} alt={{ set.name }}>
                 <div class="card-body">
