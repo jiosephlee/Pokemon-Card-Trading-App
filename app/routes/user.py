@@ -14,6 +14,8 @@ def get_card(id_str):
 def get_set(set):
     return Card.query.filter_by(set_name=set)
 
+newest_set = 'Cosmic Eclipse'
+
 @user.route('/mycards')
 @login_required
 def mycards():
@@ -38,7 +40,6 @@ def cards():
     f = ['xy6-61','xy8-63','xy8-64','xy2-69','xy2-13','sm5-161','sm5-163','sm6-140','sm11-247','smp-SM210']
     f = [get_card(n) for n in f]
     featured = [f[:5],f[5:]]
-    newest_set = 'Cosmic Eclipse'
     n = [c for c in get_set(newest_set)]
     n = sample(n,10)
     new = [n[:5],n[5:]]

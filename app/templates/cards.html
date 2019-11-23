@@ -11,10 +11,18 @@
         filter: invert(100%);
         margin-left: -15%;
     }
+    .title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }g
 {% endblock %}
 
 {% block content %}
-    <h1>Card Sales</h1>
+    <div class="title">
+        <h1>Card Sales</h1>
+        <div><a class="btn btn-outline-primary" href="#" role="button">Sell a Card</a></div>
+    </div>
     <hr>
     <h3>Featured</h3>
         {{ sales_carousel(featured,'featured-carousel') }}
