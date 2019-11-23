@@ -138,3 +138,6 @@ ivanG -- 2019-11-22 19:30
 amandaC -- 2019-11-23 15:49
     Added functions to get cards in a requested pack
     Added packs to marketplace
+
+amandaC -- 2019-11-23 17:57
+    Small change to mycards to show user's cards
