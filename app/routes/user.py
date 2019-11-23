@@ -27,7 +27,9 @@ def mycards():
     #     '''
     # allcards = c.fetchall()
     # allcards = card_ownership.query.filter_by(user_id == user).all()
-    return render_template('mycards.html')
+    c = get_card('dp6-90')
+    print(c)
+    return render_template('mycards.html', card = c)
     # cards = current_user.cards)
 
 @user.route('/marketplace')
