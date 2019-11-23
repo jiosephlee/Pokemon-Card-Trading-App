@@ -39,14 +39,21 @@ def cards():
     p = Card.query.order_by(Card.num_sales)[:10]
     popular = [p[:5],p[5:]]
 
-    pack = ['Base', 'Team Rocket', 'Burning Shadows', 'Ancient Origins', 'Ruby & Sapphire']
-    packs = [Set.query.filter_by(name=n).first() for n in pack]
-    return render_template('cards.html', featured=featured, new=new, popular=popular, packs=packs)
+    return render_template('cards.html', featured=featured, new=new, popular=popular)
 
 @user.route('/marketplace/packs')
 @login_required
 def packs():
-    return render_template('packs.html', featured=[], new=[], popular=[])
+    f = ['Legendary Collection','Legends Awakened','Legend Maker','Legendary Treasures','Shining Legends']
+    featured = [Set.query.filter_by(name=c).first() for c in f]
+
+    n = ['Cosmic Eclipse','Hidden Fates','Unified Minds','Unbroken Bonds','Detective Pikachu']
+    new = [Set.query.filter_by(name=c).first() for c in n]
+
+    p = ['Base', 'Ruby & Sapphire', 'Diamond & Pearl', 'Team Rocket', 'Sun & Moon']
+    popular = [Set.query.filter_by(name=c).first() for c in p]
+
+    return render_template('packs.html', featured=featured, new=new, popular=popular)
 
 @user.route('/marketplace/trades')
 @login_required

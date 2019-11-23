@@ -1,0 +1,49 @@
+{% macro packs_carousel(list,name) -%}
+    <br><div>
+    <div id={{ name }} class="carousel slide" data-interval="false">
+        <div class="carousel-inner">
+                <div class='carousel-item active'>
+                    <div class="card-deck">
+                        {% for set in list[0] %}
+                        <div class="card">
+                            <img class="card-img-top" src={{ set.logo }} alt={{ set.name }}>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ set.name }}</h5>
+                                <p class="card-text">$100.00</p>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <a href="#" class="btn btn-primary btn-block">Buy</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% for slide in list[1:] %}
+                <div class='carousel-item'>
+                    <div class="card-deck">
+                        {% for set in slide %}
+                        <div class="card">
+                            <img class="card-img-top" src={{ set.image_hires }} alt={{ set.name }}>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ set.name }}</h5>
+                                <p class="card-text">$100.00</p>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <a href="#" class="btn btn-primary btn-block">Buy</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href={{ '#'+name }} role="button" data-slide="prev" style=": black">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href={{ '#'+name }} role="button" data-slide="next" style="color: black">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div><br>
+{%- endmacro %}

@@ -1,6 +1,6 @@
 {% extends "_base.html" %}
 
-{%  from 'macros/carousel.html' import sales_carousel %}
+{%  from 'macros/packs_carousel.html' import packs_carousel %}
 
 {% block style %}
     .carousel-control-next {
@@ -11,17 +11,61 @@
         filter: invert(100%);
         margin-left: -15%;
     }
+    .title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }g
 {% endblock %}
 
 {% block content %}
     <h1>Packs</h1>
     <hr>
     <h3>Featured</h3>
-        {{ sales_carousel(featured,'featured-carousel') }}
+        <div class="card-deck">
+            {% for set in featured %}
+              <div class="card">
+                  <img class="card-img-top" src={{ set.logo }} alt={{ set.name }}>
+                  <div class="card-body">
+                      <h5 class="card-title">{{ set.name }}</h5>
+                      <p class="card-text">$100.00</p>
+                  </div>
+                  <div class="card-footer bg-transparent">
+                      <a href="#" class="btn btn-primary btn-block">Buy</a>
+                  </div>
+              </div>
+            {% endfor %}
+        </div>
     <hr>
     <h3>New</h3>
-        {{ sales_carousel(new,'new-carousel') }}
+        <div class="card-deck">
+            {% for set in new %}
+              <div class="card">
+                  <img class="card-img-top" src={{ set.logo }} alt={{ set.name }}>
+                  <div class="card-body">
+                      <h5 class="card-title">{{ set.name }}</h5>
+                      <p class="card-text">$100.00</p>
+                  </div>
+                  <div class="card-footer bg-transparent">
+                      <a href="#" class="btn btn-primary btn-block">Buy</a>
+                  </div>
+              </div>
+            {% endfor %}
+        </div>
     <hr>
     <h3>Popular</h3>
-        {{ sales_carousel(popular,'popular-carousel') }}
+        <div class="card-deck">
+            {% for set in popular %}
+              <div class="card">
+                  <img class="card-img-top" src={{ set.logo }} alt={{ set.name }}>
+                  <div class="card-body">
+                      <h5 class="card-title">{{ set.name }}</h5>
+                      <p class="card-text">$100.00</p>
+                  </div>
+                  <div class="card-footer bg-transparent">
+                      <a href="#" class="btn btn-primary btn-block">Buy</a>
+                  </div>
+              </div>
+            {% endfor %}
+        </div>
 {% endblock content %}
