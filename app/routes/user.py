@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask import render_template
 from flask_login import login_required, current_user
 
-from app.models import Card, Set
+from app.models import Card, Set, User
 
 from random import sample
 
@@ -19,9 +19,9 @@ def get_set(set):
 @user.route('/mycards')
 @login_required
 def mycards():
-    c = get_card('dp6-90')
-    print(c)
-    return render_template('mycards.html', card = c)
+    c = current_user.cards
+    print(current_user)
+    return render_template('mycards.html', cards = c)
 
 @user.route('/marketplace/cards')
 @login_required

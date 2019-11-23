@@ -5,11 +5,13 @@
     <hr>
     <p>Your current cards:</p>
     <div class="card-deck" style="width: 25%">
-      <div class="card">
+      {% for card in cards %}
+        <div class="card">
           <img class="card-img-top" src={{card.image_hires}} alt={{card.name}}>
           <div class="card-body">
               <h5 class="card-title">{{card.name}}</h5>
           </div>
         </div>
+      {% endfor %}
     </div>
 {% endblock content %}
