@@ -56,3 +56,8 @@ def packs():
 @login_required
 def trades():
     return render_template('trades.html', new=[], popular=[])
+
+@user.route('/sell', methods=['GET','POST'])
+@login_required
+def sell():
+    return render_template('sales.html')
