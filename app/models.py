@@ -106,3 +106,15 @@ class Log(db.Model):
     def __init__(self, first_user, second_user):
         self.first_user_id = first_user
         self.second_user_id = second_user
+
+
+# this table is used for looking up IP address locations
+# we use it because we don't want to spam the IP Address API too much
+class IPAddress(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    ip_str = db.Column(db.String(80), nullable=False)
+    location  = db.Column(db.String(80), nullable=False)
+
+    def __init__(self, ip_str, location):
+        self.ip_str = ip_str
+        self.location = location

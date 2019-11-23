@@ -1,12 +1,14 @@
 import os
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_login import LoginManager, login_required
 
 from app.forms import SignUpForm, LogInForm
 from app.models import db, User
 from app.routes.auth import auth
 from app.routes.user import user
+
+from app.ip_address import get_location
 
 import urllib.request as urllib
 import json
@@ -36,7 +38,7 @@ with app.app_context():
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
             'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
             'Accept-Encoding': 'none',
-            'Accept-Language': 'en-US,en;q=0.8',
+n            'Accept-Language': 'en-US,en;q=0.8',
             'Connection': 'keep-alive'
         }
         req = urllib.Request(url, headers=hdr)
@@ -111,6 +113,15 @@ login_manager.login_message_category = 'danger'
 def load_user(user_id):
     return User.query.get(user_id)
 
+@app.context_processor
+def make_global_variables():
+    ip = request.remote_addr
+
+    if request.headers.getlist('X-Forwarded-For'):
+        ip = request.headers.getlist('X-Forwarded-For')[0]
+    return dict(
+        ip_location=get_location(ip)
+        )
 
 @app.route('/')
 @app.route('/index')
