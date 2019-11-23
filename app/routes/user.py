@@ -27,11 +27,15 @@ def mycards():
     return render_template('mycards.html', card = c)
     # cards = current_user.cards)
 
-
 @user.route('/marketplace')
 @login_required
 def marketplace():
-    f = ['xy6-61','xy8-63','xy8-64','xy2-69','xy2-13','sm5-161','sm5-163','sm6-140','smp-SM210','sm11-247']
+    f = ['xy6-61','xy8-63','xy8-64','xy2-69','xy2-13','sm5-161','sm5-163','sm6-140','sm11-247','smp-SM210']
     f = [get_card(n) for n in f]
     featured = [f[:5],f[5:]]
     return render_template('marketplace.html', featured=featured, new=[], popular=[], value=[])
+
+@user.route('/marketplace/trade')
+@login_required
+def trade():
+    return ''
