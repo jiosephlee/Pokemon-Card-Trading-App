@@ -112,11 +112,11 @@ ericL -- 2019-11-21 8:40
     Started Marketplace
 
 amandaC -- 2019-11-21 16:54
-    Finished writing script adding all pokemon cards and the relevant
+    Finished writing script adding all Pokemon cards and the relevant
     information to a file
 
 ericL -- 2019-11-21 19:45
-    Added remaining cards to cardbank
+    Added remaining cards to card bank
 
 ericL -- 2019-11-21 21:30
     Loaded every card into the database
@@ -127,7 +127,20 @@ ericL -- 2019-11-21 23:15
 josephL -- 2019-11-22 01:14
     Updated Final Deliverables
 
+amandaC -- 2019-11-21 08:20
+    Displayed user's cards on mycards page
+
 ivanG -- 2019-11-22 19:30
-      Added functinality for IP lookup
-      Added context injector for IP
-      Added IP Address model so the API isn't overrequested
+    Added functionality for IP lookup
+    Added context injector for IP
+    Added IP Address model so the API isn't over-requested
+
+amandaC -- 2019-11-23 15:49
+    Added functions to get cards in a requested pack
+    Added packs to marketplace
+
+amandaC -- 2019-11-23 17:57
+    Small change to mycards to show user's cards
+
+amandaC -- 2019-11-23 18:29
+    Filled packs page in marketplace with packs
