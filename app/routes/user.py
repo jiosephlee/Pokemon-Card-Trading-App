@@ -82,19 +82,23 @@ def search():
     
     form = SearchForm()
 
-    results = None
+    full_results = None
 
     if form.validate_on_submit():
         results = Card.query.filter(Card.name.like('%{}%'.format(form.search.data))).all()
         results = results[:SEARCH_LIMIT]
 
-    # pad results
-    while len(results) % PER_ROW != 0:
-        results.append(None)
+        # pad results
+        while len(results) % PER_ROW != 0:
+            results.append(None)
 
+        full_results = []
+        
+        for i in range(len(results)//PER_ROW):
+            full_results.append(results[i*PER_ROW:(i+1)*PER_ROW])
     return render_template('search.html',
                            form=form,
                            query=form.search.data,
                            limit=SEARCH_LIMIT,
-                           results=results)
+                           results=full_results)
 
