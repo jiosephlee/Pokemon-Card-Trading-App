@@ -144,3 +144,6 @@ amandaC -- 2019-11-23 17:57
 
 amandaC -- 2019-11-23 18:29
     Filled packs page in marketplace with packs
+
+ivanG -- 2019-11-23 17:18
+    Added a basic search feature
