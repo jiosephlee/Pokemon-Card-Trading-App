@@ -78,6 +78,7 @@ def sell():
 def search():
 
     SEARCH_LIMIT = 100
+    PER_ROW = 3
     
     form = SearchForm()
 
@@ -86,6 +87,10 @@ def search():
     if form.validate_on_submit():
         results = Card.query.filter(Card.name.like('%{}%'.format(form.search.data))).all()
         results = results[:SEARCH_LIMIT]
+
+    # pad results
+    while len(results) % PER_ROW != 0:
+        results.append(None)
 
     return render_template('search.html',
                            form=form,
