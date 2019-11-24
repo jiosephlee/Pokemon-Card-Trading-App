@@ -16,3 +16,7 @@ class LogInForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=4, max=80)])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=6, max=80)])
     submit = SubmitField('Log In')
+
+class SearchForm(FlaskForm):
+    search = StringField('Query:', validators=[Length(min=0, max=80)])
+    submit = SubmitField('Search')

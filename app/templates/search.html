@@ -1,0 +1,37 @@
+{% extends "_base.html" %}
+
+{% from "macros/render_field.html" import form_field %}
+
+{% block content %}
+<h3>Welcome to the serach</h3>
+<p>Please type in your query below:</p>
+
+<form method="POST">
+    {{ form.csrf_token }}
+
+    {{ form_field(form.search) }}
+    {{ form_field(form.submit) }}
+</form>
+
+<hr>
+
+{% if results is not none %}
+{% if query is not none %}
+<p>Search results for: {{ query }}</p>
+{% endif %}
+
+{% for card in results %}
+
+                        <div class="card">
+                            <img class="card-img-top" src={{ card.image_hires }} alt={{ card.name }}>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ card.name }}</h5>
+                                <p class="card-text">{{ card.cost }}</p>
+                            </div>
+                        </div>
+
+{% endfor %}
+
+{% endif %}
+
+{% endblock content %}

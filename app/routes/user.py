@@ -7,6 +7,8 @@ from random import sample
 
 from app.market import get_pack
 
+from app.forms import SearchForm
+
 user = Blueprint('user', __name__)
 
 def get_card(id_str):
@@ -70,3 +72,24 @@ def sell():
             db.session.commit()
         return redirect('mycards')
     return render_template('sales.html')
+
+@user.route('/search', methods=['GET', 'POST'])
+@login_required
+def search():
+
+    SEARCH_LIMIT = 100
+    
+    form = SearchForm()
+
+    results = None
+
+    if form.validate_on_submit():
+        results = Card.query.filter(Card.name.like('%{}%'.format(form.search.data))).all()
+        results = results[:SEARCH_LIMIT]
+
+    return render_template('search.html',
+                           form=form,
+                           query=form.search.data,
+                           limit=SEARCH_LIMIT,
+                           results=results)
+
