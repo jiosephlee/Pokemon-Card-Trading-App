@@ -1,8 +1,7 @@
-from flask import Blueprint
-from flask import render_template
+from flask import Blueprint, render_template, request, redirect
 from flask_login import login_required, current_user
 
-from app.models import Card, Set, User
+from app.models import db, Card, Set, User, Sale, Trade, Log
 
 from random import sample
 
@@ -20,7 +19,6 @@ def get_set(set):
 @login_required
 def mycards():
     c = current_user.cards
-    print(current_user)
     return render_template('mycards.html', cards = c)
 
 @user.route('/marketplace/cards')
@@ -63,4 +61,12 @@ def trades():
 @user.route('/sell', methods=['GET','POST'])
 @login_required
 def sell():
+    if 'card' in request.form.keys() and 'price' in request.form.keys():
+        from app import app
+        with app.app_context():
+            Card.query.filter_by(id=request.form['card']).first().num_sales += 1
+            sale = Sale(request.form['card'],request.form['price'],0,current_user.id)
+            db.session.add(sale)
+            db.session.commit()
+        return redirect('mycards')
     return render_template('sales.html')

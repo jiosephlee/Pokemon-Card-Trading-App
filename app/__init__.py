@@ -4,7 +4,7 @@ from flask import Flask, render_template, request
 from flask_login import LoginManager, login_required
 
 from app.forms import SignUpForm, LogInForm
-from app.models import db, User
+from app.models import db, User, Card, Set
 from app.routes.auth import auth
 from app.routes.user import user
 
@@ -12,8 +12,6 @@ from app.ip_address import get_location
 
 import urllib.request as urllib
 import json
-
-from .models import Card, Set
 
 app = Flask(__name__)
 

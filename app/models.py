@@ -88,13 +88,15 @@ class Sale(db.Model):
     card_id = db.Column(db.ForeignKey('card.id'))
     cost = db.Column(db.Integer, nullable=False)
     status = db.Column(db.Integer, nullable=False)
+    user_id = db.Column(db.ForeignKey('user.id'))
 
     card = db.relationship('Card')
 
-    def __init__(self, card_id, cost, status):
+    def __init__(self, card_id, cost, status, user_id):
         self.card_id = card_id
         self.cost = cost
         self.status = status
+        self.user_id = user_id
 
 
 class Log(db.Model):
