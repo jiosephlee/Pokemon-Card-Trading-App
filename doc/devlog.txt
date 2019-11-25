@@ -166,3 +166,7 @@ ericL -- 2019-11-24 21:00
 
 amandaC -- 2019-22-24 21:40
     Changed mycards page so cards show up in rows of five
+
+ivanG -- 2019-22-25 8:37
+    Added functionality to base that allows the user to select what location they're in.
+    Will work on JavaScript to send this data to the server later.
