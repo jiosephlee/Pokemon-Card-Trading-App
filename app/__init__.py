@@ -26,7 +26,6 @@ db.init_app(app)
 
 with app.app_context():
     db.create_all()
-
     '''
     x = 1
     while (x < 13):
@@ -76,7 +75,6 @@ with app.app_context():
         x += 1
     db.session.commit()
     '''
-
     '''
     url = "https://api.pokemontcg.io/v1/sets"
     hdr = {
@@ -111,15 +109,15 @@ login_manager.login_message_category = 'danger'
 def load_user(user_id):
     return User.query.get(user_id)
 
+
 @app.context_processor
 def make_global_variables():
     ip = request.remote_addr
 
     if request.headers.getlist('X-Forwarded-For'):
         ip = request.headers.getlist('X-Forwarded-For')[0]
-    return dict(
-        ip_location=get_location(ip)
-        )
+    return dict(ip_location=get_location(ip))
+
 
 @app.route('/')
 @app.route('/index')
