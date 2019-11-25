@@ -49,10 +49,13 @@ def cards():
     f = [get_card(n) for n in f]
     featured = [f[:5], f[5:]]
 
-    newest_set = 'Cosmic Eclipse'
-    n = [c for c in get_set(newest_set)]
-    n = sample(n, 10)
-    new = [n[:5], n[5:]]
+    s = Sale.query.filter_by(status=0).all()
+    s.reverse()
+    n = []
+    for sale in s[:10]:
+        print(sale)
+        n.append(Card.query.filter_by(id=sale.card_id).first())
+    new = [n[:5],n[5:]]
 
     p = Card.query.order_by(Card.num_sales)[:10]
     popular = [p[:5], p[5:]]
@@ -66,11 +69,20 @@ def cards():
 @user.route('/marketplace/cards', methods=['POST'])
 @login_required
 def buyCards():
+    card = Card.query.filter_by(id=request.form['card']).first()
     c = User.query.filter_by(id=current_user.id).first()
-    card = Card.query.filter_by(name=request.form['card']).first()
-    c.cards.append(card)
+    s = Sale.query.filter_by(card_id=card.id).first()
+    o = User.query.filter_by(id=s.user_id).first()
+    if(float(s.cost) <= float(c.balance)):
+        c.balance -= s.cost
+        o.balance += s.cost
+        c.cards.append(card)
+        o.cards.remove(card)
+        s.status = 1
+        flash('You have brought ' + request.form['card'], 'success')
+    else:
+        flash('You do not enough money to buy ' + request.form['card'], 'danger')
     db.session.commit()
-    flash('You have brought ' + request.form['card'], 'success')
     return redirect(url_for('user.cards'))
 
 
