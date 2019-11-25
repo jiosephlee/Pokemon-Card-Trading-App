@@ -175,3 +175,10 @@ amandaC -- 2019-11-25 11:42
     Merged Sale and Buy parts of code so user's balance updates after buying a
     card
     The user that sold the card will also have their balance increased
+
+ivanG -- 2019-11-25 18:27
+    Integrated the exchange rates API into the project which includes:
+    Functions that interact with the API endpoint
+    Functions that store exchange rates and automatically update them
+    Functinality to store the user's currency in the session
+    Client-side javascript to update the user's currency and update the displayed currency on the client without having to contact the server. Interestingly, this ends up causing weird conversion errors because floating point division. So, we might want to fix that later.

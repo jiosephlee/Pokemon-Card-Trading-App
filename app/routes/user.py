@@ -21,9 +21,8 @@ def get_set(set):
 
 
 # list of locations a user can be in
-# ('location', 'currency')
-locations = [('Protected Range', 'usd'), ('United States', 'usd'),
-             ('Russia', 'ru')]
+# ('location', 'currency short', 'symbol')
+locations = [('United States', 'USD', '$'), ('Russia', 'RUB', '₽')]
 
 
 @user.route('/profile')
@@ -55,7 +54,7 @@ def cards():
     for sale in s[:10]:
         print(sale)
         n.append(Card.query.filter_by(id=sale.card_id).first())
-    new = [n[:5],n[5:]]
+    new = [n[:5], n[5:]]
 
     p = Card.query.order_by(Card.num_sales)[:10]
     popular = [p[:5], p[5:]]
@@ -73,7 +72,7 @@ def buyCards():
     c = User.query.filter_by(id=current_user.id).first()
     s = Sale.query.filter_by(card_id=card.id).first()
     o = User.query.filter_by(id=s.user_id).first()
-    if(float(s.cost) <= float(c.balance)):
+    if (float(s.cost) <= float(c.balance)):
         c.balance -= s.cost
         o.balance += s.cost
         c.cards.append(card)
@@ -81,7 +80,8 @@ def buyCards():
         s.status = 1
         flash('You have brought ' + request.form['card'], 'success')
     else:
-        flash('You do not enough money to buy ' + request.form['card'], 'danger')
+        flash('You do not enough money to buy ' + request.form['card'],
+              'danger')
     db.session.commit()
     return redirect(url_for('user.cards'))
 

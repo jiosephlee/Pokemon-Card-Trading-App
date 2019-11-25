@@ -1,13 +1,14 @@
 import os
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 from flask_login import LoginManager, login_required
 
 from app.forms import SignUpForm, LogInForm
-from app.models import db, User, Card, Set, Sale
+from app.models import db, User, Card, Set, Sale, ExchangeRate
 from app.routes.auth import auth
 from app.routes.user import user, locations
 from app.ip_address import get_location
+from app.exchange_rates import get_exhange_rate
 
 import urllib.request as urllib
 import json
@@ -115,6 +116,12 @@ def load_user(user_id):
     return User.query.get(user_id)
 
 
+@app.before_request
+def before_request():
+    if 'user_currency' not in session:
+        session['user_currency'] = 'USD'
+
+
 @app.context_processor
 def make_global_variables():
 
@@ -123,13 +130,50 @@ def make_global_variables():
     if request.headers.getlist('X-Forwarded-For'):
         ip = request.headers.getlist('X-Forwarded-For')[0]
 
-    return dict(ip_location=get_location(ip), locations=locations)
+    # we need to update the list of the locations so the first one is the one that the user is supposedly in
+    current_currency = session['user_currency']
+    current_location = list(
+        filter(lambda x: x[1] == current_currency, locations))[0]
+    updated_locations = locations[:]
+    updated_locations.remove(current_location)
+    updated_locations = [current_location] + updated_locations
+
+    return dict(ip_location=get_location(ip), locations=updated_locations)
+
+
+# this makes a filter that we use any time we want to display a currency so it's displayed as whatever the user wants
+@app.template_filter('change_currency')
+def change_currency(text):
+    current_currency = session['user_currency']
+    # get the symbol
+    symbol = list(filter(lambda x: x[1] == current_currency, locations))[0][2]
+    # get the exchange rate
+    rate = get_exhange_rate(current_currency)
+    num = int(text)
+    new_num = str(int(100 * (num / rate) // 100))
+
+    return """
+    <span class="currency-symbol">%s</span>
+    <span class="currency-number">%s</span>
+""" % (symbol, new_num)
 
 
 @app.route('/')
 @app.route('/index')
 def index():
     return render_template('index.html')
+
+
+@app.route('/update_user_currency/<currency>', methods=['POST'])
+def update_user_currency(currency):
+    prev_currency = session['user_currency']
+    session['user_currency'] = currency
+    rate = get_exhange_rate(currency)
+    prev_rate = get_exhange_rate(prev_currency)
+    symbol = list(filter(lambda x: x[1] == currency, locations))[0][2]
+    ret = {'rate': rate / prev_rate, 'symbol': symbol}
+
+    return json.dumps(ret)
 
 
 app.register_blueprint(auth, url_prefix='/auth')
