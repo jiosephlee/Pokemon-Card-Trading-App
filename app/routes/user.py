@@ -21,9 +21,12 @@ def get_set(set):
 @login_required
 def profile():
     c = current_user.cards
-    a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5 )]
-    while len(a[-1]) < 5:
-        a[-1].append(0)
+    if len(c) > 0:
+        a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5 )]
+        while len(a[-1]) < 5:
+            a[-1].append(0)
+    else:
+        a = []
     return render_template('profile.html', cards = a)
 
 @user.route('/marketplace/cards',  methods=['GET'])
