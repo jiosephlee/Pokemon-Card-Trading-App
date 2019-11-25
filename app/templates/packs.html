@@ -1,6 +1,6 @@
 {% extends "_base.html" %}
 
-{%  from 'macros/packs_carousel.html' import packs_carousel %}
+{%  from 'macros/packs.html' import packs%}
 
 {% block style %}
     .carousel-control-next {
@@ -22,11 +22,11 @@
     <h1>Packs</h1>
     <hr>
     <h3>Featured</h3>
-        {{ packs_carousel(featured) }}
+        {{ packs(featured) }}
     <hr>
     <h3>New</h3>
-        {{ packs_carousel(new) }}
+        {{ packs(new) }}
     <hr>
     <h3>Popular</h3>
-        {{ packs_carousel(popular) }}
+        {{ packs(popular) }}
 {% endblock content %}

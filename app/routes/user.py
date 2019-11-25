@@ -5,7 +5,7 @@ from app.models import db, Card, Set, User, Sale, Trade, Log
 
 from random import sample
 
-from app.market import get_pack
+from app.pack import get_pack
 
 from app.forms import SearchForm
 
@@ -21,7 +21,10 @@ def get_set(set):
 @login_required
 def mycards():
     c = current_user.cards
-    return render_template('mycards.html', cards = c)
+    a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5 )]
+    while len(a[-1]) < 5:
+        a[-1].append(0)
+    return render_template('mycards.html', cards = a)
 
 @user.route('/marketplace/cards',  methods=['GET'])
 @login_required
@@ -71,11 +74,11 @@ def packs():
 @login_required
 def buyPacks():
     cards = get_pack(request.form['set'])
-    print(cards)
+    # print(cards)
     for card in cards:
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!")
+        # print("!!!!!!!!!!!!!!!!!!!!!!!!!")
         c = User.query.filter_by(id=current_user.id).first()
-        print(c)
+        # print(c)
         c.cards.append(card)
     db.session.commit()
     flash('You have brought ' + request.form['set'], 'success')
