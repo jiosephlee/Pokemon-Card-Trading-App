@@ -4,7 +4,7 @@ from flask import Flask, render_template, request
 from flask_login import LoginManager, login_required
 
 from app.forms import SignUpForm, LogInForm
-from app.models import db, User, Card, Set
+from app.models import db, User, Card, Set, Sale
 from app.routes.auth import auth
 from app.routes.user import user, locations
 from app.ip_address import get_location
@@ -81,7 +81,7 @@ with app.app_context():
     hdr = {
         'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-p        'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
+        'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
         'Accept-Encoding': 'none',
         'Accept-Language': 'en-US,en;q=0.8',
         'Connection': 'keep-alive'
@@ -97,6 +97,10 @@ p        'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
 
     db.session.commit()
     '''
+
+    for sale in Sale.query:
+        sale.user_id = 4
+    db.session.commit()
 
 # set up login manager
 login_manager = LoginManager()
