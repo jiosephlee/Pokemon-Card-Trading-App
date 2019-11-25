@@ -148,8 +148,11 @@ amandaC -- 2019-11-23 18:29
 ivanG -- 2019-11-23 17:18
     Added a basic search feature
 
-amandaC -- 2019-11-23 20:50
+amandaC -- 2019-11-23 20:54
     Added ability for user to buy packs
     Added ability for user to a card
     Cards in the pack and single cards show up on mycards page
     Added flash messages after buying
+
+amandaC -- 2019-22-24 21:40
+    Changed mycards page so cards show up in rows of five
