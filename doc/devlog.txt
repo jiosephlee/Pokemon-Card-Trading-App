@@ -156,3 +156,7 @@ amandaC -- 2019-11-23 20:54
 
 amandaC -- 2019-22-24 21:40
     Changed mycards page so cards show up in rows of five
+
+amandaC -- 2019-11-25 11:21
+    Merged Sale and Buy parts of code so user's balance updates after buying a
+    card
