@@ -135,6 +135,10 @@ ivanG -- 2019-11-22 19:30
     Added context injector for IP
     Added IP Address model so the API isn't over-requested
 
+ericL -- 2019-11-23 14:00
+    Completed card sale page
+    Added macro to create carousel
+
 amandaC -- 2019-11-23 15:49
     Added functions to get cards in a requested pack
     Added packs to marketplace
@@ -153,6 +157,12 @@ amandaC -- 2019-11-23 20:54
     Added ability for user to a card
     Cards in the pack and single cards show up on mycards page
     Added flash messages after buying
+
+ericL -- 2019-11-23 22:00
+    Implemented creating a sale
+
+ericL -- 2019-11-24 21:00
+    Fixed edge cases with selling
 
 amandaC -- 2019-22-24 21:40
     Changed mycards page so cards show up in rows of five
