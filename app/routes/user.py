@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
 
 from app.models import db, Card, Set, User, Sale, Trade, Log
@@ -32,7 +32,6 @@ def cards():
 
     newest_set = 'Cosmic Eclipse'
     n = [c for c in get_set(newest_set)]
-    print(get_set(newest_set))
     n = sample(n,10)
     new = [n[:5],n[5:]]
 
@@ -45,11 +44,8 @@ def cards():
 @login_required
 def buyCards():
     cards = get_pack(request.form['set'])
-    print(cards)
     for card in cards:
-        # print("!!!!!!!!!!!!!!!!!!!!!!!!!")
         c = User.query.filter_by(id=current_user.id).first()
-        # print(c)
         c.cards.append(card)
     db.session.commit()
     return redirect(url_for('user.packs'))
@@ -72,11 +68,8 @@ def packs():
 @login_required
 def buyPacks():
     cards = get_pack(request.form['set'])
-    print(cards)
     for card in cards:
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!")
         c = User.query.filter_by(id=current_user.id).first()
-        print(c)
         c.cards.append(card)
     db.session.commit()
     return redirect(url_for('user.packs'))
@@ -89,6 +82,9 @@ def trades():
 @user.route('/sell', methods=['GET','POST'])
 @login_required
 def sell():
+    if len(current_user.cards) == 0:
+        flash('You do not have any cards to sell!','danger')
+        return redirect(url_for('user.cards'))
     if 'card' in request.form.keys() and 'price' in request.form.keys():
         from app import app
         with app.app_context():
@@ -96,7 +92,7 @@ def sell():
             sale = Sale(request.form['card'],request.form['price'],0,current_user.id)
             db.session.add(sale)
             db.session.commit()
-        return redirect('mycards')
+        return redirect(url_for('user.mycards'))
     return render_template('sales.html')
 
 @user.route('/search', methods=['GET', 'POST'])
