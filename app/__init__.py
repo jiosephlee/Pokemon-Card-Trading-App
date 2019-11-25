@@ -6,8 +6,7 @@ from flask_login import LoginManager, login_required
 from app.forms import SignUpForm, LogInForm
 from app.models import db, User, Card, Set
 from app.routes.auth import auth
-from app.routes.user import user
-
+from app.routes.user import user, locations
 from app.ip_address import get_location
 
 import urllib.request as urllib
@@ -114,11 +113,13 @@ def load_user(user_id):
 
 @app.context_processor
 def make_global_variables():
+
     ip = request.remote_addr
 
     if request.headers.getlist('X-Forwarded-For'):
         ip = request.headers.getlist('X-Forwarded-For')[0]
-    return dict(ip_location=get_location(ip))
+
+    return dict(ip_location=get_location(ip), locations=locations)
 
 
 @app.route('/')
