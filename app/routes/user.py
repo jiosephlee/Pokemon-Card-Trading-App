@@ -32,10 +32,6 @@ def cards():
 
     newest_set = 'Cosmic Eclipse'
     n = [c for c in get_set(newest_set)]
-<<<<<<< HEAD
-=======
-    # print(get_set(newest_set))
->>>>>>> d05a367195ccc805db4fadf7cd4583d7adc1f62a
     n = sample(n,10)
     new = [n[:5],n[5:]]
 
