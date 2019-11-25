@@ -15,8 +15,10 @@ import json
 
 app = Flask(__name__)
 
+DEBUG = True
+
 # app configurations
-app.config['SECRET_KEY'] = os.urandom(64)
+app.config['SECRET_KEY'] = ('very secret key wow' if DEBUG else os.urandom(64))
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../database.db'
 app.config['USE_SESSION_FOR_NEXT'] = True
