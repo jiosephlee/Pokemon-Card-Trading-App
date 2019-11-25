@@ -32,7 +32,7 @@ def cards():
 
     newest_set = 'Cosmic Eclipse'
     n = [c for c in get_set(newest_set)]
-    print(get_set(newest_set))
+    # print(get_set(newest_set))
     n = sample(n,10)
     new = [n[:5],n[5:]]
 
@@ -44,15 +44,13 @@ def cards():
 @user.route('/marketplace/cards',  methods=['POST'])
 @login_required
 def buyCards():
-    cards = get_pack(request.form['set'])
-    print(cards)
-    for card in cards:
-        # print("!!!!!!!!!!!!!!!!!!!!!!!!!")
-        c = User.query.filter_by(id=current_user.id).first()
-        # print(c)
-        c.cards.append(card)
+    c = User.query.filter_by(id=current_user.id).first()
+    # print(request.form['card'])
+    card = Card.query.filter_by(name=request.form['card']).first()
+    # print(card)
+    c.cards.append(card)
     db.session.commit()
-    return redirect(url_for('user.packs'))
+    return redirect(url_for('user.cards'))
 
 @user.route('/marketplace/packs',  methods=['GET'])
 @login_required
