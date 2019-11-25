@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
 
 from app.models import db, Card, Set, User, Sale, Trade, Log
@@ -50,6 +50,7 @@ def buyCards():
     # print(card)
     c.cards.append(card)
     db.session.commit()
+    flash('You have brought ' + request.form['card'], 'success')
     return redirect(url_for('user.cards'))
 
 @user.route('/marketplace/packs',  methods=['GET'])
@@ -77,6 +78,7 @@ def buyPacks():
         print(c)
         c.cards.append(card)
     db.session.commit()
+    flash('You have brought ' + request.form['set'], 'success')
     return redirect(url_for('user.packs'))
 
 @user.route('/marketplace/trades')

@@ -152,3 +152,4 @@ amandaC -- 2019-11-23 20:50
     Added ability for user to buy packs
     Added ability for user to a card
     Cards in the pack and single cards show up on mycards page
+    Added flash messages after buying
