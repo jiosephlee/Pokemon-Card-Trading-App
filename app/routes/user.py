@@ -17,14 +17,14 @@ def get_card(id_str):
 def get_set(set):
     return Card.query.filter_by(set_name=set)
 
-@user.route('/mycards')
+@user.route('/profile')
 @login_required
-def mycards():
+def profile():
     c = current_user.cards
     a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5 )]
     while len(a[-1]) < 5:
         a[-1].append(0)
-    return render_template('mycards.html', cards = a)
+    return render_template('profile.html', cards = a)
 
 @user.route('/marketplace/cards',  methods=['GET'])
 @login_required
@@ -96,7 +96,7 @@ def sell():
             sale = Sale(request.form['card'],request.form['price'],0,current_user.id)
             db.session.add(sale)
             db.session.commit()
-        return redirect(url_for('user.mycards'))
+        return redirect(url_for('user.profile'))
     return render_template('sales.html')
 
 @user.route('/search', methods=['GET', 'POST'])
