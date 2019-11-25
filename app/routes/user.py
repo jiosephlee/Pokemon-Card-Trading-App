@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 
 from app.models import db, Card, Set, User, Sale, Trade, Log
@@ -23,7 +23,7 @@ def mycards():
     c = current_user.cards
     return render_template('mycards.html', cards = c)
 
-@user.route('/marketplace/cards')
+@user.route('/marketplace/cards',  methods=['GET'])
 @login_required
 def cards():
     f = ['xy6-61','xy8-63','xy8-64','xy2-69','xy2-13','sm5-161','sm5-163','sm6-140','sm11-247','smp-SM210']
@@ -41,7 +41,20 @@ def cards():
 
     return render_template('cards.html', featured=featured, new=new, popular=popular)
 
-@user.route('/marketplace/packs')
+@user.route('/marketplace/cards',  methods=['POST'])
+@login_required
+def buyCards():
+    cards = get_pack(request.form['set'])
+    print(cards)
+    for card in cards:
+        # print("!!!!!!!!!!!!!!!!!!!!!!!!!")
+        c = User.query.filter_by(id=current_user.id).first()
+        # print(c)
+        c.cards.append(card)
+    db.session.commit()
+    return redirect(url_for('user.packs'))
+
+@user.route('/marketplace/packs',  methods=['GET'])
 @login_required
 def packs():
     f = ['Legendary Collection','Legends Awakened','Legend Maker','Legendary Treasures','Shining Legends']
@@ -54,6 +67,19 @@ def packs():
     popular = [Set.query.filter_by(name=c).first() for c in p]
 
     return render_template('packs.html', featured=featured, new=new, popular=popular)
+
+@user.route('/marketplace/packs',  methods=['POST'])
+@login_required
+def buyPacks():
+    cards = get_pack(request.form['set'])
+    print(cards)
+    for card in cards:
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!")
+        c = User.query.filter_by(id=current_user.id).first()
+        print(c)
+        c.cards.append(card)
+    db.session.commit()
+    return redirect(url_for('user.packs'))
 
 @user.route('/marketplace/trades')
 @login_required
@@ -79,7 +105,7 @@ def search():
 
     SEARCH_LIMIT = 100
     PER_ROW = 3
-    
+
     form = SearchForm()
 
     full_results = None
@@ -93,7 +119,7 @@ def search():
             results.append(None)
 
         full_results = []
-        
+
         for i in range(len(results)//PER_ROW):
             full_results.append(results[i*PER_ROW:(i+1)*PER_ROW])
     return render_template('search.html',
@@ -101,4 +127,3 @@ def search():
                            query=form.search.data,
                            limit=SEARCH_LIMIT,
                            results=full_results)
-

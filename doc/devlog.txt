@@ -147,3 +147,7 @@ amandaC -- 2019-11-23 18:29
 
 ivanG -- 2019-11-23 17:18
     Added a basic search feature
+
+amandaC -- 2019-11-23 20:41
+    Added ability for user to buy packs
+    Card in the pack show up on mycards page
