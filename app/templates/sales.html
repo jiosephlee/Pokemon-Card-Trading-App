@@ -25,7 +25,7 @@
     <form method="post" action={{ url_for('user.sell') }}>
         <div class="form-group">
             <label for="card">Card</label><br>
-            <select id="card" name="card" class="selectpicker" data-live-search="true" data-style="btn-outline-primary" title="Select a Card">
+            <select id="card" name="card" class="selectpicker" data-live-search="true" data-style="btn-outline-primary" title="Select a Card" required>
                 {% for card in current_user.cards %}
                     <option title={{ card.name }} data-tokens={{ card.name }} data-content="<img src={{ card.image_small }} style='height:50%'>">
                         {{ card.id }}
@@ -39,7 +39,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="dollar-sign">$</span>
                 </div>
-                <input class="form-control" type="number" step=".01" name="price" id="price" placeholder="0.00">
+                <input class="form-control" type="number" step=".01" name="price" id="price" placeholder="0.00" required>
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Sell</button>
