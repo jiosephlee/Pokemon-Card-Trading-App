@@ -79,10 +79,9 @@
                 <a class="nav-link disabled"> Your location:</a> </li>
                 <li class="nav-item">
                     <select class="custom-select">
-                        <option selected>{{ ip_location }}</option>
-                        <option value="1">Other</option>
-                        <option value="2">Locations</option>
-                        <option value="3">Are going here</option>
+                        {% for loc in locations %}
+                        <option value="{{ loc[1] }}">{{ loc[0] }}</option>
+                        {% endfor %}
                     </select>
                 </li>
             </ul>
