@@ -17,14 +17,17 @@ def get_card(id_str):
 def get_set(set):
     return Card.query.filter_by(set_name=set)
 
-@user.route('/mycards')
+@user.route('/profile')
 @login_required
-def mycards():
+def profile():
     c = current_user.cards
-    a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5 )]
-    while len(a[-1]) < 5:
-        a[-1].append(0)
-    return render_template('mycards.html', cards = a)
+    if len(c) > 0:
+        a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5 )]
+        while len(a[-1]) < 5:
+            a[-1].append(0)
+    else:
+        a = []
+    return render_template('profile.html', cards = a)
 
 @user.route('/marketplace/cards',  methods=['GET'])
 @login_required
@@ -50,16 +53,14 @@ def cards():
 @login_required
 def buyCards():
     card = Card.query.filter_by(id=request.form['card']).first()
-    print(card.id)
     c = User.query.filter_by(id=current_user.id).first()
-    print(c)
     s = Sale.query.filter_by(card_id=card.id).first()
-    print(s)
-    print(s.cost)
-    print(c.balance)
+    o = User.query.filter_by(id=s.user_id).first()
     if(float(s.cost) <= float(c.balance)):
         c.balance -= s.cost
+        o.balance += s.cost
         c.cards.append(card)
+        o.cards.remove(card)
         s.status = 1
         flash('You have brought ' + request.form['card'], 'success')
     else:
@@ -110,7 +111,7 @@ def sell():
             sale = Sale(request.form['card'],request.form['price'],0,current_user.id)
             db.session.add(sale)
             db.session.commit()
-        return redirect(url_for('user.mycards'))
+        return redirect(url_for('user.profile'))
     return render_template('sales.html')
 
 @user.route('/search', methods=['GET', 'POST'])

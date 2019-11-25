@@ -135,6 +135,10 @@ ivanG -- 2019-11-22 19:30
     Added context injector for IP
     Added IP Address model so the API isn't over-requested
 
+ericL -- 2019-11-23 14:00
+    Completed card sale page
+    Added macro to create carousel
+
 amandaC -- 2019-11-23 15:49
     Added functions to get cards in a requested pack
     Added packs to marketplace
@@ -154,9 +158,20 @@ amandaC -- 2019-11-23 20:54
     Cards in the pack and single cards show up on mycards page
     Added flash messages after buying
 
+ericL -- 2019-11-23 22:00
+    Implemented creating a sale
+
+ericL -- 2019-11-24 21:00
+    Fixed edge cases with selling
+
 amandaC -- 2019-22-24 21:40
     Changed mycards page so cards show up in rows of five
 
-amandaC -- 2019-11-25 11:21
+ivanG -- 2019-22-25 8:37
+    Added functionality to base that allows the user to select what location they're in.
+    Will work on JavaScript to send this data to the server later.
+
+amandaC -- 2019-11-25 11:42
     Merged Sale and Buy parts of code so user's balance updates after buying a
     card
+    The user that sold the card will also have their balance increased
