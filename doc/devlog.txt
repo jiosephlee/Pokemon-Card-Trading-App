@@ -143,14 +143,21 @@ amandaC -- 2019-11-23 15:49
     Added functions to get cards in a requested pack
     Added packs to marketplace
 
+josephL -- 2019-11-23 16:40
+    Regrouped with group members to re-clarify short term goals, what our website is all about, and
+    finalized our front-end design
+
+ivanG -- 2019-11-23 17:18
+    Added a basic search feature
+
 amandaC -- 2019-11-23 17:57
     Small change to mycards to show user's cards
 
 amandaC -- 2019-11-23 18:29
     Filled packs page in marketplace with packs
 
-ivanG -- 2019-11-23 17:18
-    Added a basic search feature
+josephL --  2019-11-23 19:17
+    Got on a discord call with the team to work together and clear up any confusion of workflow/code
 
 amandaC -- 2019-11-23 20:54
     Added ability for user to buy packs
@@ -164,12 +171,28 @@ ericL -- 2019-11-23 22:00
 ericL -- 2019-11-24 21:00
     Fixed edge cases with selling
 
-amandaC -- 2019-22-24 21:40
+amandaC -- 2019-11-24 21:40
     Changed mycards page so cards show up in rows of five
 
 ivanG -- 2019-22-25 8:37
     Added functionality to base that allows the user to select what location they're in.
     Will work on JavaScript to send this data to the server later.
+
+josephL-- 2019-11-25 8:40 HOME STRETCH PLAN
+    Fully Fix Buy/Sell (11/25 NIGHT)- Eric
+    Create Trade Feature and Fully Test/Implement it (11/27 NIGHT)*- Eric
+    Fully Featured Search Bar (11/26 NIGHT) - Ivan
+    Individual Card Pages (11/27 NIGHT) - Ivan
+    Profile Page that will show my sales(11/26 NIGHT), my trades(11/27 NIGHT)*, purchase history (11/28 NIGHT) and trade history (11/28 NIGHT) - Amanda
+    Finish Final Version of Design Doc (11/26 NIGHT) - Joseph
+    Thoroughly Test every feature of the website (11/27 MIDNIGHT) - Joseph
+
+    *Tasks with an asterick will be cut if necessary*
+
+    IF EXTRA TIME:
+        1. See if we can make any tweaks in terms of the UI or flow of the website
+        2. Clean up cluttered or redundant code
+        3. See what features we can reasonably implement and fully test within the time left
 
 amandaC -- 2019-11-25 11:42
     Merged Sale and Buy parts of code so user's balance updates after buying a
@@ -182,3 +205,7 @@ ivanG -- 2019-11-25 18:27
     Functions that store exchange rates and automatically update them
     Functinality to store the user's currency in the session
     Client-side javascript to update the user's currency and update the displayed currency on the client without having to contact the server. Interestingly, this ends up causing weird conversion errors because floating point division. So, we might want to fix that later.
+
+josephL -- 2019-11-25 19:14
+    Created profile page with side bar
+    Sent short term goals to team on discord 
