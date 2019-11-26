@@ -179,11 +179,12 @@ ivanG -- 2019-22-25 8:37
     Will work on JavaScript to send this data to the server later.
 
 josephL-- 2019-11-25 8:40 HOME STRETCH PLAN
-    Fully Fix Buy/Sell (11/25)- Eric
-    Create Trade Feature and Fully Test/Implement it (11/27)*- Eric
-    Fully Featured Search Bar (11/26) - Ivan
-    Profile Page(11/25), that will also show my sales(11/26) and my trades(11/27)* - Amanda
-    Finish Final Version of Design Doc (11/26) - Joseph
+    Fully Fix Buy/Sell (11/25 NIGHT)- Eric
+    Create Trade Feature and Fully Test/Implement it (11/27 NIGHT)*- Eric
+    Fully Featured Search Bar (11/26 NIGHT) - Ivan
+    Individual Card Pages (11/27 NIGHT) - Ivan
+    Profile Page that will show my sales(11/26 NIGHT), my trades(11/27 NIGHT)*, purchase history (11/28 NIGHT) and trade history (11/28 NIGHT) - Amanda
+    Finish Final Version of Design Doc (11/26 NIGHT) - Joseph
     Thoroughly Test every feature of the website (11/27 MIDNIGHT) - Joseph
 
     *Tasks with an asterick will be cut if necessary*
@@ -204,3 +205,7 @@ ivanG -- 2019-11-25 18:27
     Functions that store exchange rates and automatically update them
     Functinality to store the user's currency in the session
     Client-side javascript to update the user's currency and update the displayed currency on the client without having to contact the server. Interestingly, this ends up causing weird conversion errors because floating point division. So, we might want to fix that later.
+
+josephL -- 2019-11-25 19:14
+    Created profile page with side bar
+    Sent short term goals to team on discord 
