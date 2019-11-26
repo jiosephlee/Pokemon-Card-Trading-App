@@ -1,0 +1,19 @@
+{% macro render_card(card, displayinfo=True) %}
+
+<div class="card">
+    <img class="card-img-top" src={{ card.image_hires }} alt={{ card.name }}>
+    {% if displayinfo %}
+    <div class="card-body">
+        <h5 class="card-title">{{ card.name }}</h5>
+        <p class="card-text">$100.00</p>
+    </div>
+    <div class="card-footer bg-transparent">
+        <form action="/user/marketplace/cards" method="POST">
+            <button type="submit" name="card" value="{{ card.name }}" class="btn btn-primary btn-block">Buy</button>
+        </form>
+    </div>
+    {% endif %}
+</div>
+
+
+{% endmacro %}
