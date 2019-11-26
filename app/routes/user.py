@@ -18,7 +18,7 @@ def get_card(id_str):
 
 def get_set(set):
     return Card.query.filter_by(set_name=set)
-    
+
 # list of locations a user can be in
 # ('location', 'currency short', 'symbol')
 locations = [('United States', 'USD', '$'), ('Russia', 'RUB', '₽')]
@@ -30,7 +30,7 @@ def profile():
 
 @user.route('/profile/mycards')
 @login_required
-def profile():
+def mycards():
     c = current_user.cards
     if len(c) > 0:
         a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5)]
@@ -38,7 +38,7 @@ def profile():
             a[-1].append(0)
     else:
         a = []
-    return render_template('profile.html', cards=a)
+    return render_template('mycards.html', cards=a)
 
 
 @user.route('/marketplace/cards', methods=['GET'])

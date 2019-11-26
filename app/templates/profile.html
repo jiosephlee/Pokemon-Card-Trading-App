@@ -1,6 +1,5 @@
 {% extends "_base.html" %}
 
-<<<<<<< HEAD
 {%  from 'macros/profile_bar.html' import profile_bar %}
 
 
@@ -8,42 +7,5 @@
     <div class="title">
         <h1>Profile</h1>
     </div>
-    {{ profile_bar() }}
-=======
-{% block content %}
-    <h2>My Cards</h2>
-    <hr>
-    {% if cards|length > 0 %}
-        {% for group in cards[:-1] %}
-            <div class="card-deck">
-                {% for card in group %}
-                    <div class="card">
-                        <img class="card-img-top" src={{ card.image_hires }} alt={{ card.name }}>
-                        <div class="card-body">
-                            <h5 class="card-title">{{ card.name }}</h5>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-            <hr>
-        {% endfor %}
-    {% else %}
-        <h3>You don't have any cards :(</h3>
-        <p>Head over to the <a href={{ url_for('user.cards') }}>marketplace</a> and get some!</p>
-    {% endif %}
-
-    <div class="card-deck">
-        {% for card in cards[-1] %}
-            <div class="card">
-                {% if card %}
-                    <img class="card-img-top" src={{ card.image_hires }} alt={{ card.name }}>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ card.name }}</h5>
-                    </div>
-                {% endif %}
-            </div>
-        {% endfor %}
-    </div>
-    <br>
->>>>>>> de07d8205e1f5a6796f989ed3d045c6ad8cb6772
+    {{ profile_bar()}}
 {% endblock content %}
