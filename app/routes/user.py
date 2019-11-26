@@ -17,7 +17,12 @@ def get_card(id_str):
 def get_set(set):
     return Card.query.filter_by(set_name=set)
 
-@user.route('/mycards')
+@user.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html')
+
+@user.route('/profile/mycards')
 @login_required
 def mycards():
     c = current_user.cards
