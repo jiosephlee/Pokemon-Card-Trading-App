@@ -79,9 +79,8 @@ class Trade(db.Model):
     given_card = db.relationship('Card', foreign_keys=[given_card_id])
 
     def __init__(self, request_id, given_id):
-        self.request_id = request_id
-        self.given_id = given_id
-
+        self.request_card_id = request_id
+        self.given_card_id = given_id
 
 class Sale(db.Model):
     id = db.Column(db.Integer, primary_key=True)
