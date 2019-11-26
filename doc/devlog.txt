@@ -174,6 +174,10 @@ ericL -- 2019-11-24 21:00
 amandaC -- 2019-11-24 21:40
     Changed mycards page so cards show up in rows of five
 
+ivanG -- 2019-22-25 8:37
+    Added functionality to base that allows the user to select what location they're in.
+    Will work on JavaScript to send this data to the server later.
+
 josephL-- 2019-11-25 8:40 HOME STRETCH PLAN
     Fully Fix Buy/Sell (11/25)- Eric
     Create Trade Feature and Fully Test/Implement it (11/27)*- Eric
@@ -185,6 +189,18 @@ josephL-- 2019-11-25 8:40 HOME STRETCH PLAN
     *Tasks with an asterick will be cut if necessary*
 
     IF EXTRA TIME:
-    1. See if we can make any tweaks in terms of the UI or flow of the website
-    2. Clean up cluttered or redundant code
-    3. See what features we can reasonably implement and fully test within the time left
+        1. See if we can make any tweaks in terms of the UI or flow of the website
+        2. Clean up cluttered or redundant code
+        3. See what features we can reasonably implement and fully test within the time left
+
+amandaC -- 2019-11-25 11:42
+    Merged Sale and Buy parts of code so user's balance updates after buying a
+    card
+    The user that sold the card will also have their balance increased
+
+ivanG -- 2019-11-25 18:27
+    Integrated the exchange rates API into the project which includes:
+    Functions that interact with the API endpoint
+    Functions that store exchange rates and automatically update them
+    Functinality to store the user's currency in the session
+    Client-side javascript to update the user's currency and update the displayed currency on the client without having to contact the server. Interestingly, this ends up causing weird conversion errors because floating point division. So, we might want to fix that later.

@@ -6,8 +6,7 @@ db = SQLAlchemy()
 user_card_association = db.Table(
     'user_card_association',
     db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
-    db.Column('card_id', db.Integer, db.ForeignKey('card.id'))
-)
+    db.Column('card_id', db.Integer, db.ForeignKey('card.id')))
 
 
 class User(db.Model, UserMixin):
@@ -44,7 +43,8 @@ class Card(db.Model):
     # relationships
     users = db.relationship('User', secondary=user_card_association)
 
-    def __init__(self, name, id_str, image_small, image_hires, type, set_name, series, subtype, supertype, rarity):
+    def __init__(self, name, id_str, image_small, image_hires, type, set_name,
+                 series, subtype, supertype, rarity):
         self.name = name
         self.id_str = id_str
         self.image_small = image_small
@@ -117,8 +117,22 @@ class Log(db.Model):
 class IPAddress(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     ip_str = db.Column(db.String(80), nullable=False)
-    location  = db.Column(db.String(80), nullable=False)
+    location = db.Column(db.String(80), nullable=False)
 
     def __init__(self, ip_str, location):
         self.ip_str = ip_str
         self.location = location
+
+
+# we use this class for storing exchange rates
+# we only store the exchange rate to USD since that's the unit the database uses
+class ExchangeRate(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    currency = db.Column(db.String(80), nullable=False)
+    rate = db.Column(db.Float, nullable=False)
+    timestamp = db.Column(db.Integer, nullable=False)
+
+    def __init__(self, currency, rate, timestamp):
+        self.currency = currency
+        self.rate = rate
+        self.timestamp = timestamp
