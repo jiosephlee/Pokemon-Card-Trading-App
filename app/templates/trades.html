@@ -12,11 +12,19 @@
         filter: invert(100%);
         margin-left: -15%;
     }
+    .title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
     </style>
 {% endblock %}
 
 {% block content %}
-    <h1>Trades</h1>
+    <div class="title">
+        <h1>Trades</h1>
+        <div><a class="btn btn-outline-primary" href={{ url_for('user.trade') }} role="button">Start a Trade</a></div>
+    </div>
     <hr>
     <h3>New</h3>
         {{ sales_carousel(new,'new-carousel') }}

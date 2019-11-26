@@ -54,13 +54,18 @@ def cards():
     f = [get_card(n) for n in f]
     featured = [f[:5], f[5:]]
 
-    s = Sale.query.filter_by(status=0).all()
-    s.reverse()
-    n = []
-    for sale in s[:10]:
-        print(sale)
-        n.append(Card.query.filter_by(id=sale.card_id).first())
-    new = [n[:5], n[5:]]
+    newest_set = 'Cosmic Eclipse'
+    n = [c for c in get_set(newest_set)]
+    n = sample(n,10)
+    new = [n[:5],n[5:]]
+    #
+    # s = Sale.query.filter_by(status=0).all()
+    # s.reverse()
+    # n = []
+    # for sale in s[:10]:
+    #     print(sale)
+    #     n.append(Card.query.filter_by(id=sale.card_id).first())
+    # new = [n[:5], n[5:]]
 
     p = Card.query.order_by(Card.num_sales)[:10]
     popular = [p[:5], p[5:]]
@@ -136,6 +141,21 @@ def buyPacks():
 def trades():
     return render_template('trades.html', new=[], popular=[])
 
+@user.route('/trade', methods=['GET','POST'])
+@login_required
+def trade():
+    if len(current_user.cards) == 0:
+        flash('You do not have any cards to trade!', 'danger')
+        return redirect(url_for('user.trades'))
+    if 'first_card' in request.form.keys() and 'second_card' in request.form.keys():
+        flash('Your trade has been posted!','success')
+        from app import app
+        with app.app_context():
+            t = Trade(request.form['second_card'],request.form['first_card'])
+            db.session.add(t)
+            db.session.commit()
+            return redirect(url_for('user.trades'))
+    return render_template('trade.html',query=Card.query)
 
 @user.route('/sell', methods=['GET', 'POST'])
 @login_required
@@ -144,6 +164,7 @@ def sell():
         flash('You do not have any cards to sell!', 'danger')
         return redirect(url_for('user.cards'))
     if 'card' in request.form.keys() and 'price' in request.form.keys():
+        flash('Your sale has been posted!','success')
         from app import app
         with app.app_context():
             Card.query.filter_by(

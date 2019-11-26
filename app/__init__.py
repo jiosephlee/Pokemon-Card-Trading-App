@@ -99,10 +99,6 @@ with app.app_context():
     db.session.commit()
     '''
 
-    for sale in Sale.query:
-        sale.user_id = 4
-    db.session.commit()
-
 # set up login manager
 login_manager = LoginManager()
 login_manager.init_app(app)
