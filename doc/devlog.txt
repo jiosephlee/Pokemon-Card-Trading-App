@@ -208,4 +208,8 @@ ivanG -- 2019-11-25 18:27
 
 josephL -- 2019-11-25 19:14
     Created profile page with side bar
-    Sent short term goals to team on discord 
+    Sent short term goals to team on discord
+
+amandaC -- 2019-11-27 00:06
+    Created macro for showing cards on profile pages
+    Created my sales page

@@ -1,0 +1,27 @@
+{% macro profile_cards(list) %}
+    {% for group in list[:-1] %}
+      <div class="card-deck">
+        {% for card in group %}
+        <div class="card">
+          <img class="card-img-top" src={{card.image_hires}} alt={{card.name}}>
+          <div class="card-body">
+              <h5 class="card-title">{{card.name}}</h5>
+          </div>
+        </div>
+        {% endfor %}
+      </div><hr>
+    {% endfor %}
+
+    <div class="card-deck">
+      {% for card in list[-1] %}
+          <div class="card">
+            {% if card %}
+            <img class="card-img-top" src={{card.image_hires}} alt={{card.name}}>
+            <div class="card-body">
+                <h5 class="card-title">{{card.name}}</h5>
+            </div>
+            {% endif %}
+          </div>
+      {% endfor %}
+    </div>
+{%- endmacro %}
