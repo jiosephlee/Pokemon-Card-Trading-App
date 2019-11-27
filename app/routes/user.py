@@ -22,7 +22,7 @@ def get_set(set):
 
 # list of locations a user can be in
 # ('location', 'currency short', 'symbol')
-locations = [('United States', 'USD', '$'), ('Russia', 'RUB', '₽')]
+locations = [('United States', 'USD', '$'), ('Russia', 'RUB', '₽'), ('Euro', 'EUR', '€'), ('Japan', 'JPY', '¥'), ('Korea', 'KRW', '₩')]
 
 
 @user.route('/profile')
@@ -41,8 +41,29 @@ def mycards():
             a[-1].append(0)
     else:
         a = []
+    print(a)
     return render_template('mycards.html', cards=a)
 
+@user.route('/profile/mysales')
+@login_required
+def mysales():
+    c = Sale.query.filter_by(user_id=current_user.id).filter_by(status=0).all()
+    if len(c) > 0:
+        a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5)]
+        while len(a[-1]) < 5:
+            a[-1].append(0)
+    else:
+        a = []
+
+    x = 0
+    y = 0
+    while x < 5:
+        while y < 5:
+            if (a[x][y] != 0):
+                a[x][y] = Card.query.filter_by(id=a[x][y].card_id).first()
+            y += 1
+        x += 1
+    return render_template('mysales.html', cards=a)
 
 @user.route('/marketplace/cards', methods=['GET'])
 @login_required
