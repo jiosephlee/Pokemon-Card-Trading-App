@@ -22,7 +22,7 @@ def get_set(set):
 
 # list of locations a user can be in
 # ('location', 'currency short', 'symbol')
-locations = [('United States', 'USD', '$'), ('Russia', 'RUB', '₽'), ('Euro', 'EUR', '€'), ('Japan', 'JPY', '¥'), ('Korea', 'KRW', '₩')]
+locations = [('United States', 'USD', '$'), ('Russia', 'RUB', '₽'), ('EU', 'EUR', '€'), ('Japan', 'JPY', '¥'), ('Korea', 'KRW', '₩')]
 
 
 @user.route('/profile')
