@@ -52,17 +52,17 @@ def mysales():
         a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5)]
         while len(a[-1]) < 5:
             a[-1].append(0)
+        x = 0
+        y = 0
+        while x < 5:
+            while y < 5:
+                if (a[x][y] != 0):
+                    a[x][y] = Card.query.filter_by(id=a[x][y].card_id).first()
+                y += 1
+            x += 1
     else:
         a = []
 
-    x = 0
-    y = 0
-    while x < 5:
-        while y < 5:
-            if (a[x][y] != 0):
-                a[x][y] = Card.query.filter_by(id=a[x][y].card_id).first()
-            y += 1
-        x += 1
     return render_template('mysales.html', cards=a)
 
 @user.route('/marketplace/cards', methods=['GET'])

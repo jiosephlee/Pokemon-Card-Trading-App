@@ -221,3 +221,7 @@ ivanG -- 2019-11-26 20:36
 amandaC -- 2019-11-27 00:06
     Created macro for showing cards on profile pages
     Created my sales page
+
+amandaC -- 2019-11-27 09:38
+    User's balance changes when buying a pack
+    Made card border transparent when a card is not there
