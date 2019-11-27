@@ -79,17 +79,6 @@ def cards():
     n = [c for c in get_set(newest_set)]
     n = sample(n,10)
     new = [n[:5],n[5:]]
-<<<<<<< HEAD
-
-    # s = Sale.query.filter_by(status=0).all()
-    # s.reverse()
-    # n = []
-    # for sale in s[:10]:
-    #     print(sale)
-    #     n.append(Card.query.filter_by(id=sale.card_id).first())
-    # new = [n[:5], n[5:]]
-=======
->>>>>>> 024055fdce28feccb8209a2352b4d09fa07d3885
 
     p = Card.query.order_by(Card.num_sales)[:10]
     popular = [p[:5], p[5:]]
