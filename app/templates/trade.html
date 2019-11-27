@@ -39,7 +39,7 @@
             <label for="second_card">Requested Card</label><br>
             <select id="second_card" name="second_card" class="selectpicker" data-live-search="true" data-style="btn-outline-primary" title="Select a Card" required>
                 {% for card in query %}
-                    <option title={{ card.name }} data-tokens={{ card.name }} data-content="<img src={{ card.image_small }} style='height:50%'>">
+                    <option title={{ card.name }} data-tokens={{ card.name }} data-content='<a href="#" style="text-decoration:none" data-toggle="tooltip" data-placement="right" title={{ card.set_name }}>{{ card.name }}</a>'>
                         {{ card.id }}
                     </option>
                 {% endfor %}

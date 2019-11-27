@@ -19,14 +19,17 @@ def get_card(id_str):
 def get_set(set):
     return Card.query.filter_by(set_name=set)
 
+
 # list of locations a user can be in
 # ('location', 'currency short', 'symbol')
 locations = [('United States', 'USD', '$'), ('Russia', 'RUB', '₽'), ('Euro', 'EUR', '€'), ('Japan', 'JPY', '¥'), ('Korea', 'KRW', '₩')]
+
 
 @user.route('/profile')
 @login_required
 def profile():
     return render_template('profile.html')
+
 
 @user.route('/profile/mycards')
 @login_required
@@ -76,6 +79,7 @@ def cards():
     n = [c for c in get_set(newest_set)]
     n = sample(n,10)
     new = [n[:5],n[5:]]
+<<<<<<< HEAD
 
     # s = Sale.query.filter_by(status=0).all()
     # s.reverse()
@@ -84,6 +88,8 @@ def cards():
     #     print(sale)
     #     n.append(Card.query.filter_by(id=sale.card_id).first())
     # new = [n[:5], n[5:]]
+=======
+>>>>>>> 024055fdce28feccb8209a2352b4d09fa07d3885
 
     p = Card.query.order_by(Card.num_sales)[:10]
     popular = [p[:5], p[5:]]
@@ -224,3 +230,12 @@ def search():
                            query=form.search.data,
                            limit=SEARCH_LIMIT,
                            results=full_results)
+
+
+@user.route('/viewcard/<id>')
+@login_required
+def view_card(id):
+
+    card = Card.query.get(id)
+
+    return render_template('viewcard.html', card=card)
