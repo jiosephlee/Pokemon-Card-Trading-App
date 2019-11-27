@@ -226,6 +226,7 @@ amandaC -- 2019-11-27 09:38
     User's balance changes when buying a pack
     Made card border transparent when a card is not there
 
-ivanG -- 2019-11-27 9:47
+ivanG -- 2019-11-27 10:03
     Added card viewing page
     Fixed currency bug where switching currency multiple times would mess up the actual value of currency.
+    Added alerts when user does not own have any cards

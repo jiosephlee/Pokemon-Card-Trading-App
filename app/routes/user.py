@@ -41,7 +41,7 @@ def mycards():
             a[-1].append(0)
     else:
         a = []
-    print(a)
+        flash('You currently do not own any cards. Buy cards or packs from the Marketplace!', 'info')
     return render_template('mycards.html', cards=a)
 
 @user.route('/profile/mysales')
@@ -62,6 +62,7 @@ def mysales():
             x += 1
     else:
         a = []
+        flash('None of your cards are up for sale. Sell cards in the Marketplace!', 'info')
 
     return render_template('mysales.html', cards=a)
 
