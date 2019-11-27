@@ -11,7 +11,21 @@
         {{ render_card(card, displayinfo=False) }}
     </div>
     <div class="col">
-        This is the info for the card.
+        <h3> {{ card.name }} </h3>
+        <span class="font-italic"> {{ card.series }} </span>
+        <small>
+            <span class="font-italic"> ({{ card.set_name }}) </span>
+        </small>
+        <hr>
+        <div>
+            <b>Subtype</b>: <p>{{ card.subtype }}</p>
+        </div>
+        <div>
+            <b>Supertype</b>: <p>{{ card.supertype }}</p>
+        </div>
+        <div>
+            <b>Rarity</b>: <p>{{ card.rarity }}</p>
+        </div>
     </div>
     <div class="col-2"><br></div>
 
