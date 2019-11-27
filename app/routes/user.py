@@ -157,8 +157,8 @@ def buyPacks():
 @login_required
 def trades():
     new = Trade.query.order_by(Trade.id.desc())
-    new1 = new[:6]
-    new2 = new[6:12]
+    new1 = [new[:2],new[2:4],new[4:6]]
+    new2 = [new[6:8],new[8:10],new[10:12]]
     return render_template('trades.html', new_first=new1, new_second=new2)
 
 @user.route('/trade', methods=['GET','POST'])
