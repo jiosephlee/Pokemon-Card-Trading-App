@@ -19,14 +19,17 @@ def get_card(id_str):
 def get_set(set):
     return Card.query.filter_by(set_name=set)
 
+
 # list of locations a user can be in
 # ('location', 'currency short', 'symbol')
 locations = [('United States', 'USD', '$'), ('Russia', 'RUB', '₽')]
+
 
 @user.route('/profile')
 @login_required
 def profile():
     return render_template('profile.html')
+
 
 @user.route('/profile/mycards')
 @login_required
@@ -195,3 +198,12 @@ def search():
                            query=form.search.data,
                            limit=SEARCH_LIMIT,
                            results=full_results)
+
+
+@user.route('/viewcard/<id>')
+@login_required
+def view_card(id):
+
+    card = Card.query.get(id)
+
+    return render_template('viewcard.html', card=card)

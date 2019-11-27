@@ -209,3 +209,7 @@ ivanG -- 2019-11-25 18:27
 josephL -- 2019-11-25 19:14
     Created profile page with side bar
     Sent short term goals to team on discord 
+
+ivanG -- 2019-11-26 8:36
+    Added a macro for rendering cards
+    Began work on card vewing page

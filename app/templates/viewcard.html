@@ -1,0 +1,26 @@
+{% extends "_base.html" %}
+{% from "macros/render_card.html" import render_card %}
+
+{% block content %}
+
+{% if card is not none %}
+
+<div class="row">
+    <div class="col-2"><br></div>
+    <div class="col">
+        {{ render_card(card, displayinfo=False) }}
+    </div>
+    <div class="col">
+        This is the info for the card.
+    </div>
+    <div class="col-2"><br></div>
+
+</div>
+{% else %}
+
+<br><br><br>
+<p class="text-center">No card found, sorry</p>
+
+{% endif %}
+
+{% endblock content %}
