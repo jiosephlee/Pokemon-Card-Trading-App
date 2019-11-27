@@ -108,9 +108,13 @@ login_manager.login_view = 'auth.login'
 login_manager.login_message = 'Please Log In to view this page!'
 login_manager.login_message_category = 'danger'
 
+
 def get_card_id(id):
     return Card.query.filter_by(id=id).first()
+
+
 app.jinja_env.globals.update(get_card_id=get_card_id)
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -151,12 +155,13 @@ def change_currency(text):
     # get the exchange rate
     rate = get_exhange_rate(current_currency)
     num = int(text)
-    new_num = str(int(100 * (num / rate) // 100))
+    new_num = str(int(100 * (num / rate)) / 100)
 
     return """
+    <span class="currency-original" style="display: none;">%s</span>
     <span class="currency-symbol">%s</span>
     <span class="currency-number">%s</span>
-""" % (symbol, new_num)
+""" % (text, symbol, new_num)
 
 
 @app.route('/')
@@ -167,12 +172,10 @@ def index():
 
 @app.route('/update_user_currency/<currency>', methods=['POST'])
 def update_user_currency(currency):
-    prev_currency = session['user_currency']
     session['user_currency'] = currency
     rate = get_exhange_rate(currency)
-    prev_rate = get_exhange_rate(prev_currency)
     symbol = list(filter(lambda x: x[1] == currency, locations))[0][2]
-    ret = {'rate': rate / prev_rate, 'symbol': symbol}
+    ret = {'rate': rate, 'symbol': symbol}
 
     return json.dumps(ret)
 
