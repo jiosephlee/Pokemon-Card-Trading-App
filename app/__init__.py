@@ -155,12 +155,12 @@ def change_currency(text):
     # get the exchange rate
     rate = get_exhange_rate(current_currency)
     num = int(text)
-    new_num = str(int(100 * (num / rate)) / 100)
+    new_num = num / rate
 
     return """
     <span class="currency-original" style="display: none;">%s</span>
     <span class="currency-symbol">%s</span>
-    <span class="currency-number">%s</span>
+    <span class="currency-number">%.2f</span>
 """ % (text, symbol, new_num)
 
 
