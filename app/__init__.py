@@ -4,11 +4,13 @@ from flask import Flask, render_template, request, session
 from flask_login import LoginManager, login_required
 
 from app.forms import SignUpForm, LogInForm
-from app.models import db, User, Card, Set, Sale, ExchangeRate
+from app.models import db, User, Card, Set, Sale, ExchangeRate, Trade
 from app.routes.auth import auth
 from app.routes.user import user, locations
 from app.ip_address import get_location
 from app.exchange_rates import get_exhange_rate
+
+from random import randint
 
 import urllib.request as urllib
 import json
@@ -106,6 +108,9 @@ login_manager.login_view = 'auth.login'
 login_manager.login_message = 'Please Log In to view this page!'
 login_manager.login_message_category = 'danger'
 
+def get_card_id(id):
+    return Card.query.filter_by(id=id).first()
+app.jinja_env.globals.update(get_card_id=get_card_id)
 
 @login_manager.user_loader
 def load_user(user_id):
