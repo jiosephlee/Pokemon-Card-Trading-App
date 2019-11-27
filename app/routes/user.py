@@ -93,13 +93,12 @@ def cards():
 @login_required
 def buyCards():
     card = Card.query.filter_by(id=request.form['card']).first()
-    c = User.query.filter_by(id=current_user.id).first()
     s = Sale.query.filter_by(card_id=card.id).first()
     o = User.query.filter_by(id=s.user_id).first()
-    if (float(s.cost) <= float(c.balance)):
-        c.balance -= s.cost
+    if (float(s.cost) <= float(current_user.balance)):
+        current_user.balance -= s.cost
         o.balance += s.cost
-        c.cards.append(card)
+        current_user.cards.append(card)
         o.cards.remove(card)
         s.status = 1
         flash('You have brought ' + request.form['card'], 'success')
@@ -141,11 +140,16 @@ def packs():
 @login_required
 def buyPacks():
     cards = get_pack(request.form['set'])
-    for card in cards:
-        c = User.query.filter_by(id=current_user.id).first()
-        c.cards.append(card)
+    if ( float(current_user.balance) >= 10):
+        current_user.balance -= 10
+        for card in cards:
+            c = User.query.filter_by(id=current_user.id).first()
+            c.cards.append(card)
+        flash('You have brought ' + request.form['set'], 'success')
+    else:
+        flash('You do not enough money to buy ' + request.form['set'],
+              'danger')
     db.session.commit()
-    flash('You have brought ' + request.form['set'], 'success')
     return redirect(url_for('user.packs'))
 
 
