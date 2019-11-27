@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
+from sqlalchemy import desc
 
 from app.models import db, Card, Set, User, Sale, Trade, Log
 
@@ -14,7 +15,6 @@ user = Blueprint('user', __name__)
 
 def get_card(id_str):
     return Card.query.filter_by(id_str=id_str).first()
-
 
 def get_set(set):
     return Card.query.filter_by(set_name=set)
@@ -131,7 +131,10 @@ def buyPacks():
 @user.route('/marketplace/trades')
 @login_required
 def trades():
-    return render_template('trades.html', new=[], popular=[])
+    new = Trade.query.order_by(Trade.id.desc())
+    new1 = new[:6]
+    new2 = new[6:12]
+    return render_template('trades.html', new_first=new1, new_second=new2)
 
 @user.route('/trade', methods=['GET','POST'])
 @login_required
