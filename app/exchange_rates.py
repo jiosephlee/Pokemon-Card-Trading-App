@@ -30,7 +30,7 @@ def update_exchange_rate(currency):
     elif check.timestamp < int(time.time()) - 24 * 60 * 60:
         db.session.delete(check)
         db.session.commit()
-        add_exchange_rate(curency)
+        add_exchange_rate(currency)
 
 
 def get_exhange_rate(currency):
