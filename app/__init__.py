@@ -155,13 +155,13 @@ def change_currency(text):
     # get the exchange rate
     rate = get_exhange_rate(current_currency)
     num = int(text)
-    new_num = num / rate
 
+    # currency-number is empty because JS fills it in for us
     return """
     <span class="currency-original" style="display: none;">%s</span>
     <span class="currency-symbol">%s</span>
-    <span class="currency-number">%.2f</span>
-""" % (text, symbol, new_num)
+    <span class="currency-number"></span>
+""" % (text, symbol)
 
 
 @app.route('/')

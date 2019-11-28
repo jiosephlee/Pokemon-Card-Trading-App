@@ -123,6 +123,24 @@
                 }
             });
         })
+        $(document).ready(function() {
+            $.post("/update_user_currency/" + $("#currency-select").val(), function(data, status) {
+                data = JSON.parse(data);
+                $(".currency-symbol").text(data.symbol);
+
+                // also, update each currency individually
+                let all_numbers = $(".currency-number")
+                let all_values = $(".currency-original")
+                for (let i = 0; i < all_numbers.length; i++) {
+                    let cur = $(all_numbers[i]);
+                    let num = parseInt($(all_values[i]).text());
+                    let new_num = (num / parseFloat(data.rate)).toFixed(2);
+                    cur.text(new_num);
+                }
+            });
+
+
+        });
     </script>
 
 </body>
