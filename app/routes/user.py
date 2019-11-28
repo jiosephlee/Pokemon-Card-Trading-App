@@ -29,7 +29,7 @@ def element_of(val,iterable):
 
 # list of locations a user can be in
 # ('location', 'currency short', 'symbol')
-locations = [('United States', 'USD', '$'), ('Russia', 'RUB', '₽'), ('Euro', 'EUR', '€'), ('Japan', 'JPY', '¥'), ('Korea', 'KRW', '₩')]
+locations = [('United States', 'USD', '$'), ('Russia', 'RUB', '₽'), ('EU', 'EUR', '€'), ('Japan', 'JPY', '¥'), ('Korea', 'KRW', '₩')]
 
 
 @user.route('/profile')
@@ -48,6 +48,7 @@ def mycards():
             a[-1].append(0)
     else:
         a = []
+        flash('You currently do not own any cards. Buy cards or packs from the Marketplace!', 'info')
     return render_template('mycards.html', cards=a)
 
 @user.route('/profile/mysales')
@@ -58,17 +59,18 @@ def mysales():
         a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5)]
         while len(a[-1]) < 5:
             a[-1].append(0)
+        x = 0
+        y = 0
+        while x < 5:
+            while y < 5:
+                if (a[x][y] != 0):
+                    a[x][y] = Card.query.filter_by(id=a[x][y].card_id).first()
+                y += 1
+            x += 1
     else:
         a = []
+        flash('None of your cards are up for sale. Sell cards in the Marketplace!', 'info')
 
-    x = 0
-    y = 0
-    while x < 5:
-        while y < 5:
-            if (a[x][y] != 0):
-                a[x][y] = Card.query.filter_by(id=a[x][y].card_id).first()
-            y += 1
-        x += 1
     return render_template('mysales.html', cards=a)
 
 @user.route('/marketplace/cards', methods=['GET'])

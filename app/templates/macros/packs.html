@@ -5,7 +5,7 @@
               <img class="card-img-top" src={{ set.logo }} alt={{ set.name }}>
               <div class="card-body">
                   <h5 class="card-title">{{ set.name }}</h5>
-                  <p class="card-text">$10.00</p>
+                  <p class="card-text">{{ 10.00|change_currency|safe }}</p>
               </div>
               <div class="card-footer bg-transparent">
                 <form action="/user/marketplace/packs" method="POST">
