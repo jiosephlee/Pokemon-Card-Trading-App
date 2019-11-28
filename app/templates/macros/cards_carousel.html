@@ -64,9 +64,9 @@
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <div class="card-deck">
-                    {% for card in list[0] %}
-                        {% set given = get_card_id(card.given_card_id) %}
-                        {% set request = get_card_id(card.request_card_id) %}
+                    {% for trade in list[0] %}
+                        {% set given = get_card_id(trade.given_card_id) %}
+                        {% set request = get_card_id(trade.request_card_id) %}
                         <div class="card"><br>
                             <div style="display: flex; justify-content: space-evenly; align-items: center">
                                 <div style="text-align: center"><h5>Giving</h5><img src={{ given.image_small }}></div>
@@ -75,7 +75,10 @@
                             </div><br>
                             <div class="card-footer bg-transparent">
                                 <form action={{ url_for('user.trades') }} method="POST">
-                                        <button type="submit" name="trade" value={{ list[0] }} class="btn btn-primary btn-block">Trade</button>
+                                        <input type="hidden" name="given_card" value={{ trade.given_card_id }}>
+                                        <input type="hidden" name="requested_card" value={{ trade.request_card_id }}>
+                                        <input type="hidden" name="user" value={{ trade.user_id }}>
+                                        <button type="submit" name="trade" value={{ trade.id }} class="btn btn-primary btn-block">Trade</button>
                                 </form>
                             </div>
                         </div>
@@ -96,7 +99,7 @@
                                 </div><br>
                                 <div class="card-footer bg-transparent">
                                     <form action={{ url_for('user.trades') }} method="POST">
-                                            <button type="submit" name="trade" value={{ list[0] }} class="btn btn-primary btn-block">Trade</button>
+                                            <button type="submit" name="trade" value={{ trade }} class="btn btn-primary btn-block">Trade</button>
                                     </form>
                                 </div>
                             </div>
