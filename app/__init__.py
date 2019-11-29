@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, session
 from flask_login import LoginManager, login_required
 
 from app.forms import SignUpForm, LogInForm
-from app.models import db, User, Card, Set, Sale, ExchangeRate, Trade
+from app.models import db, User, Card, Set, Sale, ExchangeRate, Trade, CardOwnership
 from app.routes.auth import auth
 from app.routes.user import user, locations
 from app.ip_address import get_location
@@ -101,11 +101,18 @@ with app.app_context():
     db.session.commit()
     '''
 
+    '''
+    for i in range(30):
+        given = randint(1,11901)
+        request = randint(1,11901)
+        trade = Trade(request,given,4)
+        db.session.add(trade)
+    db.session.commit()
+    '''
 sale = Sale(request.form['card'], request.form['price'], 0,
             current_user.id)
 db.session.add(sale)
 db.session.commit()
-
 # set up login manager
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -113,9 +120,13 @@ login_manager.login_view = 'auth.login'
 login_manager.login_message = 'Please Log In to view this page!'
 login_manager.login_message_category = 'danger'
 
+
 def get_card_id(id):
     return Card.query.filter_by(id=id).first()
+
+
 app.jinja_env.globals.update(get_card_id=get_card_id)
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -156,12 +167,13 @@ def change_currency(text):
     # get the exchange rate
     rate = get_exhange_rate(current_currency)
     num = int(text)
-    new_num = str(int(100 * (num / rate) // 100))
 
+    # currency-number is empty because JS fills it in for us
     return """
+    <span class="currency-original" style="display: none;">%s</span>
     <span class="currency-symbol">%s</span>
-    <span class="currency-number">%s</span>
-""" % (symbol, new_num)
+    <span class="currency-number"></span>
+""" % (text, symbol)
 
 
 @app.route('/')
@@ -172,14 +184,21 @@ def index():
 
 @app.route('/update_user_currency/<currency>', methods=['POST'])
 def update_user_currency(currency):
-    prev_currency = session['user_currency']
     session['user_currency'] = currency
     rate = get_exhange_rate(currency)
-    prev_rate = get_exhange_rate(prev_currency)
     symbol = list(filter(lambda x: x[1] == currency, locations))[0][2]
-    ret = {'rate': rate / prev_rate, 'symbol': symbol}
+    ret = {'rate': rate, 'symbol': symbol}
 
     return json.dumps(ret)
+
+
+from app.forms import get_rarity_options
+
+
+@app.route('/test')
+def test():
+
+    return str(get_rarity_options())
 
 
 app.register_blueprint(auth, url_prefix='/auth')

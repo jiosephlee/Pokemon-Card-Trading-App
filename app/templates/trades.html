@@ -1,22 +1,24 @@
 {% extends "_base.html" %}
 
-{%  from 'macros/cards_carousel.html' import sales_carousel %}
+{% from 'macros/cards_carousel.html' import trade_carousel %}
 
 {% block style %}
     <style>
-    .carousel-control-next {
-        filter: invert(100%);
-        margin-right: -15%;
-    }
-    .carousel-control-prev {
-        filter: invert(100%);
-        margin-left: -15%;
-    }
-    .title {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+        .carousel-control-next {
+            filter: invert(100%);
+            margin-right: -15%;
+        }
+
+        .carousel-control-prev {
+            filter: invert(100%);
+            margin-left: -15%;
+        }
+
+        .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
     </style>
 {% endblock %}
 
@@ -27,8 +29,6 @@
     </div>
     <hr>
     <h3>New</h3>
-        {{ sales_carousel(new,'new-carousel') }}
-    <hr>
-    <h3>Popular</h3>
-        {{ sales_carousel(popular,'popular-carousel') }}
+    {{ trade_carousel(new_first,'new_first') }}
+    {{ trade_carousel(new_second,'new_second') }}
 {% endblock content %}

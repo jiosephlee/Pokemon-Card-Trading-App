@@ -1,45 +1,49 @@
-{% macro sales_carousel(list,name) -%}
-<br>
-<div>
-    <div id={{ name }} class="carousel slide" data-interval="false">
+{% macro sales_carousel(list,name) %}
+    <br>
+    <div>
+        <div id={{ name }} class="carousel slide" data-interval="false">
         <div class="carousel-inner">
             <div class='carousel-item active'>
                 <div class="card-deck">
                     {% for card in list[0] %}
-                    <div class="card">
-                        <img class="card-img-top" src={{ card.image_hires }} alt={{ card.name }}>
-                        <div class="card-body">
-                            <h5 class="card-title">{{ card.name }}</h5>
-                            <p class="card-text">$100.00</p>
+                        <div class="card">
+                            <img class="card-img-top" src={{ card.image_hires }} alt={{ card.name }}>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ card.name }}</h5>
+                                <p class="card-text">{{ 100.00|change_currency|safe }}</p>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <form action="/user/marketplace/cards" method="POST">
+                                    <button type="submit" name="card" value="{{ card.id }}"
+                                            class="btn btn-primary btn-block">Buy
+                                    </button>
+                                </form>
+                            </div>
                         </div>
-                        <div class="card-footer bg-transparent">
-                            <form action="/user/marketplace/cards" method="POST">
-                                <button type="submit" name="card" value="{{ card.id }}" class="btn btn-primary btn-block">Buy</button>
-                            </form>
-                        </div>
-                    </div>
                     {% endfor %}
                 </div>
             </div>
             {% for slide in list[1:] %}
-            <div class='carousel-item'>
-                <div class="card-deck">
-                    {% for card in slide %}
-                    <div class="card">
-                        <img class="card-img-top" src={{ card.image_hires }} alt={{ card.name }}>
-                        <div class="card-body">
-                            <h5 class="card-title">{{ card.name }}</h5>
-                            <p class="card-text">$100.00</p>
-                        </div>
-                        <div class="card-footer bg-transparent">
-                            <form action="/user/marketplace/cards" method="POST">
-                                <button type="submit" name="card" value="{{ card.name }}" class="btn btn-primary btn-block">Buy</button>
-                            </form>
-                        </div>
+                <div class='carousel-item'>
+                    <div class="card-deck">
+                        {% for card in slide %}
+                            <div class="card">
+                                <img class="card-img-top" src={{ card.image_hires }} alt={{ card.name }}>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ card.name }}</h5>
+                                    <p class="card-text">{{ 100.00|change_currency|safe }}</p>
+                                </div>
+                                <div class="card-footer bg-transparent">
+                                    <form action={{ url_for('user.cards') }} method="POST">
+                                        <button type="submit" name="sale" value={{ card }} class="btn btn-primary
+                                                btn-block
+                                        ">Buy</button>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
-            </div>
             {% endfor %}
         </div>
         <a class="carousel-control-prev" href={{ '#'+name }} role="button" data-slide="prev" style=": black">
@@ -51,4 +55,65 @@
             <span class="sr-only">Next</span>
         </a>
     </div><br>
-    {%- endmacro %}
+{% endmacro %}
+
+{% macro trade_carousel(list, name) %}
+    <br>
+    <div>
+        <div id={{ name }} class="carousel slide" data-interval="false">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="card-deck">
+                    {% for trade in list[0] %}
+                        {% set given = get_card_id(trade.given_card_id) %}
+                        {% set request = get_card_id(trade.request_card_id) %}
+                        <div class="card"><br>
+                            <div style="display: flex; justify-content: space-evenly; align-items: center">
+                                <div style="text-align: center"><h5>Giving</h5><img src={{ given.image_small }}></div>
+                                <div style="max-height: 30px"><i class="material-icons">swap_horizontal_circle</i></div>
+                                <div style="text-align: center"><h5>Requesting</h5><img src={{ request.image_small }}></div>
+                            </div><br>
+                            <div class="card-footer bg-transparent">
+                                <form action={{ url_for('user.trades') }} method="POST">
+                                        <input type="hidden" name="given_card" value={{ trade.given_card_id }}>
+                                        <input type="hidden" name="requested_card" value={{ trade.request_card_id }}>
+                                        <input type="hidden" name="user" value={{ trade.user_id }}>
+                                        <button type="submit" name="trade" value={{ trade.id }} class="btn btn-primary btn-block">Trade</button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% for slide in list[1:] %}
+                <div class="carousel-item">
+                    <div class="card-deck">
+                        {% for trade in slide %}
+                            {% set given = get_card_id(trade.given_card_id) %}
+                            {% set request =  get_card_id(trade.request_card_id) %}
+                            <div class="card"><br>
+                                <div style="display: flex; justify-content: space-evenly; align-items: center">
+                                    <div style="text-align: center"><h5>Giving</h5><img src={{ given.image_small }}></div>
+                                    <div style="max-height: 30px"><i class="material-icons">swap_horizontal_circle</i></div>
+                                    <div style="text-align: center"><h5>Requesting</h5><img src={{ request.image_small }}></div>
+                                </div><br>
+                                <div class="card-footer bg-transparent">
+                                    <form action={{ url_for('user.trades') }} method="POST">
+                                            <button type="submit" name="trade" value={{ trade }} class="btn btn-primary btn-block">Trade</button>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href={{ '#'+name }} role="button" data-slide="prev" style=": black">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href={{ '#'+name }} role="button" data-slide="next" style="color: black">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a></div></div><br>
+{% endmacro %}

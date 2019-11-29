@@ -12,6 +12,7 @@
     <meta charset="UTF-8">
     <title>{{ title }}</title>
 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -113,14 +114,33 @@
 
                 // also, update each currency individually
                 let all_numbers = $(".currency-number")
+                let all_values = $(".currency-original")
                 for (let i = 0; i < all_numbers.length; i++) {
                     let cur = $(all_numbers[i]);
-                    let num = parseInt(cur.text());
-                    let new_num = (~~(100 * num / parseFloat(data.rate))) / 100;
+                    let num = parseInt($(all_values[i]).text());
+                    let new_num = (num / parseFloat(data.rate)).toFixed(2);
                     cur.text(new_num);
                 }
             });
         })
+        $(document).ready(function() {
+            $.post("/update_user_currency/" + $("#currency-select").val(), function(data, status) {
+                data = JSON.parse(data);
+                $(".currency-symbol").text(data.symbol);
+
+                // also, update each currency individually
+                let all_numbers = $(".currency-number")
+                let all_values = $(".currency-original")
+                for (let i = 0; i < all_numbers.length; i++) {
+                    let cur = $(all_numbers[i]);
+                    let num = parseInt($(all_values[i]).text());
+                    let new_num = (num / parseFloat(data.rate)).toFixed(2);
+                    cur.text(new_num);
+                }
+            });
+
+
+        });
     </script>
 
 </body>
