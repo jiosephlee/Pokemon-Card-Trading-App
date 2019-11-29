@@ -237,3 +237,6 @@ josephL -- 2019-11-29-19
 
 ivanG -- 2019-11-29 15:13
     Finished search. You can now filter by card type and rarity.
+
+ivanG -- 2019-11-29 17:55
+    Search now looks through cards that are on sale

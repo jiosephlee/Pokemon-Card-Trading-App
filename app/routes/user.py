@@ -247,6 +247,11 @@ def search():
         results = Card.query.filter(
             Card.name.like('%{}%'.format(form.search.data))).all()
 
+        sales = Sale.query.all()
+        all_ids = set([i.card_id for i in sales])
+
+        results = [i for i in results if i.id in all_ids]
+
         type_filter = form.types.data
         rarity_filter = form.rarities.data
 
@@ -278,7 +283,7 @@ def search():
                            form=form,
                            query=form.search.data,
                            limit=SEARCH_LIMIT,
-                           results=full_results,
+                           RESULTS=full_results,
                            rarities=','.join(form.rarities.data),
                            types=','.join(form.types.data))
 
