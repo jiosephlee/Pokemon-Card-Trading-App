@@ -109,10 +109,21 @@ with app.app_context():
         db.session.add(trade)
     db.session.commit()
     '''
-#sale = Sale(request.form['card'], request.form['price'], 0,
-#        current_user.id)
-#db.session.add(sale)
-#db.session.commit()
+for card in Cards.query.all():
+    price = 5
+    if(card.type == "Uncommon"):
+        price = 10
+    else if (card.type == "Rare"):
+        price = 15;
+    else if (card.type == "Shining"):
+        price = 20;
+    else if ("Rare" in card.type):
+        price = 25;
+    else:
+        price = 30;
+    sale = Sale(card.id,price,)
+    db.session.add(sale)
+db.session.commit()
 # set up login manager
 login_manager = LoginManager()
 login_manager.init_app(app)
