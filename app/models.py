@@ -1,12 +1,20 @@
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.ext.associationproxy import association_proxy
 
 db = SQLAlchemy()
 
-user_card_association = db.Table(
-    'user_card_association',
-    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
-    db.Column('card_id', db.Integer, db.ForeignKey('card.id')))
+class CardOwnership(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    card_id = db.Column(db.Integer, db.ForeignKey('card.id'))
+
+    user = db.relationship('User', backref='ownership', cascade='all, delete-orphan', single_parent='true')
+    card = db.relationship('Card', backref='ownership', cascade='all, delete-orphan', single_parent='true')
+
+    def __init__(self, user_id, card_id):
+        self.user_id = user_id
+        self.card_id = card_id
 
 
 class User(db.Model, UserMixin):
@@ -16,8 +24,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(80), nullable=False)
     balance = db.Column(db.Integer, nullable=False)
 
-    # relationships
-    cards = db.relationship('Card', secondary=user_card_association)
+    cards = association_proxy('ownership', 'card', creator=lambda c: CardOwnership(id,c.id))
 
     def __init__(self, username, password):
         self.username = username
@@ -40,8 +47,7 @@ class Card(db.Model):
     rarity = db.Column(db.String(80))
     num_sales = db.Column(db.Integer, nullable=False)
 
-    # relationships
-    users = db.relationship('User', secondary=user_card_association)
+    users = association_proxy('ownership','user', creator=lambda u: CardOwnership(u.id,id))
 
     def __init__(self, name, id_str, image_small, image_hires, type, set_name,
                  series, subtype, supertype, rarity):
@@ -73,14 +79,17 @@ class Trade(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     request_card_id = db.Column(db.ForeignKey('card.id'))
     given_card_id = db.Column(db.ForeignKey('card.id'))
+    user_id = db.Column(db.ForeignKey('user.id'))
 
     # relationships
     request_card = db.relationship('Card', foreign_keys=[request_card_id])
     given_card = db.relationship('Card', foreign_keys=[given_card_id])
+    user = db.relationship('User')
 
-    def __init__(self, request_id, given_id):
+    def __init__(self, request_id, given_id, user_id):
         self.request_card_id = request_id
         self.given_card_id = given_id
+        self.user_id = user_id
 
 class Sale(db.Model):
     id = db.Column(db.Integer, primary_key=True)

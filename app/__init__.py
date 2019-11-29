@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, session
 from flask_login import LoginManager, login_required
 
 from app.forms import SignUpForm, LogInForm
-from app.models import db, User, Card, Set, Sale, ExchangeRate, Trade
+from app.models import db, User, Card, Set, Sale, ExchangeRate, Trade, CardOwnership
 from app.routes.auth import auth
 from app.routes.user import user, locations
 from app.ip_address import get_location
@@ -98,6 +98,15 @@ with app.app_context():
         set = Set(name,logo)
         db.session.add(set)
 
+    db.session.commit()
+    '''
+
+    '''
+    for i in range(30):
+        given = randint(1,11901)
+        request = randint(1,11901)
+        trade = Trade(request,given,4)
+        db.session.add(trade)
     db.session.commit()
     '''
 

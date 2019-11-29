@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
 from sqlalchemy import desc
 
-from app.models import db, Card, Set, User, Sale, Trade, Log
+from app.models import db, Card, Set, User, Sale, Trade, Log, CardOwnership
 
 from random import sample
 
@@ -19,6 +19,13 @@ def get_card(id_str):
 
 def get_set(set):
     return Card.query.filter_by(set_name=set)
+
+def element_of(val,iterable):
+    for item in iterable:
+        if item.id == val:
+            return True
+    else:
+        return False
 
 
 # list of locations a user can be in
@@ -152,8 +159,7 @@ def buyPacks():
     if (float(current_user.balance) >= 10):
         current_user.balance -= 10
         for card in cards:
-            c = User.query.filter_by(id=current_user.id).first()
-            c.cards.append(card)
+            current_user.cards.append(card)
         flash('You have brought ' + request.form['set'], 'success')
     else:
         flash('You do not enough money to buy ' + request.form['set'],
@@ -162,9 +168,23 @@ def buyPacks():
     return redirect(url_for('user.packs'))
 
 
-@user.route('/marketplace/trades')
+@user.route('/marketplace/trades', methods=['GET','POST'])
 @login_required
 def trades():
+    if 'trade' in request.form.keys():
+        requested_card = Card.query.filter_by(id=request.form['requested_card']).first()
+        given_card = Card.query.filter_by(id=request.form['given_card']).first()
+        other_user = User.query.filter_by(id=request.form['user']).first()
+        if element_of(int(requested_card.id),current_user.cards):
+            flash('Trade completed!','success')
+            current_user.cards.remove(requested_card)
+            current_user.cards.append(given_card)
+            other_user.cards.remove(given_card)
+            other_user.cards.append(requested_card)
+            Trade.query.filter_by(id=request.form['trade']).delete()
+            db.session.commit()
+        else:
+            flash('You don\'t have that card!','danger')
     new = Trade.query.order_by(Trade.id.desc())
     new1 = [new[:2], new[2:4], new[4:6]]
     new2 = [new[6:8], new[8:10], new[10:12]]
