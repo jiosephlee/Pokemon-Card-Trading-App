@@ -20,7 +20,8 @@ def get_card(id_str):
 def get_set(set):
     return Card.query.filter_by(set_name=set)
 
-def element_of(val,iterable):
+
+def element_of(val, iterable):
     for item in iterable:
         if item.id == val:
             return True
@@ -168,15 +169,17 @@ def buyPacks():
     return redirect(url_for('user.packs'))
 
 
-@user.route('/marketplace/trades', methods=['GET','POST'])
+@user.route('/marketplace/trades', methods=['GET', 'POST'])
 @login_required
 def trades():
     if 'trade' in request.form.keys():
-        requested_card = Card.query.filter_by(id=request.form['requested_card']).first()
-        given_card = Card.query.filter_by(id=request.form['given_card']).first()
+        requested_card = Card.query.filter_by(
+            id=request.form['requested_card']).first()
+        given_card = Card.query.filter_by(
+            id=request.form['given_card']).first()
         other_user = User.query.filter_by(id=request.form['user']).first()
-        if element_of(int(requested_card.id),current_user.cards):
-            flash('Trade completed!','success')
+        if element_of(int(requested_card.id), current_user.cards):
+            flash('Trade completed!', 'success')
             current_user.cards.remove(requested_card)
             current_user.cards.append(given_card)
             other_user.cards.remove(given_card)
@@ -184,7 +187,7 @@ def trades():
             Trade.query.filter_by(id=request.form['trade']).delete()
             db.session.commit()
         else:
-            flash('You don\'t have that card!','danger')
+            flash('You don\'t have that card!', 'danger')
     new = Trade.query.order_by(Trade.id.desc())
     new1 = [new[:2], new[2:4], new[4:6]]
     new2 = [new[6:8], new[8:10], new[10:12]]
@@ -243,6 +246,20 @@ def search():
     if form.validate_on_submit():
         results = Card.query.filter(
             Card.name.like('%{}%'.format(form.search.data))).all()
+
+        type_filter = form.types.data
+        rarity_filter = form.rarities.data
+
+        if len(type_filter) != 0:
+            results = [
+                i for i in filter(lambda x: x.type in type_filter, results)
+            ]
+        if len(rarity_filter) != 0:
+            results = [
+                i for i in filter(lambda x: x.rarity in rarity_filter, results)
+            ]
+
+        # cut results off
         results = results[:SEARCH_LIMIT]
 
         # pad results
@@ -257,7 +274,9 @@ def search():
                            form=form,
                            query=form.search.data,
                            limit=SEARCH_LIMIT,
-                           results=full_results)
+                           results=full_results,
+                           rarities=','.join(form.rarities.data),
+                           types=','.join(form.types.data))
 
 
 @user.route('/viewcard/<id>')

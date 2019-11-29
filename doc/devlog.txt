@@ -234,3 +234,6 @@ ivanG -- 2019-11-27 10:03
 josephL -- 2019-11-29-19
     after enjoying our thanksgiving, regroped with the team
     to clarify what to do the next few days to finish our home stretch plan
+
+ivanG -- 2019-11-29 15:13
+    Finished search. You can now filter by card type and rarity.

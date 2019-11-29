@@ -3,7 +3,7 @@ import os
 from flask import Flask, render_template, request, session
 from flask_login import LoginManager, login_required
 
-from app.forms import SignUpForm, LogInForm
+from app.forms import SignUpForm, LogInForm, get_type_options, get_rarity_options
 from app.models import db, User, Card, Set, Sale, ExchangeRate, Trade, CardOwnership
 from app.routes.auth import auth
 from app.routes.user import user, locations
@@ -100,7 +100,6 @@ with app.app_context():
 
     db.session.commit()
     '''
-
     '''
     for i in range(30):
         given = randint(1,11901)
@@ -209,7 +208,7 @@ from app.forms import get_rarity_options
 @app.route('/test')
 def test():
 
-    return str(get_rarity_options())
+    return str(get_type_options())
 
 
 app.register_blueprint(auth, url_prefix='/auth')
