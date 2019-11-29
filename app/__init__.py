@@ -108,21 +108,23 @@ with app.app_context():
         db.session.add(trade)
     db.session.commit()
     '''
-for card in Cards.query.all():
-    price = 5
-    if(card.type == "Uncommon"):
-        price = 10
-    else if (card.type == "Rare"):
-        price = 15;
-    else if (card.type == "Shining"):
-        price = 20;
-    else if ("Rare" in card.type):
-        price = 25;
-    else:
-        price = 30;
-    sale = Sale(card.id,price,)
-    db.session.add(sale)
-db.session.commit()
+
+    for card in Card.query.all():
+        price = 5
+        if(card.type == "Uncommon"):
+            price = 10
+        elif (card.type == "Rare"):
+            price = 15;
+        elif (card.type == "Shining"):
+            price = 20;
+        elif ("Rare" in card.type):
+            price = 25;
+        else:
+            price = 30;
+        sale = Sale(card.id,price,0,4)
+        db.session.add(sale)
+    db.session.commit()
+
 # set up login manager
 login_manager = LoginManager()
 login_manager.init_app(app)
