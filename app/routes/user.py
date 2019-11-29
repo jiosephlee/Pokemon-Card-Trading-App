@@ -270,6 +270,10 @@ def search():
 
         for i in range(len(results) // PER_ROW):
             full_results.append(results[i * PER_ROW:(i + 1) * PER_ROW])
+
+    form.rarities.data = []
+    form.types.data = []
+
     return render_template('search.html',
                            form=form,
                            query=form.search.data,
