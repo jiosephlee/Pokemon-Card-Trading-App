@@ -109,9 +109,12 @@ def cards():
 @user.route('/marketplace/cards', methods=['POST'])
 @login_required
 def buyCards():
+    print("YOOOOOOOOOO")
     card = Card.query.filter_by(id=request.form['card']).first()
     s = Sale.query.filter_by(card_id=card.id).first()
+    print(s.user_id)
     o = User.query.filter_by(id=s.user_id).first()
+    print(o.user_id)
     if (float(s.cost) <= float(current_user.balance)):
         current_user.balance -= s.cost
         o.balance += s.cost
