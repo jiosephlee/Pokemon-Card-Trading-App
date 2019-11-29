@@ -180,5 +180,14 @@ def update_user_currency(currency):
     return json.dumps(ret)
 
 
+from app.forms import get_rarity_options
+
+
+@app.route('/test')
+def test():
+
+    return str(get_rarity_options())
+
+
 app.register_blueprint(auth, url_prefix='/auth')
 app.register_blueprint(user, url_prefix='/user')

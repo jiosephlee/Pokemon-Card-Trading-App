@@ -16,13 +16,15 @@ user = Blueprint('user', __name__)
 def get_card(id_str):
     return Card.query.filter_by(id_str=id_str).first()
 
+
 def get_set(set):
     return Card.query.filter_by(set_name=set)
 
 
 # list of locations a user can be in
 # ('location', 'currency short', 'symbol')
-locations = [('United States', 'USD', '$'), ('Russia', 'RUB', '₽'), ('EU', 'EUR', '€'), ('Japan', 'JPY', '¥'), ('Korea', 'KRW', '₩')]
+locations = [('United States', 'USD', '$'), ('Russia', 'RUB', '₽'),
+             ('EU', 'EUR', '€'), ('Japan', 'JPY', '¥'), ('Korea', 'KRW', '₩')]
 
 
 @user.route('/profile')
@@ -41,8 +43,11 @@ def mycards():
             a[-1].append(0)
     else:
         a = []
-        flash('You currently do not own any cards. Buy cards or packs from the Marketplace!', 'info')
+        flash(
+            'You currently do not own any cards. Buy cards or packs from the Marketplace!',
+            'info')
     return render_template('mycards.html', cards=a)
+
 
 @user.route('/profile/mysales')
 @login_required
@@ -62,9 +67,12 @@ def mysales():
             x += 1
     else:
         a = []
-        flash('None of your cards are up for sale. Sell cards in the Marketplace!', 'info')
+        flash(
+            'None of your cards are up for sale. Sell cards in the Marketplace!',
+            'info')
 
     return render_template('mysales.html', cards=a)
+
 
 @user.route('/marketplace/cards', methods=['GET'])
 @login_required
@@ -78,8 +86,8 @@ def cards():
 
     newest_set = 'Cosmic Eclipse'
     n = [c for c in get_set(newest_set)]
-    n = sample(n,10)
-    new = [n[:5],n[5:]]
+    n = sample(n, 10)
+    new = [n[:5], n[5:]]
 
     p = Card.query.order_by(Card.num_sales)[:10]
     popular = [p[:5], p[5:]]
@@ -141,7 +149,7 @@ def packs():
 @login_required
 def buyPacks():
     cards = get_pack(request.form['set'])
-    if ( float(current_user.balance) >= 10):
+    if (float(current_user.balance) >= 10):
         current_user.balance -= 10
         for card in cards:
             c = User.query.filter_by(id=current_user.id).first()
@@ -158,25 +166,28 @@ def buyPacks():
 @login_required
 def trades():
     new = Trade.query.order_by(Trade.id.desc())
-    new1 = [new[:2],new[2:4],new[4:6]]
-    new2 = [new[6:8],new[8:10],new[10:12]]
+    new1 = [new[:2], new[2:4], new[4:6]]
+    new2 = [new[6:8], new[8:10], new[10:12]]
     return render_template('trades.html', new_first=new1, new_second=new2)
 
-@user.route('/trade', methods=['GET','POST'])
+
+@user.route('/trade', methods=['GET', 'POST'])
 @login_required
 def trade():
     if len(current_user.cards) == 0:
         flash('You do not have any cards to trade!', 'danger')
         return redirect(url_for('user.trades'))
-    if 'first_card' in request.form.keys() and 'second_card' in request.form.keys():
-        flash('Your trade has been posted!','success')
+    if 'first_card' in request.form.keys(
+    ) and 'second_card' in request.form.keys():
+        flash('Your trade has been posted!', 'success')
         from app import app
         with app.app_context():
-            t = Trade(request.form['second_card'],request.form['first_card'])
+            t = Trade(request.form['second_card'], request.form['first_card'])
             db.session.add(t)
             db.session.commit()
             return redirect(url_for('user.trades'))
-    return render_template('trade.html',query=Card.query)
+    return render_template('trade.html', query=Card.query)
+
 
 @user.route('/sell', methods=['GET', 'POST'])
 @login_required
@@ -185,7 +196,7 @@ def sell():
         flash('You do not have any cards to sell!', 'danger')
         return redirect(url_for('user.cards'))
     if 'card' in request.form.keys() and 'price' in request.form.keys():
-        flash('Your sale has been posted!','success')
+        flash('Your sale has been posted!', 'success')
         from app import app
         with app.app_context():
             Card.query.filter_by(

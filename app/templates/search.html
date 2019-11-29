@@ -10,6 +10,7 @@
     {{ form.csrf_token }}
 
     {{ form_field(form.search) }}
+    {{ form_field(form.rarities) }}
     {{ form_field(form.submit) }}
 </form>
 
@@ -23,23 +24,23 @@
 {% for card_list in results %}
 
 <div class="row">
-{% for card in card_list %}
+    {% for card in card_list %}
 
-<div class="col">
-{% if card is not none %}
-<div class="card">
-    <img class="card-img-top" src={{ card.image_hires }} alt={{ card.name }}>
-    <div class="card-body">
-        <h5 class="card-title">{{ card.name }}</h5>
-	<p class="card-text">{{ card.cost }}</p>
+    <div class="col">
+        {% if card is not none %}
+        <div class="card">
+            <img class="card-img-top" src={{ card.image_hires }} alt={{ card.name }}>
+            <div class="card-body">
+                <h5 class="card-title">{{ card.name }}</h5>
+                <p class="card-text">{{ card.cost }}</p>
+            </div>
+        </div>
+
+        {% endif %}
+
     </div>
-</div>
 
-{% endif %}
-
-</div>
-
-{% endfor %}
+    {% endfor %}
 
 </div><br>
 
@@ -49,5 +50,3 @@
 {% endif %}
 
 {% endblock content %}
-
-
