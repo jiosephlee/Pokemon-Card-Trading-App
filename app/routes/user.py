@@ -273,6 +273,8 @@ def search():
 
         full_results = []
 
+        print(full_results)
+
         for i in range(len(results) // PER_ROW):
             full_results.append(results[i * PER_ROW:(i + 1) * PER_ROW])
 
@@ -283,7 +285,7 @@ def search():
                            form=form,
                            query=form.search.data,
                            limit=SEARCH_LIMIT,
-                           RESULTS=full_results,
+                           results=full_results,
                            rarities=','.join(form.rarities.data),
                            types=','.join(form.types.data))
 
