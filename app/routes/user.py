@@ -109,12 +109,9 @@ def cards():
 @user.route('/marketplace/cards', methods=['POST'])
 @login_required
 def buyCards():
-    print("YOOOOOOOOOO")
     card = Card.query.filter_by(id=request.form['card']).first()
     s = Sale.query.filter_by(card_id=card.id).first()
-    print(s.user_id)
     o = User.query.filter_by(id=s.user_id).first()
-    print(o.user_id)
     if (float(s.cost) <= float(current_user.balance)):
         current_user.balance -= s.cost
         o.balance += s.cost
@@ -250,6 +247,11 @@ def search():
         results = Card.query.filter(
             Card.name.like('%{}%'.format(form.search.data))).all()
 
+        sales = Sale.query.all()
+        all_ids = set([i.card_id for i in sales])
+
+        results = [i for i in results if i.id in all_ids]
+
         type_filter = form.types.data
         rarity_filter = form.rarities.data
 
@@ -281,7 +283,7 @@ def search():
                            form=form,
                            query=form.search.data,
                            limit=SEARCH_LIMIT,
-                           results=full_results,
+                           RESULTS=full_results,
                            rarities=','.join(form.rarities.data),
                            types=','.join(form.types.data))
 
