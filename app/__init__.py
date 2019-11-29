@@ -101,6 +101,11 @@ with app.app_context():
     db.session.commit()
     '''
 
+sale = Sale(request.form['card'], request.form['price'], 0,
+            current_user.id)
+db.session.add(sale)
+db.session.commit()
+
 # set up login manager
 login_manager = LoginManager()
 login_manager.init_app(app)
