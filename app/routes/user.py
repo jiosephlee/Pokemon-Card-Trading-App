@@ -273,6 +273,8 @@ def search():
 
         full_results = []
 
+        print(full_results)
+
         for i in range(len(results) // PER_ROW):
             full_results.append(results[i * PER_ROW:(i + 1) * PER_ROW])
 
