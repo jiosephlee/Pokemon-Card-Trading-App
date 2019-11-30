@@ -1,22 +1,20 @@
 {% macro profile_bar() %}
 <div>
     <!-- Sidebar -->
-    <nav id="sidebar">
-        <div class="sidebar-header">
-        </div>
-
+    <nav id="slide-out" class="side-nav"">
         <ul class="list-unstyled components">
-            <li class="active">
-                <li>
-                <a href="{{ url_for('user.mycards') }}">My Cards</a>
-                </li>
-                <li>
-                <a href="{{ url_for('user.mysales') }}">My Sales</a>
-                </li>
-                <li>
-                <a href="{{ url_for('user.mycards') }}">My Trades</a>
-                </li>
-                <a href="{{ url_for('user.mycards') }}">Purchase History</a>
+            <li>
+              <a href="{{ url_for('user.mycards') }}">My Cards</a>
+            </li>
+            <li>
+              <a href="{{ url_for('user.mysales') }}">My Sales</a>
+            </li>
+            <li>
+              <a href="{{ url_for('user.mycards') }}">My Trades</a>
+            </li>
+            <li>
+              <a href="{{ url_for('user.mycards') }}">Purchase History</a>
+            </li>
         </ul>
     </nav>
 

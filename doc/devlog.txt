@@ -225,6 +225,7 @@ amandaC -- 2019-11-27 00:06
 amandaC -- 2019-11-27 09:38
     User's balance changes when buying a pack
     Made card border transparent when a card is not there
+    Fixed typos (Euro -> EU)
 
 ivanG -- 2019-11-27 10:03
     Added card viewing page
