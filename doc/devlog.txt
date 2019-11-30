@@ -255,3 +255,6 @@ josephL -- 2019-11-30 14:12
 
 amandaC -- 2019-11-30 15:57
     User now cannot buy their own cards
+
+ivanG -- 2019-11-30 17:03
+    Added welcome page
