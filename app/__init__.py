@@ -108,9 +108,10 @@ with app.app_context():
         db.session.add(trade)
     db.session.commit()
     '''
-    user = User.query.filter_by(id = 3).first()
+'''
+    user1 = User.query.filter_by(id = 4).first()
     for card in Card.query.all():
-        user.cards.append(card)
+        user1.cards.append(card)
         price = 5
         if(card.rarity == None):
             price = 10;
@@ -127,6 +128,8 @@ with app.app_context():
         sale = Sale(card.id,price,0,3)
         db.session.add(sale)
     db.session.commit()
+'''
+
 # set up login manager
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -198,6 +201,8 @@ def index():
 
 @app.route('/update_user_currency/<currency>', methods=['POST'])
 def update_user_currency(currency):
+
+
     session['user_currency'] = currency
     rate = get_exhange_rate(currency)
     symbol = list(filter(lambda x: x[1] == currency, locations))[0][2]
@@ -207,7 +212,6 @@ def update_user_currency(currency):
 
 
 from app.forms import get_rarity_options
-
 
 @app.route('/test')
 def test():
