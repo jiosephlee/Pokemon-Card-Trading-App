@@ -283,7 +283,7 @@ def search():
                            form=form,
                            query=form.search.data,
                            limit=SEARCH_LIMIT,
-                           RESULTS=full_results,
+                           results=full_results,
                            rarities=','.join(form.rarities.data),
                            types=','.join(form.types.data))
 
