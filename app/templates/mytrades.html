@@ -1,0 +1,22 @@
+{% extends "_base.html" %}
+
+{% from "macros/profile_bar.html" import profile_bar %}
+{% from "macros/profile_cards.html" import profile_cards %}
+
+{% block content %}
+    <h2>My Trades</h2>
+    <hr>
+    <div class="card-deck">
+        {% for trade in list %}
+            {% set given = get_card_id(trade.given_card_id) %}
+            {% set request = get_card_id(trade.request_card_id) %}
+            <div class="card"><br>
+                <div style="display: flex; justify-content: space-evenly; align-items: center">
+                    <div style="text-align: center"><h5>Giving</h5><img src={{ given.image_small }}></div>
+                    <div style="max-height: 30px"><i class="material-icons">swap_horizontal_circle</i></div>
+                    <div style="text-align: center"><h5>Requesting</h5><img src={{ request.image_small }}></div>
+                </div><br>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

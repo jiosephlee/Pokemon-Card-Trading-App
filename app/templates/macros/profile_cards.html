@@ -1,4 +1,6 @@
-{% macro profile_cards(list) %}
+{% macro profile_cards(title, list) %}
+  <h2>{{ title }}</h2>
+  <hr>
   {% for group in list[:-1] %}
   <div class="card-deck">
     {% for card in group %}

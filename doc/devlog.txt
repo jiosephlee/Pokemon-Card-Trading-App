@@ -241,3 +241,6 @@ ivanG -- 2019-11-29 15:13
 
 ivanG -- 2019-11-29 17:55
     Search now looks through cards that are on sale
+
+amandaC -- 2019-11-30 12:49
+    Made pages for my trades and purchase history
