@@ -3,7 +3,5 @@
 {% from "macros/profile_cards.html" import profile_cards %}
 
 {% block content %}
-    <h2>My Cards</h2>
-    <hr>
-      {{ profile_cards(cards) }}
+    {{ profile_cards(title, cards) }}
 {% endblock content %}

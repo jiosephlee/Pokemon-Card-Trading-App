@@ -225,6 +225,7 @@ amandaC -- 2019-11-27 00:06
 amandaC -- 2019-11-27 09:38
     User's balance changes when buying a pack
     Made card border transparent when a card is not there
+    Fixed typos (Euro -> EU)
 
 ivanG -- 2019-11-27 10:03
     Added card viewing page
@@ -245,6 +246,9 @@ josephL -- 2019-11-29-19 19:12
     Updated DD (on google docs) with updated and hotter sitemap
     Will push DD to github soon
 
+amandaC -- 2019-11-30 12:49
+    Made pages for my trades and purchase history
+    
 josephL -- 2019-11-30-19 14:12
     Added sales and cards to store users
     found many bugs
