@@ -2,52 +2,79 @@
 
 {% from "macros/render_field.html" import form_field %}
 
+{% block style %}
+<style>
+    .no-bullets ul {
+        list-style-type: none;
+    }
+</style>
+
+{% endblock style %}
+
 {% block content %}
-<h3>Welcome to the serach</h3>
-<p>Please type in your query below:</p>
+<h3>Welcome to the search!</h3>
 
 <form method="POST">
     {{ form.csrf_token }}
 
     {{ form_field(form.search) }}
+    <a class="btn btn-secondary" data-toggle="collapse" href="#rarities-collapse" role="button" aria-expanded="false" aria-controls="rarities-collapse">Filter by Rarity
+    </a>
+    <a class="btn btn-secondary" data-toggle="collapse" href="#type-collapse" role="button" aira-expanded="false" aria-controls="type-collapse">Filter by Type</a>
+    <div class="collapse no-bullets" id="rarities-collapse">
+        {{ form_field(form.rarities) }}
+    </div>
+    <div class="collapse no-bullets" id="type-collapse">
+        {{ form_field(form.types) }}
+    </div>
+    <br><br>
     {{ form_field(form.submit) }}
 </form>
 
 <hr>
 
 {% if results is not none %}
-{% if query is not none %}
+{% if query != '' %}
 <p>Search results for: {{ query }}</p>
+{% endif %}
+{% if rarities != '' %}
+<p>Rarities: {{ rarities }} </p>
+{% endif %}
+{% if types != '' %}
+<p>Types: {{ types }}</p>
 {% endif %}
 
 {% for card_list in results %}
 
 <div class="row">
-{% for card in card_list %}
+    {% for card in card_list %}
 
-<div class="col">
-{% if card is not none %}
-<div class="card">
-    <img class="card-img-top" src={{ card.image_hires }} alt={{ card.name }}>
-    <div class="card-body">
-        <h5 class="card-title">{{ card.name }}</h5>
-	<p class="card-text">{{ card.cost }}</p>
+    <div class="col">
+        {% if card is not none %}
+        <div class="card">
+            <img class="card-img-top" src={{ card.image_hires }} alt={{ card.name }}>
+            <div class="card-body">
+                <h5 class="card-title">{{ card.name }}</h5>
+                <p class="card-text">{{ card.cost }}</p>
+            </div>
+        </div>
+
+        {% endif %}
+
     </div>
-</div>
 
-{% endif %}
-
-</div>
-
-{% endfor %}
+    {% endfor %}
 
 </div><br>
 
 
 {% endfor %}
 
+{% if results == [] %}
+<br><br><br>
+<p class="text-center"><em>No cards found!</em></p>
+{% endif %}
+
 {% endif %}
 
 {% endblock content %}
-
-

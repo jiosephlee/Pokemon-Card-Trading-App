@@ -16,10 +16,12 @@ user = Blueprint('user', __name__)
 def get_card(id_str):
     return Card.query.filter_by(id_str=id_str).first()
 
+
 def get_set(set):
     return Card.query.filter_by(set_name=set)
 
-def element_of(val,iterable):
+
+def element_of(val, iterable):
     for item in iterable:
         if item.id == val:
             return True
@@ -29,7 +31,8 @@ def element_of(val,iterable):
 
 # list of locations a user can be in
 # ('location', 'currency short', 'symbol')
-locations = [('United States', 'USD', '$'), ('Russia', 'RUB', '₽'), ('EU', 'EUR', '€'), ('Japan', 'JPY', '¥'), ('Korea', 'KRW', '₩')]
+locations = [('United States', 'USD', '$'), ('Russia', 'RUB', '₽'),
+             ('EU', 'EUR', '€'), ('Japan', 'JPY', '¥'), ('Korea', 'KRW', '₩')]
 
 
 @user.route('/profile')
@@ -48,8 +51,11 @@ def mycards():
             a[-1].append(0)
     else:
         a = []
-        flash('You currently do not own any cards. Buy cards or packs from the Marketplace!', 'info')
+        flash(
+            'You currently do not own any cards. Buy cards or packs from the Marketplace!',
+            'info')
     return render_template('mycards.html', cards=a)
+
 
 @user.route('/profile/mysales')
 @login_required
@@ -69,9 +75,12 @@ def mysales():
             x += 1
     else:
         a = []
-        flash('None of your cards are up for sale. Sell cards in the Marketplace!', 'info')
+        flash(
+            'None of your cards are up for sale. Sell cards in the Marketplace!',
+            'info')
 
     return render_template('mysales.html', cards=a)
+
 
 @user.route('/marketplace/cards', methods=['GET'])
 @login_required
@@ -85,8 +94,8 @@ def cards():
 
     newest_set = 'Cosmic Eclipse'
     n = [c for c in get_set(newest_set)]
-    n = sample(n,10)
-    new = [n[:5],n[5:]]
+    n = sample(n, 10)
+    new = [n[:5], n[5:]]
 
     p = Card.query.order_by(Card.num_sales)[:10]
     popular = [p[:5], p[5:]]
@@ -148,7 +157,7 @@ def packs():
 @login_required
 def buyPacks():
     cards = get_pack(request.form['set'])
-    if ( float(current_user.balance) >= 10):
+    if (float(current_user.balance) >= 10):
         current_user.balance -= 10
         for card in cards:
             current_user.cards.append(card)
@@ -160,15 +169,17 @@ def buyPacks():
     return redirect(url_for('user.packs'))
 
 
-@user.route('/marketplace/trades', methods=['GET','POST'])
+@user.route('/marketplace/trades', methods=['GET', 'POST'])
 @login_required
 def trades():
     if 'trade' in request.form.keys():
-        requested_card = Card.query.filter_by(id=request.form['requested_card']).first()
-        given_card = Card.query.filter_by(id=request.form['given_card']).first()
+        requested_card = Card.query.filter_by(
+            id=request.form['requested_card']).first()
+        given_card = Card.query.filter_by(
+            id=request.form['given_card']).first()
         other_user = User.query.filter_by(id=request.form['user']).first()
-        if element_of(int(requested_card.id),current_user.cards):
-            flash('Trade completed!','success')
+        if element_of(int(requested_card.id), current_user.cards):
+            flash('Trade completed!', 'success')
             current_user.cards.remove(requested_card)
             current_user.cards.append(given_card)
             other_user.cards.remove(given_card)
@@ -176,27 +187,30 @@ def trades():
             Trade.query.filter_by(id=request.form['trade']).delete()
             db.session.commit()
         else:
-            flash('You don\'t have that card!','danger')
+            flash('You don\'t have that card!', 'danger')
     new = Trade.query.order_by(Trade.id.desc())
     new1 = [new[:2], new[2:4], new[4:6]]
     new2 = [new[6:8], new[8:10], new[10:12]]
     return render_template('trades.html', new_first=new1, new_second=new2)
 
-@user.route('/trade', methods=['GET','POST'])
+
+@user.route('/trade', methods=['GET', 'POST'])
 @login_required
 def trade():
     if len(current_user.cards) == 0:
         flash('You do not have any cards to trade!', 'danger')
         return redirect(url_for('user.trades'))
-    if 'first_card' in request.form.keys() and 'second_card' in request.form.keys():
-        flash('Your trade has been posted!','success')
+    if 'first_card' in request.form.keys(
+    ) and 'second_card' in request.form.keys():
+        flash('Your trade has been posted!', 'success')
         from app import app
         with app.app_context():
-            t = Trade(request.form['second_card'],request.form['first_card'])
+            t = Trade(request.form['second_card'], request.form['first_card'])
             db.session.add(t)
             db.session.commit()
             return redirect(url_for('user.trades'))
-    return render_template('trade.html',query=Card.query)
+    return render_template('trade.html', query=Card.query)
+
 
 @user.route('/sell', methods=['GET', 'POST'])
 @login_required
@@ -205,7 +219,7 @@ def sell():
         flash('You do not have any cards to sell!', 'danger')
         return redirect(url_for('user.cards'))
     if 'card' in request.form.keys() and 'price' in request.form.keys():
-        flash('Your sale has been posted!','success')
+        flash('Your sale has been posted!', 'success')
         from app import app
         with app.app_context():
             Card.query.filter_by(
@@ -232,6 +246,25 @@ def search():
     if form.validate_on_submit():
         results = Card.query.filter(
             Card.name.like('%{}%'.format(form.search.data))).all()
+
+        sales = Sale.query.all()
+        all_ids = set([i.card_id for i in sales])
+
+        results = [i for i in results if i.id in all_ids]
+
+        type_filter = form.types.data
+        rarity_filter = form.rarities.data
+
+        if len(type_filter) != 0:
+            results = [
+                i for i in filter(lambda x: x.type in type_filter, results)
+            ]
+        if len(rarity_filter) != 0:
+            results = [
+                i for i in filter(lambda x: x.rarity in rarity_filter, results)
+            ]
+
+        # cut results off
         results = results[:SEARCH_LIMIT]
 
         # pad results
@@ -240,13 +273,21 @@ def search():
 
         full_results = []
 
+        print(full_results)
+
         for i in range(len(results) // PER_ROW):
             full_results.append(results[i * PER_ROW:(i + 1) * PER_ROW])
+
+    form.rarities.data = []
+    form.types.data = []
+
     return render_template('search.html',
                            form=form,
                            query=form.search.data,
                            limit=SEARCH_LIMIT,
-                           results=full_results)
+                           results=full_results,
+                           rarities=','.join(form.rarities.data),
+                           types=','.join(form.types.data))
 
 
 @user.route('/viewcard/<id>')

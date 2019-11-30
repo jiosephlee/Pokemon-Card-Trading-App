@@ -3,7 +3,7 @@ import os
 from flask import Flask, render_template, request, session
 from flask_login import LoginManager, login_required
 
-from app.forms import SignUpForm, LogInForm
+from app.forms import SignUpForm, LogInForm, get_type_options, get_rarity_options
 from app.models import db, User, Card, Set, Sale, ExchangeRate, Trade, CardOwnership
 from app.routes.auth import auth
 from app.routes.user import user, locations
@@ -100,7 +100,6 @@ with app.app_context():
 
     db.session.commit()
     '''
-
     '''
     for i in range(30):
         given = randint(1,11901)
@@ -109,7 +108,25 @@ with app.app_context():
         db.session.add(trade)
     db.session.commit()
     '''
-
+    '''
+    for card in Card.query.all():
+        price = 5
+        if(card.rarity == None):
+            price = 10;
+        elif(card.rarity == "Uncommon"):
+            price = 10
+        elif (card.rarity == "Rare"):
+            price = 15;
+        elif (card.rarity == "Shining"):
+            price = 20;
+        elif ("Rare" in card.rarity):
+            price = 25;
+        else:
+            price = 30;
+        sale = Sale(card.id,price,0,4)
+        db.session.add(sale)
+    db.session.commit()
+    '''
 # set up login manager
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -187,6 +204,15 @@ def update_user_currency(currency):
     ret = {'rate': rate, 'symbol': symbol}
 
     return json.dumps(ret)
+
+
+from app.forms import get_rarity_options
+
+
+@app.route('/test')
+def test():
+
+    return str(get_type_options())
 
 
 app.register_blueprint(auth, url_prefix='/auth')
