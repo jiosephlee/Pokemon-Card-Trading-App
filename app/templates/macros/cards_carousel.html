@@ -10,12 +10,25 @@
                             <img class="card-img-top" src={{ card.image_hires }} alt={{ card.name }}>
                             <div class="card-body">
                                 <h5 class="card-title">{{ card.name }}</h5>
-                                <p class="card-text">{{ 100.00|change_currency|safe }}</p>
+                                <p class="card-text">
+                                    {% if card_price(card.id) is not none %}
+                                        {{ card_price(card.id)|change_currency|safe }}
+                                        {% set in_stock = True %}
+                                    {% else %}
+                                        {% set in_stock = False %}
+                                    {% endif %}
+                                </p>
                             </div>
                             <div class="card-footer bg-transparent">
                                 <form action="/user/marketplace/cards" method="POST">
+                                    {% if in_stock %}
                                     <button type="submit" name="card" value="{{ card.id }}"
-                                            class="btn btn-primary btn-block">Buy
+                                        class="btn btn-primary btn-block">
+                                        Buy
+                                    {% else %}
+                                    <button type="button" class="btn btn-secondary btn-block" disabled>
+                                        Out of Stock
+                                    {% endif %}
                                     </button>
                                 </form>
                             </div>
@@ -31,13 +44,26 @@
                                 <img class="card-img-top" src={{ card.image_hires }} alt={{ card.name }}>
                                 <div class="card-body">
                                     <h5 class="card-title">{{ card.name }}</h5>
-                                    <p class="card-text">{{ 100.00|change_currency|safe }}</p>
+                                    <p class="card-text">
+                                        {% if card_price(card.id) is not none %}
+                                            {{ card_price(card.id)|change_currency|safe }}
+                                            {% set in_stock = True %}
+                                        {% else %}
+                                            {% set in_stock = False %}
+                                        {% endif %}
+                                    </p>
                                 </div>
                                 <div class="card-footer bg-transparent">
                                     <form action={{ url_for('user.cards') }} method="POST">
-                                        <button type="submit" name="sale" value={{ card }} class="btn btn-primary
-                                                btn-block
-                                        ">Buy</button>
+                                        {% if in_stock %}
+                                        <button type="submit" name="card" value="{{ card.id }}"
+                                            class="btn btn-primary btn-block">
+                                            Buy
+                                        {% else %}
+                                        <button type="button" class="btn btn-secondary btn-block" disabled>
+                                            Out of Stock
+                                        {% endif %}
+                                        </button>
                                     </form>
                                 </div>
                             </div>
