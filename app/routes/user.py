@@ -28,6 +28,8 @@ def element_of(val, iterable):
     else:
         return False
 
+def card_price(id):
+    return Sale.query.filter_by(id=id).order_by(Sale.cost).first().cost
 
 # list of locations a user can be in
 # ('location', 'currency short', 'symbol')

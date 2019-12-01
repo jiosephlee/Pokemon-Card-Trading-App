@@ -10,7 +10,7 @@
                             <img class="card-img-top" src={{ card.image_hires }} alt={{ card.name }}>
                             <div class="card-body">
                                 <h5 class="card-title">{{ card.name }}</h5>
-                                <p class="card-text">{{ 100.00|change_currency|safe }}</p>
+                                <p class="card-text">{{ card_price(card.id)|change_currency|safe }}</p>
                             </div>
                             <div class="card-footer bg-transparent">
                                 <form action="/user/marketplace/cards" method="POST">
