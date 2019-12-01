@@ -145,7 +145,7 @@ def cards():
 @login_required
 def buyCards():
     card = Card.query.filter_by(id=request.form['card']).first()
-    s = Sale.query.filter_by(card_id=card.id).filter_by(status = 0).order_by(cost).first()
+    s = Sale.query.filter_by(card_id=card.id).filter_by(status = 0).order_by(Sale.cost).first()
     #sales = Sale.query.filter_by(card_id=card.id).filter_by(status=0).all()
     #i = 0;
     #while i < len(sales):
