@@ -254,7 +254,7 @@ def trade():
         flash('Your trade has been posted!', 'success')
         from app import app
         with app.app_context():
-            t = Trade(request.form['second_card'], request.form['first_card'])
+            t = Trade(request.form['second_card'], request.form['first_card'],current_user.id)
             db.session.add(t)
             db.session.commit()
             return redirect(url_for('user.trades'))
