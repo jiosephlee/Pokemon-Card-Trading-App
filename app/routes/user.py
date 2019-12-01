@@ -171,10 +171,9 @@ def buyCards():
         current_user.balance -= s.cost
         o.balance += s.cost
         current_user.cards.append(card)
-        if sales[i].user_id != 4:
-            o.balance += sales[i].cost
+        if s.user_id != 4:
             o.cards.remove(card)
-            sales[i].status = 1
+            s.status = 1
         flash('You have brought ' + request.form['card'], 'success')
     else:
         flash('You do not enough money to buy ' + request.form['card'],
