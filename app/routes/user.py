@@ -145,16 +145,21 @@ def cards():
 @login_required
 def buyCards():
     card = Card.query.filter_by(id=request.form['card']).first()
-    sales = Sale.query.filter_by(card_id=card.id).filter_by(status=0).all()
-    i = 0;
-    while i < len(sales):
-        if sales[i].user_id == current_user.user_id:
-            i += 1
-    if sales[i].user_id == current_user.user_id:
+    s = Sale.query.filter_by(card_id=card.id).filter_by(status = 0).order_by(cost).first()
+    #sales = Sale.query.filter_by(card_id=card.id).filter_by(status=0).all()
+    #i = 0;
+    #while i < len(sales):
+    #    if sales[i].user_id == current_user.id:
+    #        i += 1
+    if s == None:
+        flash('This card is no longer on sale',
+              'danger')
+        return redirect(url_for('user.cards'))
+    if s.user_id == current_user.id:
         flash('You cannot buy your own card',
               'danger')
         return redirect(url_for('user.cards'))
-        
+
     o = User.query.filter_by(id=s.user_id).first()
     if (float(s.cost) <= float(current_user.balance)):
         current_user.balance -= s.cost
