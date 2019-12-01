@@ -290,3 +290,6 @@ ericL -- 2019-12-01 13:55
 
 amandaC -- 2019-12-01 14:45
     Used consistent card rendering in profile
+
+ericL -- 2019-12-1 18:00
+    Fixed bug with non-active trade carousel items
