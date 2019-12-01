@@ -146,22 +146,22 @@ def cards():
 def buyCards():
     card = Card.query.filter_by(id=request.form['card']).first()
     sales = Sale.query.filter_by(card_id=card.id).filter_by(status=0).all()
-    i = 0;
-    while i < len(sales):
-        if sales[i].user_id == current_user.user_id:
-            i += 1
-    if sales[i].user_id == current_user.user_id:
+    i = 0
+    while i < len(sales) and sales[i].user_id == current_user.id:
+        i += 1
+    if sales[i].user_id == current_user.id:
         flash('You cannot buy your own card',
               'danger')
         return redirect(url_for('user.cards'))
-        
-    o = User.query.filter_by(id=s.user_id).first()
-    if (float(s.cost) <= float(current_user.balance)):
-        current_user.balance -= s.cost
-        o.balance += s.cost
+    if sales[i].user_id != 4:
+        o = User.query.filter_by(id=sales[i].user_id).first()
+    if (float(sales[i].cost) <= float(current_user.balance)):
+        current_user.balance -= sales[i].cost
         current_user.cards.append(card)
-        o.cards.remove(card)
-        s.status = 1
+        if sales[i].user_id != 4:
+            o.balance += sales[i].cost
+            o.cards.remove(card)
+            sales[i].status = 1
         flash('You have brought ' + request.form['card'], 'success')
     else:
         flash('You do not enough money to buy ' + request.form['card'],
