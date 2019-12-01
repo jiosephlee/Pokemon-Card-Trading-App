@@ -232,6 +232,10 @@ ivanG -- 2019-11-27 10:03
     Fixed currency bug where switching currency multiple times would mess up the actual value of currency.
     Added alerts when user does not own have any cards
 
+ericL -- 2019-11-28 3:00
+    Reformatted User-Card Relationship
+    Completed trading
+
 josephL -- 2019-11-29 14:19
     after enjoying our thanksgiving, regrouped with the team
     to clarify what to do the next few days to finish our home stretch plan
