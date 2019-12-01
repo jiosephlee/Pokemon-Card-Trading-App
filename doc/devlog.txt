@@ -283,3 +283,7 @@ ericL -- 2019-12-1 11:00
 
 ericL -- 2019-12-1 13:20
     Cards now display the correct sale price
+
+ericL -- 2019-12-1 13:55
+    Cards now show if they're out of stock
+    Fixed bug with displaying sale prices
