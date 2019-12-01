@@ -66,7 +66,7 @@ def mycards():
 @user.route('/profile/mysales')
 @login_required
 def mysales():
-    c = Sale.query.filter_by(user_id=current_user.id).filter_by(status=0).all()
+    c = Sale.query.filter_by(user_id=current_user.id).all()
     if len(c) > 0:
         a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5)]
         while len(a[-1]) < 5:
@@ -87,10 +87,10 @@ def mysales():
 
     return render_template('mycards.html', title="My Sales", cards=a)
 
-@user.route('/profile/purchases')
+@user.route('/profile/trades')
 @login_required
 def purchases():
-    c = Sale.query.filter_by(user_id=current_user.id).filter_by(status=1).all()
+    c = Trade.query.filter_by(user_id=current_user.id).filter_by(status=1).all()
     if len(c) > 0:
         a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5)]
         while len(a[-1]) < 5:

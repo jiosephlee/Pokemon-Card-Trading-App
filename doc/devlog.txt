@@ -278,12 +278,15 @@ josephL-- 2019-11-25 20:40 NEW HOME STRETCH PLAN
     Finish Final Version of Design Doc (12/1 NIGHT) - Joseph
     Thoroughly Test every feature of the website (12/2 MIDNIGHT) - Joseph
 
-ericL -- 2019-12-1 11:00
+ericL -- 2019-12-01 11:00
     Fixed bug with trading
 
-ericL -- 2019-12-1 13:20
+ericL -- 2019-12-01 13:20
     Cards now display the correct sale price
 
-ericL -- 2019-12-1 13:55
+ericL -- 2019-12-01 13:55
     Cards now show if they're out of stock
     Fixed bug with displaying sale prices
+
+amandaC -- 2019-12-01 14:45
+    Used consistent card rendering in profile

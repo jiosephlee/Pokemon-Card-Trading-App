@@ -6,8 +6,8 @@
 {% block content %}
     <h2>My Trades</h2>
     <hr>
+    {% for trade in list %}
     <div class="card-deck">
-        {% for trade in list %}
             {% set given = get_card_id(trade.given_card_id) %}
             {% set request = get_card_id(trade.request_card_id) %}
             <div class="card"><br>
@@ -17,6 +17,9 @@
                     <div style="text-align: center"><h5>Requesting</h5><img src={{ request.image_small }}></div>
                 </div><br>
             </div>
-        {% endfor %}
     </div>
+    <br>
+    <br>
+    {% endfor %}
+    <br>
 {% endblock content %}
