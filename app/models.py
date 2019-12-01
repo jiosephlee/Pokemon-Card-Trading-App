@@ -9,8 +9,8 @@ class CardOwnership(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     card_id = db.Column(db.Integer, db.ForeignKey('card.id'))
 
-    user = db.relationship('User', backref='ownership', cascade='all, delete-orphan', single_parent='true')
-    card = db.relationship('Card', backref='ownership', cascade='all, delete-orphan', single_parent='true')
+    user = db.relationship('User', backref='ownership')
+    card = db.relationship('Card', backref='ownership')
 
     def __init__(self, user_id, card_id):
         self.user_id = user_id

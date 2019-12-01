@@ -145,18 +145,25 @@ def cards():
 @login_required
 def buyCards():
     card = Card.query.filter_by(id=request.form['card']).first()
-    sales = Sale.query.filter_by(card_id=card.id).filter_by(status=0).all()
-    i = 0
-    while i < len(sales) and sales[i].user_id == current_user.id:
-        i += 1
-    if sales[i].user_id == current_user.id:
+    s = Sale.query.filter_by(card_id=card.id).filter_by(status = 0).order_by(Sale.cost).first()
+    #sales = Sale.query.filter_by(card_id=card.id).filter_by(status=0).all()
+    #i = 0;
+    #while i < len(sales):
+    #    if sales[i].user_id == current_user.id:
+    #        i += 1
+    if s == None:
+        flash('This card is no longer on sale',
+              'danger')
+        return redirect(url_for('user.cards'))
+    if s.user_id == current_user.id:
         flash('You cannot buy your own card',
               'danger')
         return redirect(url_for('user.cards'))
-    if sales[i].user_id != 4:
-        o = User.query.filter_by(id=sales[i].user_id).first()
-    if (float(sales[i].cost) <= float(current_user.balance)):
-        current_user.balance -= sales[i].cost
+
+    o = User.query.filter_by(id=s.user_id).first()
+    if (float(s.cost) <= float(current_user.balance)):
+        current_user.balance -= s.cost
+        o.balance += s.cost
         current_user.cards.append(card)
         if sales[i].user_id != 4:
             o.balance += sales[i].cost
@@ -249,7 +256,7 @@ def trade():
         flash('Your trade has been posted!', 'success')
         from app import app
         with app.app_context():
-            t = Trade(request.form['second_card'], request.form['first_card'])
+            t = Trade(request.form['second_card'], request.form['first_card'],current_user.id)
             db.session.add(t)
             db.session.commit()
             return redirect(url_for('user.trades'))
