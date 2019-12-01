@@ -29,7 +29,7 @@ def element_of(val, iterable):
         return False
 
 def card_price(id):
-    query =  Sale.query.filter_by(id=id,status=0).order_by(Sale.cost).first()
+    query = Sale.query.filter_by(card_id=id,status=0).order_by(Sale.cost).first()
     if query is None:
         return None
     else:
