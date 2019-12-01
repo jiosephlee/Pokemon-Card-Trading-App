@@ -50,6 +50,7 @@ def login():
 
 @auth.route('/logout')
 def logout():
+    session.clear()
     logout_user()
     flash('Logged out successfully!', 'success')
     return redirect(url_for('index'))

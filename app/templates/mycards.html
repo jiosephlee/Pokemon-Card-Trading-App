@@ -1,7 +1,9 @@
 {% extends "_base.html" %}
 
 {% from "macros/profile_cards.html" import profile_cards %}
+{%  from 'macros/profile_bar.html' import profile_bar %}
 
 {% block content %}
+    {{ profile_bar()}}
     {{ profile_cards(title, cards) }}
 {% endblock content %}
