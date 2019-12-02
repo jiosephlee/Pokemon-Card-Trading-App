@@ -284,7 +284,7 @@ def sell():
                         current_user.id)
             db.session.add(sale)
             db.session.commit()
-        return redirect(url_for('user.profile'))
+        return redirect(url_for('user.mysales'))
     return render_template('sales.html')
 
 

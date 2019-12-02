@@ -1,6 +1,7 @@
 {% extends "_base.html" %}
 
 {% from "macros/render_field.html" import form_field %}
+{% from 'macros/render_card.html' import render_card %}
 
 {% block style %}
 <style>
@@ -51,14 +52,7 @@
 
     <div class="col">
         {% if card is not none %}
-        <div class="card">
-            <img class="card-img-top" src={{ card.image_hires }} alt={{ card.name }}>
-            <div class="card-body">
-                <h5 class="card-title">{{ card.name }}</h5>
-                <p class="card-text">{{ card.cost }}</p>
-            </div>
-        </div>
-
+          {{render_card(card,True,True,True)}}
         {% endif %}
 
     </div>
