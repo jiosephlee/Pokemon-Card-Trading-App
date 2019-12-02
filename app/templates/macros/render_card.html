@@ -21,14 +21,16 @@
           {% endif %}
         </h5>
         <p class="card-text">
-            {% if displayinfo %}
+          {% if card_price(card.id) is not none %}
+              {% set in_stock = True %}
+          {% else %}
+              {% set in_stock = False %}
+          {% endif %}
+          {% if displayinfo %}
             {% if card_price(card.id) is not none %}
                 {{ card_price(card.id)|change_currency|safe }}
-                {% set in_stock = True %}
-            {% else %}
-                {% set in_stock = False %}
             {% endif %}
-            {% endif %}
+          {% endif %}
         </p>
         {% endif %}
     </div>

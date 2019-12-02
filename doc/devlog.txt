@@ -329,3 +329,6 @@ ivanG -- 2019-12-02 16:06
 
 amandaC -- 2019-12-02 16:36
     Moved mycards code to render_card macro
+
+josephL & amandaC -- 2019-12-02 16:45
+    Fixed out of stock bug
