@@ -321,5 +321,9 @@ ivanG -- 2019-12-02 8:38
 ericL -- 2019-12-02 13:33
     Updated profile with bootstrap tabs
 
+amandaC -- 2019-12-02 15:50
+    Fixed bug for user unable to sell cards
+
 ivanG -- 2019-12-02 16:06
     Fixed bug with search (css + search terms not showing up correctly)
+
