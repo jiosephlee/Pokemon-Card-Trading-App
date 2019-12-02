@@ -34,10 +34,10 @@
     <div class="col-2"><br></div>
     <div class="col">
         <b>Current Sales of this Card:</b><br>
-        Lowest Seller: <i>{{get_user_username(lowestseller.user_id)}}</i> Price: ${{lowestseller.cost}}
+        Lowest Seller: <i>{{get_user_username(lowestseller.user_id)}}</i> Price: {{lowestseller.cost|change_currency|safe}}
         {% for sale in sales%}
         <br>
-        Seller: <i>{{get_user_username(sale.user_id)}}</i> Price:${{sale.cost}}
+        Seller: <i>{{get_user_username(sale.user_id)}}</i> Price:{{sale.cost|change_currency|safe}}
         {% endfor %}
     </div>
     <div class="col-2"><br></div>
