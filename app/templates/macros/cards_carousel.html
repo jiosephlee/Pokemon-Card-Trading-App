@@ -1,3 +1,5 @@
+{% from 'macros/render_card.html' import render_card %}
+
 {% macro sales_carousel(list,name) %}
     <br>
     <div>
@@ -6,33 +8,7 @@
             <div class='carousel-item active'>
                 <div class="card-deck">
                     {% for card in list[0] %}
-                        <div class="card">
-                            <img class="card-img-top" src={{ card.image_hires }} alt={{ card.name }}>
-                            <div class="card-body">
-                                <h5 class="card-title">{{ card.name }}</h5>
-                                <p class="card-text">
-                                    {% if card_price(card.id) is not none %}
-                                        {{ card_price(card.id)|change_currency|safe }}
-                                        {% set in_stock = True %}
-                                    {% else %}
-                                        {% set in_stock = False %}
-                                    {% endif %}
-                                </p>
-                            </div>
-                            <div class="card-footer bg-transparent">
-                                <form action="/user/marketplace/cards" method="POST">
-                                    {% if in_stock %}
-                                    <button type="submit" name="card" value="{{ card.id }}"
-                                        class="btn btn-primary btn-block">
-                                        Buy
-                                    {% else %}
-                                    <button type="button" class="btn btn-secondary btn-block" disabled>
-                                        Out of Stock
-                                    {% endif %}
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
+                        {{render_card(card,True,True)}}
                     {% endfor %}
                 </div>
             </div>
@@ -40,33 +16,7 @@
                 <div class='carousel-item'>
                     <div class="card-deck">
                         {% for card in slide %}
-                            <div class="card">
-                                <img class="card-img-top" src={{ card.image_hires }} alt={{ card.name }}>
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ card.name }}</h5>
-                                    <p class="card-text">
-                                        {% if card_price(card.id) is not none %}
-                                            {{ card_price(card.id)|change_currency|safe }}
-                                            {% set in_stock = True %}
-                                        {% else %}
-                                            {% set in_stock = False %}
-                                        {% endif %}
-                                    </p>
-                                </div>
-                                <div class="card-footer bg-transparent">
-                                    <form action={{ url_for('user.cards') }} method="POST">
-                                        {% if in_stock %}
-                                        <button type="submit" name="card" value="{{ card.id }}"
-                                            class="btn btn-primary btn-block">
-                                            Buy
-                                        {% else %}
-                                        <button type="button" class="btn btn-secondary btn-block" disabled>
-                                            Out of Stock
-                                        {% endif %}
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
+                            {{render_card(card,True,True)}}
                         {% endfor %}
                     </div>
                 </div>
@@ -125,7 +75,10 @@
                                 </div><br>
                                 <div class="card-footer bg-transparent">
                                     <form action={{ url_for('user.trades') }} method="POST">
-                                            <button type="submit" name="trade" value={{ trade }} class="btn btn-primary btn-block">Trade</button>
+                                        <input type="hidden" name="given_card" value={{ trade.given_card_id }}>
+                                        <input type="hidden" name="requested_card" value={{ trade.request_card_id }}>
+                                        <input type="hidden" name="user" value={{ trade.user_id }}>
+                                        <button type="submit" name="trade" value={{ trade.id }} class="btn btn-primary btn-block">Trade</button>
                                     </form>
                                 </div>
                             </div>

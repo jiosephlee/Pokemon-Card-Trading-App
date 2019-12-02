@@ -1,9 +1,9 @@
 {% extends "_base.html" %}
 
 {% from "macros/profile_bar.html" import profile_bar %}
-{% from "macros/profile_cards.html" import profile_cards %}
 
 {% block content %}
+    {{ profile_bar()}}
     <h2>My Trades</h2>
     <hr>
     {% for trade in list %}

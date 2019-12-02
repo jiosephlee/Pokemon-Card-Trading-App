@@ -263,12 +263,12 @@ amandaC -- 2019-11-30 15:57
 ivanG -- 2019-11-30 17:03
     Added welcome page
 
-josephL-- 2019-11-25 20:12
+josephL-- 2019-11-30 20:12
     fixed a lot of bugs on buying
 
-josephL-- 2019-11-25 20:40 NEW HOME STRETCH PLAN
+josephL-- 2019-11-30 20:40 NEW HOME STRETCH PLAN (non dated tasks are due 12/2)
     Fully Test Trade (12/1 NIGHT)- Joseph
-    Fully Featured Individual Card Pages (12/2 NIGHT) - Eric
+    Fully Featured Individual Card Pages - Eric
     Consistent Card Rendering on Search - Ivan
     Consistent Card Rendering on Trade and Buy - Eric
     Consistent Card Rendering on My Sales, My Trades, and Purchase History - Amanda
@@ -288,8 +288,17 @@ ericL -- 2019-12-01 13:55
     Cards now show if they're out of stock
     Fixed bug with displaying sale prices
 
+josephL -- 2019-12-01 14:14
+    Fixed a logging 'next' issue
+
 amandaC -- 2019-12-01 14:45
     Used consistent card rendering in profile
+
+josephL -- 2019-12-01 19:49
+    Made card rendering consistent, added links to card rendering
+
+ericL -- 2019-12-01 18:00
+    Fixed bug with non-active trade carousel items
 
 amandaC -- 2019-12-02 21:51
     Added page to show user the cards they obtained in a pack

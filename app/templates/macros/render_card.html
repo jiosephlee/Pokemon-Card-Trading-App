@@ -1,21 +1,43 @@
-{% macro render_card(card, displayinfo=True) %}
+{% macro render_card(card, displayinfo=True,displaybuy = False, displaylink = True) %}
 
 <div class="card">
     <img class="card-img-top" src={{ card.image_hires }} alt={{ card.name }}>
     <div class="card-body">
-        <h5 class="card-title">{{ card.name }}</h5>
-        {% if displayinfo %}
-        <p class="card-text">$100.00</p>
-        {% endif %}
+        <h5 class="card-title">
+          {% if displaylink %}
+          <a href="{{ url_for('user.view_card',id = card.id) }}">
+            {{ card.name }}
+          </a>
+          {% else %}
+            {{ card.name }}
+          {% endif %}
+        </h5>
+        <p class="card-text">
+            {% if displayinfo %}
+            {% if card_price(card.id) is not none %}
+                {{ card_price(card.id)|change_currency|safe }}
+                {% set in_stock = True %}
+            {% else %}
+                {% set in_stock = False %}
+            {% endif %}
+            {% endif %}
+        </p>
     </div>
-    {% if displayinfo %}
+    {% if displaybuy %}
     <div class="card-footer bg-transparent">
         <form action="/user/marketplace/cards" method="POST">
-            <button type="submit" name="card" value="{{ card.name }}" class="btn btn-primary btn-block">Buy</button>
+            {% if in_stock %}
+            <button type="submit" name="card" value="{{ card.id }}"
+                class="btn btn-primary btn-block">
+                Buy
+            {% else %}
+            <button type="button" class="btn btn-secondary btn-block" disabled>
+                Out of Stock
+            {% endif %}
+            </button>
         </form>
     </div>
     {% endif %}
 </div>
-
 
 {% endmacro %}
