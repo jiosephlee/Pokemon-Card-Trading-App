@@ -288,14 +288,20 @@ ericL -- 2019-12-01 13:55
     Cards now show if they're out of stock
     Fixed bug with displaying sale prices
 
-josephL -- 2019-12-1 14:14
+josephL -- 2019-12-01 14:14
     Fixed a logging 'next' issue
 
 amandaC -- 2019-12-01 14:45
     Used consistent card rendering in profile
 
-josephL -- 2019-12-1 19:49
+josephL -- 2019-12-01 19:49
     Made card rendering consistent, added links to card rendering
 
-ericL -- 2019-12-1 18:00
+ericL -- 2019-12-01 18:00
     Fixed bug with non-active trade carousel items
+
+amandaC -- 2019-12-02 21:51
+    Added page to show user the cards they obtained in a pack
+
+amandaC -- 2019-12-01 22:09
+    User now cannot sell the same card twice

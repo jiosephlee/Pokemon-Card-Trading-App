@@ -222,7 +222,9 @@ def buyPacks():
         flash('You do not enough money to buy ' + request.form['set'],
               'danger')
     db.session.commit()
-    return redirect(url_for('user.packs'))
+    cards = [cards[:5], cards[5:]]
+    return render_template('cardsinpack.html',
+                           pack=cards)
 
 
 @user.route('/marketplace/trades', methods=['GET', 'POST'])
@@ -275,6 +277,10 @@ def sell():
         flash('You do not have any cards to sell!', 'danger')
         return redirect(url_for('user.cards'))
     if 'card' in request.form.keys() and 'price' in request.form.keys():
+        print(request.form['card'])
+        if (Sale.query.filter_by(user_id=current_user.id).filter_by(card_id=request.form['card']).first() != None):
+            flash(str(Card.query.filter_by(id=request.form['card']).first().name) + ' is already on sale!', 'danger')
+            return render_template('sales.html')
         flash('Your sale has been posted!', 'success')
         from app import app
         with app.app_context():
