@@ -311,3 +311,10 @@ amandaC -- 2019-12-01 22:18
 
 ericL -- 2019-12-02 8:20
     Fixed bug where users can trade with themselves
+
+amandaC -- 2019-12-01 08:34
+    Fixed purchase history to show cards
+
+ivanG -- 2019-12-02 8:38
+    Added solarized theme and changed navbar color to dark
+
