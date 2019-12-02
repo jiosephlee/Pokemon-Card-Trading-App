@@ -16,7 +16,6 @@ user = Blueprint('user', __name__)
 def get_card(id_str):
     return Card.query.filter_by(id_str=id_str).first()
 
-
 def get_set(set):
     return Card.query.filter_by(set_name=set)
 
@@ -358,7 +357,7 @@ def search():
 @user.route('/viewcard/<id>')
 @login_required
 def view_card(id):
-    sales = Sale.query.filter_by(card_id = id).all()
+    sales = Sale.query.filter_by(card_id = id).order_by(Sale.cost).all()
     print(sales)
     request_trades = Trade.query.filter_by(request_card_id = id).all()
     given_trades = Trade.query.filter_by(given_card_id = id).all()
@@ -366,6 +365,7 @@ def view_card(id):
 
     return render_template('viewcard.html',
                             card=card,
-                            sales = sales,
+                            lowestseller = sales[0],
+                            sales = sales[1:],
                             gtrades = given_trades,
                             rtrades = request_trades)

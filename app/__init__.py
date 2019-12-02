@@ -141,10 +141,12 @@ login_manager.login_message_category = 'danger'
 def get_card_id(id):
     return Card.query.filter_by(id=id).first()
 
+def get_user_username(id):
+    return User.query.filter_by(id = id).first().username
 
 app.jinja_env.globals.update(get_card_id=get_card_id)
 app.jinja_env.globals.update(card_price=card_price)
-
+app.jinja_env.globals.update(get_user_username=get_user_username)
 
 @login_manager.user_loader
 def load_user(user_id):
