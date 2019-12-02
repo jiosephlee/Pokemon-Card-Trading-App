@@ -50,6 +50,7 @@ def profile():
     return redirect(url_for('user.mycards'))
     #return render_template('profile.ht
 
+
 @user.route('/profile/mycards')
 @login_required
 def mycards():
@@ -304,22 +305,19 @@ def sell():
         for card in current_user.cards:
             if int(card.id) == int(request.form['card']):
                 num += 1
-<<<<<<< HEAD
+
         if (len(
                 Sale.query.filter_by(user_id=current_user.id).filter_by(
                     card_id=request.form['card']).all()) >= num):
+            print(
+                Sale.query.filter_by(user_id=current_user.id).filter_by(
+                    card_id=request.form['card']).all())
             flash(
                 str(
                     Card.query.filter_by(id=request.form['card']).first().name)
                 + ' is already on sale!', 'danger')
             return render_template('sales.html')
-=======
-        if (len(Sale.query.filter_by(user_id=current_user.id).filter_by(card_id=request.form['card']).all()) >= num):
-            print(Sale.query.filter_by(user_id=current_user.id).filter_by(card_id=request.form['card']).all())
-            flash(str(Card.query.filter_by(id=request.form['card']).first().name) + ' is already on sale!', 'danger')
-            return render_template('sales.html')
 
->>>>>>> 190a4737cb32a18c95b402ff2b628ccd2d2b3546
         flash('Your sale has been posted!', 'success')
         from app import app
         with app.app_context():
