@@ -290,3 +290,6 @@ ericL -- 2019-12-01 13:55
 
 amandaC -- 2019-12-01 14:45
     Used consistent card rendering in profile
+
+amandaC -- 2019-12-02 21:51
+    Added page to show user the cards they obtained in a pack

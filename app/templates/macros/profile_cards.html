@@ -6,7 +6,7 @@
   {% for group in list[:-1] %}
   <div class="card-deck">
     {% for card in group %}
-      {{ render_card(card) }}
+      {{ render_card(card, displayinfo=False) }}
     {% endfor %}
   </div><hr>
   {% endfor %}

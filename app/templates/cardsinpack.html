@@ -1,0 +1,12 @@
+{% extends "_base.html" %}
+
+{% from "macros/profile_cards.html" import profile_cards %}
+
+{% block content %}
+    {{ profile_cards("You Got:", pack) }}
+    <br>
+    <form method="get" action={{ url_for('user.packs') }}>
+        <button type="submit" class="btn btn-primary btn-block">Back</button>
+    </form>
+    <br><br>
+{% endblock content %}

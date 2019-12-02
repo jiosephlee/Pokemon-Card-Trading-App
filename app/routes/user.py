@@ -223,7 +223,9 @@ def buyPacks():
         flash('You do not enough money to buy ' + request.form['set'],
               'danger')
     db.session.commit()
-    return redirect(url_for('user.packs'))
+    cards = [cards[:5], cards[5:]]
+    return render_template('cardsinpack.html',
+                           pack=cards)
 
 
 @user.route('/marketplace/trades', methods=['GET', 'POST'])
