@@ -21,7 +21,9 @@
           {% if card %}
           <img class="card-img-top" src={{card.image_hires}} alt={{card.name}}>
           <div class="card-body">
-              <h5 class="card-title">{{card.name}}</h5>
+              <h5 class="card-title">
+                <a href="{{ url_for('user.view_card',id = card.id) }}">{{card.name}}</a>
+              </h5>
           </div>
           {% endif %}
         </div>

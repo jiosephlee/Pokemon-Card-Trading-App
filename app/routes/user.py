@@ -87,11 +87,15 @@ def mysales():
 
     return render_template('mycards.html', title="My Sales", cards=a)
 
-@user.route('/profile/trades')
+@user.route('/profile/purchases')
 @login_required
 def purchases():
-    c = Trade.query.filter_by(user_id=current_user.id).filter_by(status=1).all()
-    if len(c) > 0:
+    c = Sale.query.filter_by(status=1).all()
+    s = []
+    for sale in c:
+        if sale.buyer_id == current_user.id:
+            s.append(sale)
+    if len(s) > 0:
         a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5)]
         while len(a[-1]) < 5:
             a[-1].append(0)
@@ -172,8 +176,13 @@ def buyCards():
         o.balance += s.cost
         current_user.cards.append(card)
         if s.user_id != 4:
+            s.buyer = current_user
             o.cards.remove(card)
             s.status = 1
+        else:
+            sale = Sale(s.card_id, s.cost, 1, 4, current_user)
+            db.session.add(sale)
+            db.session.commit()
         flash('You have brought ' + request.form['card'], 'success')
     else:
         flash('You do not enough money to buy ' + request.form['card'],
@@ -290,7 +299,7 @@ def sell():
             Card.query.filter_by(
                 id=request.form['card']).first().num_sales += 1
             sale = Sale(request.form['card'], request.form['price'], 0,
-                        current_user.id)
+                        current_user.id, None)
             db.session.add(sale)
             db.session.commit()
         return redirect(url_for('user.mysales'))
