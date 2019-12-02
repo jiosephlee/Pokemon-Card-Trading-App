@@ -111,7 +111,7 @@ with app.app_context():
 '''
     user1 = User.query.filter_by(id = 4).first()
     for card in Card.query.all():
-        user1.cards.append(card)
+        #user1.cards.append(card)
         price = 5
         if(card.rarity == None):
             price = 10;
@@ -125,7 +125,7 @@ with app.app_context():
             price = 25;
         else:
             price = 30;
-        sale = Sale(card.id,price,0,3)
+        sale = Sale(card.id,price,0,4)
         db.session.add(sale)
     db.session.commit()
 '''
@@ -141,10 +141,12 @@ login_manager.login_message_category = 'danger'
 def get_card_id(id):
     return Card.query.filter_by(id=id).first()
 
+def get_user_username(id):
+    return User.query.filter_by(id = id).first().username
 
 app.jinja_env.globals.update(get_card_id=get_card_id)
 app.jinja_env.globals.update(card_price=card_price)
-
+app.jinja_env.globals.update(get_user_username=get_user_username)
 
 @login_manager.user_loader
 def load_user(user_id):
