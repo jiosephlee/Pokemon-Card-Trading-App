@@ -235,7 +235,9 @@ def trades():
         given_card = Card.query.filter_by(
             id=request.form['given_card']).first()
         other_user = User.query.filter_by(id=request.form['user']).first()
-        if element_of(int(requested_card.id), current_user.cards):
+        if other_user.id == current_user.id:
+            flash('You can\'t trade with yourself!','danger')
+        elif element_of(int(requested_card.id), current_user.cards):
             flash('Trade completed!', 'success')
             current_user.cards.remove(requested_card)
             current_user.cards.append(given_card)
