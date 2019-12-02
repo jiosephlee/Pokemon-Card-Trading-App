@@ -103,6 +103,7 @@ class Sale(db.Model):
     cost = db.Column(db.Integer, nullable=False)
     status = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.ForeignKey('user.id'))
+    buyer_id = db.Column(db.ForeignKey('user.id'))
 
     card = db.relationship('Card')
 
