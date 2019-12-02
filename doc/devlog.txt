@@ -309,5 +309,8 @@ amandaC -- 2019-12-01 22:31
 amandaC -- 2019-12-01 22:18
     Added more to the view my cards page
 
+ericL -- 2019-12-02 8:20
+    Fixed bug where users can trade with themselves
+
 amandaC -- 2019-12-01 08:34
     Fixed purchase history to show cards
