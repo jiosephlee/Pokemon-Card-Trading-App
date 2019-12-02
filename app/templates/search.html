@@ -7,6 +7,7 @@
 <style>
     .no-bullets ul {
         list-style-type: none;
+        display: inline-block;
     }
 </style>
 
@@ -35,15 +36,12 @@
 <hr>
 
 {% if results is not none %}
-{% if query != '' %}
+
 <p>Search results for: {{ query }}</p>
-{% endif %}
-{% if rarities != '' %}
 <p>Rarities: {{ rarities }} </p>
-{% endif %}
-{% if types != '' %}
 <p>Types: {{ types }}</p>
-{% endif %}
+
+
 
 {% for card_list in results %}
 

@@ -16,6 +16,7 @@ user = Blueprint('user', __name__)
 def get_card(id_str):
     return Card.query.filter_by(id_str=id_str).first()
 
+
 def get_set(set):
     return Card.query.filter_by(set_name=set)
 
@@ -27,12 +28,15 @@ def element_of(val, iterable):
     else:
         return False
 
+
 def card_price(id):
-    query = Sale.query.filter_by(card_id=id,status=0).order_by(Sale.cost).first()
+    query = Sale.query.filter_by(card_id=id,
+                                 status=0).order_by(Sale.cost).first()
     if query is None:
         return None
     else:
         return query.cost
+
 
 # list of locations a user can be in
 # ('location', 'currency short', 'symbol')
@@ -43,7 +47,8 @@ locations = [('United States', 'USD', '$'), ('Russia', 'RUB', '₽'),
 @user.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html')
+    return redirect(url_for('user.mycards'))
+    #return render_template('profile.ht
 
 
 @user.route('/profile/mycards')
@@ -86,6 +91,7 @@ def mysales():
 
     return render_template('mycards.html', page=1, title="My Sales", cards=a)
 
+
 @user.route('/profile/purchases')
 @login_required
 def purchases():
@@ -110,11 +116,14 @@ def purchases():
             x += 1
     else:
         a = []
-        flash(
-            'You have not bought any cards. Buy cards in the Marketplace!',
-            'info')
-    print(a)
-    return render_template('mycards.html', page=3, title="Puchase History", cards=a)
+        flash('You have not bought any cards. Buy cards in the Marketplace!',
+              'info')
+
+    return render_template('mycards.html',
+                           page=3,
+                           title="Puchase History",
+                           cards=a)
+
 
 @user.route('/profile/mytrades')
 @login_required
@@ -127,6 +136,7 @@ def mytrades():
             'info')
 
     return render_template('mytrades.html', list=c)
+
 
 @user.route('/marketplace/cards', methods=['GET'])
 @login_required
@@ -156,19 +166,18 @@ def cards():
 @login_required
 def buyCards():
     card = Card.query.filter_by(id=request.form['card']).first()
-    s = Sale.query.filter_by(card_id=card.id).filter_by(status = 0).order_by(Sale.cost).first()
+    s = Sale.query.filter_by(card_id=card.id).filter_by(status=0).order_by(
+        Sale.cost).first()
     #sales = Sale.query.filter_by(card_id=card.id).filter_by(status=0).all()
     #i = 0;
     #while i < len(sales):
     #    if sales[i].user_id == current_user.id:
     #        i += 1
     if s == None:
-        flash('This card is no longer on sale',
-              'danger')
+        flash('This card is no longer on sale', 'danger')
         return redirect(url_for('user.cards'))
     if s.user_id == current_user.id:
-        flash('You cannot buy your own card',
-              'danger')
+        flash('You cannot buy your own card', 'danger')
         return redirect(url_for('user.cards'))
 
     o = User.query.filter_by(id=s.user_id).first()
@@ -235,8 +244,7 @@ def buyPacks():
               'danger')
     db.session.commit()
     cards = [cards[:5], cards[5:]]
-    return render_template('cardsinpack.html',
-                           pack=cards)
+    return render_template('cardsinpack.html', pack=cards)
 
 
 @user.route('/marketplace/trades', methods=['GET', 'POST'])
@@ -249,7 +257,7 @@ def trades():
             id=request.form['given_card']).first()
         other_user = User.query.filter_by(id=request.form['user']).first()
         if other_user.id == current_user.id:
-            flash('You can\'t trade with yourself!','danger')
+            flash('You can\'t trade with yourself!', 'danger')
         elif element_of(int(requested_card.id), current_user.cards):
             flash('Trade completed!', 'success')
             current_user.cards.remove(requested_card)
@@ -277,7 +285,8 @@ def trade():
         flash('Your trade has been posted!', 'success')
         from app import app
         with app.app_context():
-            t = Trade(request.form['second_card'], request.form['first_card'],current_user.id)
+            t = Trade(request.form['second_card'], request.form['first_card'],
+                      current_user.id)
             db.session.add(t)
             db.session.commit()
             return redirect(url_for('user.trades'))
@@ -295,9 +304,17 @@ def sell():
         for card in current_user.cards:
             if int(card.id) == int(request.form['card']):
                 num += 1
-        if (len(Sale.query.filter_by(user_id=current_user.id).filter_by(card_id=request.form['card']).all()) >= num):
-            print(Sale.query.filter_by(user_id=current_user.id).filter_by(card_id=request.form['card']).all())
-            flash(str(Card.query.filter_by(id=request.form['card']).first().name) + ' is already on sale!', 'danger')
+
+        if (len(
+                Sale.query.filter_by(user_id=current_user.id).filter_by(
+                    card_id=request.form['card']).all()) >= num):
+            print(
+                Sale.query.filter_by(user_id=current_user.id).filter_by(
+                    card_id=request.form['card']).all())
+            flash(
+                str(
+                    Card.query.filter_by(id=request.form['card']).first().name)
+                + ' is already on sale!', 'danger')
             return render_template('sales.html')
 
         flash('Your sale has been posted!', 'success')
@@ -358,9 +375,9 @@ def search():
 
         for i in range(len(results) // PER_ROW):
             full_results.append(results[i * PER_ROW:(i + 1) * PER_ROW])
-
-    form.rarities.data = []
-    form.types.data = []
+    else:
+        form.rarities.data = []
+        form.types.data = []
 
     return render_template('search.html',
                            form=form,
@@ -374,15 +391,15 @@ def search():
 @user.route('/viewcard/<id>')
 @login_required
 def view_card(id):
-    sales = Sale.query.filter_by(card_id = id).order_by(Sale.cost).all()
+    sales = Sale.query.filter_by(card_id=id).order_by(Sale.cost).all()
     print(sales)
-    request_trades = Trade.query.filter_by(request_card_id = id).all()
-    given_trades = Trade.query.filter_by(given_card_id = id).all()
+    request_trades = Trade.query.filter_by(request_card_id=id).all()
+    given_trades = Trade.query.filter_by(given_card_id=id).all()
     card = Card.query.get(id)
 
     return render_template('viewcard.html',
-                            card=card,
-                            lowestseller = sales[0],
-                            sales = sales[1:],
-                            gtrades = given_trades,
-                            rtrades = request_trades)
+                           card=card,
+                           lowestseller=sales[0],
+                           sales=sales[1:],
+                           gtrades=given_trades,
+                           rtrades=request_trades)
