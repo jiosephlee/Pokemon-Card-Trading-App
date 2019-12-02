@@ -90,10 +90,13 @@ def mysales():
 @login_required
 def purchases():
     c = Sale.query.filter_by(status=1).all()
+    for sale in c:
+        print(sale.buyer_id)
     s = []
     for sale in c:
         if sale.buyer_id == current_user.id:
             s.append(sale)
+    print(s)
     if len(s) > 0:
         a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5)]
         while len(a[-1]) < 5:
@@ -179,7 +182,9 @@ def buyCards():
             o.cards.remove(card)
             s.status = 1
         else:
-            sale = Sale(s.card_id, s.cost, 1, 4, current_user)
+            sale = Sale(s.card_id, s.cost, 1, 4, current_user.id)
+            print(current_user.id)
+            print(sale.buyer_id)
             db.session.add(sale)
             db.session.commit()
         flash('You have brought ' + request.form['card'], 'success')

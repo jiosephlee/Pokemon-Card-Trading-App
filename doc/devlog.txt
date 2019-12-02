@@ -308,3 +308,6 @@ amandaC -- 2019-12-01 22:31
 
 amandaC -- 2019-12-01 22:18
     Added more to the view my cards page
+
+amandaC -- 2019-12-01 08:34
+    Fixed purchase history to show cards
