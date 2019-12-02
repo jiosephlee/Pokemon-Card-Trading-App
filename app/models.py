@@ -4,6 +4,7 @@ from sqlalchemy.ext.associationproxy import association_proxy
 
 db = SQLAlchemy()
 
+
 class CardOwnership(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -24,7 +25,9 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(80), nullable=False)
     balance = db.Column(db.Integer, nullable=False)
 
-    cards = association_proxy('ownership', 'card', creator=lambda c: CardOwnership(id,c.id))
+    cards = association_proxy('ownership',
+                              'card',
+                              creator=lambda c: CardOwnership(id, c.id))
 
     def __init__(self, username, password):
         self.username = username
@@ -47,7 +50,9 @@ class Card(db.Model):
     rarity = db.Column(db.String(80))
     num_sales = db.Column(db.Integer, nullable=False)
 
-    users = association_proxy('ownership','user', creator=lambda u: CardOwnership(u.id,id))
+    users = association_proxy('ownership',
+                              'user',
+                              creator=lambda u: CardOwnership(u.id, id))
 
     def __init__(self, name, id_str, image_small, image_hires, type, set_name,
                  series, subtype, supertype, rarity):
@@ -91,13 +96,13 @@ class Trade(db.Model):
         self.given_card_id = given_id
         self.user_id = user_id
 
+
 class Sale(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     card_id = db.Column(db.ForeignKey('card.id'))
     cost = db.Column(db.Integer, nullable=False)
     status = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.ForeignKey('user.id'))
-    buyer_id = db.Column(db.ForeignKey('user.id'))
 
     card = db.relationship('Card')
 
