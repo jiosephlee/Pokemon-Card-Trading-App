@@ -11,7 +11,7 @@ This website is an interactive experience for Pokemon Trading Card Game enthusia
 
 #### Eric Lam
 - Front-End: Buying and Selling
-   - HTML Templates and App routes 
+   - HTML Templates and App routes
 - Back-end: Trading
    - The functions that involve requesting and accepting trades
 - Managing: checking for logical setup of functions and database relationships
@@ -33,5 +33,11 @@ This website is an interactive experience for Pokemon Trading Card Game enthusia
 - https://docs.google.com/document/d/1BDjby5I0kwVJHwZqG5sdHL-vToQsQI_oxhmlBbA87bM/
 ## Launch Codes
 1. run "git clone https://github.com/jiosephlee/Softdev-P01.git" to clone the repo
+
+### If you have make installed
+2. run "make install"
+3. run "make run"
+
+### If you don't
 2. run "pip install -r doc/requirements.txt" to get necessary packages
 3. run "python run.py" to start the app
