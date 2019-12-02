@@ -129,7 +129,6 @@ with app.app_context():
         db.session.add(sale)
     db.session.commit()
 '''
-
 # set up login manager
 login_manager = LoginManager()
 login_manager.init_app(app)
