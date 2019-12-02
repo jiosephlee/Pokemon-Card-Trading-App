@@ -89,12 +89,11 @@ def mysales():
 @user.route('/profile/purchases')
 @login_required
 def purchases():
-    c = Sale.query.filter_by(status=1).all()
-    for sale in c:
-        print(sale.buyer_id)
+    c = Sale.query.filter_by(status=1).filter_by(buyer_id = current_user.id).all()
+    print(c)
     s = []
     for sale in c:
-        if sale.buyer_id == current_user.id:
+        if sale.buyer_id == current_user.id and sale.user_id != current_user.id:
             s.append(sale)
     print(s)
     if len(s) > 0:
@@ -114,7 +113,7 @@ def purchases():
         flash(
             'You have not bought any cards. Buy cards in the Marketplace!',
             'info')
-
+    print(a)
     return render_template('mycards.html', page=3, title="Puchase History", cards=a)
 
 @user.route('/profile/mytrades')
