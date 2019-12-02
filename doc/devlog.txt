@@ -332,3 +332,4 @@ amandaC -- 2019-12-02 16:36
 
 josephL & amandaC -- 2019-12-02 16:45
     Fixed out of stock bug
+    Fixed background color of empty cards
