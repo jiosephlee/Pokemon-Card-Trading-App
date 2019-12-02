@@ -19,7 +19,6 @@ def add_exchange_rate(currency):
     db.session.add(new_rate)
     db.session.commit()
 
-    print(data)
 
 
 def update_exchange_rate(currency):
@@ -38,6 +37,6 @@ def get_exhange_rate(currency):
 
     req = ExchangeRate.query.filter_by(currency=currency).first()
 
-    print(req.currency, req.rate)
+    #print(req.currency, req.rate)
 
     return req.rate

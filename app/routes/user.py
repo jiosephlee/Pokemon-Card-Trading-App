@@ -43,8 +43,8 @@ locations = [('United States', 'USD', '$'), ('Russia', 'RUB', '₽'),
 @user.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html')
-
+    return redirect(url_for('user.mycards'))
+    #return render_template('profile.ht
 
 @user.route('/profile/mycards')
 @login_required
