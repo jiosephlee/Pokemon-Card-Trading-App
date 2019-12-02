@@ -305,3 +305,6 @@ amandaC -- 2019-12-02 21:51
 
 amandaC -- 2019-12-01 22:09
     User now cannot sell the same card twice
+
+amandaC -- 2019-12-01 22:18
+    Added more to the view my cards page
