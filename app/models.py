@@ -101,12 +101,12 @@ class Sale(db.Model):
 
     card = db.relationship('Card')
 
-    def __init__(self, card_id, cost, status, user_id):
+    def __init__(self, card_id, cost, status, user_id, buyer_id):
         self.card_id = card_id
         self.cost = cost
         self.status = status
         self.user_id = user_id
-        self.buyer_id = None
+        self.buyer_id = buyer_id
 
 
 class Log(db.Model):

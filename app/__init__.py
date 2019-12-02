@@ -125,7 +125,7 @@ with app.app_context():
             price = 25;
         else:
             price = 30;
-        sale = Sale(card.id,price,0,4)
+        sale = Sale(card.id,price,0,4,None)
         db.session.add(sale)
     db.session.commit()
 '''
