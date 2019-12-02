@@ -59,7 +59,7 @@ def mycards():
         flash(
             'You currently do not own any cards. Buy cards or packs from the Marketplace!',
             'info')
-    return render_template('mycards.html', title="My Cards", cards=a)
+    return render_template('mycards.html', page=0, title="My Cards", cards=a)
 
 
 @user.route('/profile/mysales')
@@ -84,7 +84,7 @@ def mysales():
             'None of your cards are up for sale. Sell cards in the Marketplace!',
             'info')
 
-    return render_template('mycards.html', title="My Sales", cards=a)
+    return render_template('mycards.html', page=1, title="My Sales", cards=a)
 
 @user.route('/profile/purchases')
 @login_required
@@ -115,7 +115,7 @@ def purchases():
             'You have not bought any cards. Buy cards in the Marketplace!',
             'info')
 
-    return render_template('mycards.html', title="Puchase History", cards=a)
+    return render_template('mycards.html', page=3, title="Puchase History", cards=a)
 
 @user.route('/profile/mytrades')
 @login_required

@@ -5,9 +5,9 @@
 {% from 'macros/render_card.html' import render_card %}
 
 {% block content %}
-  {{profile_bar()}}
   <h2>{{ title }}</h2>
-  <hr>
+    <hr>
+  {{profile_bar(page)}}
   {% for group in cards[:-1] %}
   <div class="card-deck">
     {% for card in group %}
