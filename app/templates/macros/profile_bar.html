@@ -1,22 +1,41 @@
-{% macro profile_bar() %}
-<div>
-    <!-- Sidebar -->
-    <nav id="slide-out" class="side-nav"">
-        <ul class="list-unstyled components">
-            <li>
-              <a href="{{ url_for('user.mycards') }}">My Cards</a>
-            </li>
-            <li>
-              <a href="{{ url_for('user.mysales') }}">My Sales</a>
-            </li>
-            <li>
-              <a href="{{ url_for('user.mytrades') }}">My Trades</a>
-            </li>
-            <li>
-              <a href="{{ url_for('user.purchases') }}">Purchase History</a>
-            </li>
-        </ul>
-    </nav>
-
-</div>
+{% macro profile_bar(page) %}
+    <div><ul class="nav nav-tabs nav-justified">
+        <li class="nav-item">
+            {% if page == 0 %}
+            <a class="nav-link active" href={{ url_for('user.mycards') }}>
+            {% else %}
+            <a class="nav-link" href={{ url_for('user.mycards') }}>
+            {% endif %}
+                My Cards
+            </a>
+        </li>
+        <li class="nav-item">
+            {% if page == 1 %}
+            <a class="nav-link active" href={{ url_for('user.mysales') }}>
+            {% else %}
+            <a class="nav-link" href={{ url_for('user.mysales') }}>
+            {% endif %}
+                My Sales
+            </a>
+        </li>
+        <li class="nav-item">
+            {% if page == 2 %}
+            <a class="nav-link active" href={{ url_for('user.mytrades') }}>
+            {% else %}
+            <a class="nav-link" href={{ url_for('user.mytrades') }}>
+            {% endif %}
+                My Trades
+            </a>
+        </li>
+        <li class="nav-item">
+            {% if page == 3 %}
+            <a class="nav-link active" href={{ url_for('user.purchases') }}>
+            {% else %}
+            <a class="nav-link" href={{ url_for('user.purchases') }}>
+            {% endif %}
+                Purchase History
+            </a>
+        </li>
+    </ul></div>
+    <br>
 {% endmacro %}

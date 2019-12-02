@@ -318,3 +318,5 @@ amandaC -- 2019-12-01 08:34
 ivanG -- 2019-12-02 8:38
     Added solarized theme and changed navbar color to dark
 
+ericL -- 2019-12-02 13:33
+    Updated profile with bootstrap tabs

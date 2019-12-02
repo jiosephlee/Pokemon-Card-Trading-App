@@ -3,9 +3,9 @@
 {% from "macros/profile_bar.html" import profile_bar %}
 
 {% block content %}
-    {{ profile_bar()}}
     <h2>My Trades</h2>
     <hr>
+    {{ profile_bar(2)}}
     {% for trade in list %}
     <div class="card-deck">
             {% set given = get_card_id(trade.given_card_id) %}
