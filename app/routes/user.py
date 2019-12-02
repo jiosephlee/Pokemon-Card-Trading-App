@@ -349,7 +349,14 @@ def search():
 @user.route('/viewcard/<id>')
 @login_required
 def view_card(id):
-
+    sales = Sale.query.filter_by(card_id = id).all()
+    print(sales)
+    request_trades = Trade.query.filter_by(request_card_id = id).all()
+    given_trades = Trade.query.filter_by(given_card_id = id).all()
     card = Card.query.get(id)
 
-    return render_template('viewcard.html', card=card)
+    return render_template('viewcard.html',
+                            card=card,
+                            sales = sales,
+                            gtrades = given_trades,
+                            rtrades = request_trades)

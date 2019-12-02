@@ -28,7 +28,70 @@
         </div>
     </div>
     <div class="col-2"><br></div>
-
+</div>
+<hr>
+<div class="row">
+  <div class="col-2"><br></div>
+  <div class="col">
+    <b>All Sales of this Card:</b>
+    {% for sale in sales%}
+      <br>
+      ${{sale.cost}}
+    {% endfor %}
+  </div>
+  <div class="col-2"><br></div>
+</div>
+<div class="row">
+  <div class="col-2"><br></div>
+  <div class="col">
+  <b>Available Trades Giving this Card:</b>
+    {% for trade in gtrades %}
+        {% set given = get_card_id(trade.given_card_id) %}
+        {% set request = get_card_id(trade.request_card_id) %}
+        <div class="card"><br>
+            <div style="display: flex; justify-content: space-evenly; align-items: center">
+                <div style="text-align: center"><h5>Giving</h5><img src={{ given.image_small }}></div>
+                <div style="max-height: 30px"><i class="material-icons">swap_horizontal_circle</i></div>
+                <div style="text-align: center"><h5>Requesting</h5><img src={{ request.image_small }}></div>
+            </div><br>
+            <div class="card-footer bg-transparent">
+                <form action={{ url_for('user.trades') }} method="POST">
+                        <input type="hidden" name="given_card" value={{ trade.given_card_id }}>
+                        <input type="hidden" name="requested_card" value={{ trade.request_card_id }}>
+                        <input type="hidden" name="user" value={{ trade.user_id }}>
+                        <button type="submit" name="trade" value={{ trade.id }} class="btn btn-primary btn-block">Trade</button>
+                </form>
+            </div>
+        </div>
+    {% endfor %}
+  </div>
+  <div class="col-2"><br></div>
+</div>
+<div class="row">
+  <div class="col-2"><br></div>
+  <div class="col">
+    <b>Available Trades Requesting this Card:</b>
+    {% for trade in rtrades %}
+        {% set given = get_card_id(trade.given_card_id) %}
+        {% set request = get_card_id(trade.request_card_id) %}
+        <div class="card"><br>
+            <div style="display: flex; justify-content: space-evenly; align-items: center">
+                <div style="text-align: center"><h5>Giving</h5><img src={{ given.image_small }}></div>
+                <div style="max-height: 30px"><i class="material-icons">swap_horizontal_circle</i></div>
+                <div style="text-align: center"><h5>Requesting</h5><img src={{ request.image_small }}></div>
+            </div><br>
+            <div class="card-footer bg-transparent">
+                <form action={{ url_for('user.trades') }} method="POST">
+                        <input type="hidden" name="given_card" value={{ trade.given_card_id }}>
+                        <input type="hidden" name="requested_card" value={{ trade.request_card_id }}>
+                        <input type="hidden" name="user" value={{ trade.user_id }}>
+                        <button type="submit" name="trade" value={{ trade.id }} class="btn btn-primary btn-block">Trade</button>
+                </form>
+            </div>
+        </div>
+    {% endfor %}
+  </div>
+  <div class="col-2"><br></div>
 </div>
 {% else %}
 
