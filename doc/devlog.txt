@@ -303,7 +303,7 @@ ericL -- 2019-12-01 18:00
 amandaC -- 2019-12-02 21:51
     Added page to show user the cards they obtained in a pack
 
-amandaC -- 2019-12-01 22:09
+amandaC -- 2019-12-01 22:31
     User now cannot sell the same card twice
 
 amandaC -- 2019-12-01 22:18

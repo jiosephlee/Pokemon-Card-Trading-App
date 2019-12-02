@@ -277,10 +277,13 @@ def sell():
         flash('You do not have any cards to sell!', 'danger')
         return redirect(url_for('user.cards'))
     if 'card' in request.form.keys() and 'price' in request.form.keys():
-        print(request.form['card'])
-        if (Sale.query.filter_by(user_id=current_user.id).filter_by(card_id=request.form['card']).first() != None):
-            flash(str(Card.query.filter_by(id=request.form['card']).first().name) + ' is already on sale!', 'danger')
-            return render_template('sales.html')
+        num = 0
+        for card in current_user.cards:
+            if card.id == request.form['card']:
+                num += 1
+        if (len(Sale.query.filter_by(user_id=current_user.id).filter_by(card_id=request.form['card']).all()) >= num):
+                flash(str(Card.query.filter_by(id=request.form['card']).first().name) + ' is already on sale!', 'danger')
+                return render_template('sales.html')
         flash('Your sale has been posted!', 'success')
         from app import app
         with app.app_context():
