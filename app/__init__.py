@@ -111,7 +111,7 @@ with app.app_context():
 '''
     user1 = User.query.filter_by(id = 4).first()
     for card in Card.query.all():
-        user1.cards.append(card)
+        #user1.cards.append(card)
         price = 5
         if(card.rarity == None):
             price = 10;
@@ -125,7 +125,7 @@ with app.app_context():
             price = 25;
         else:
             price = 30;
-        sale = Sale(card.id,price,0,3)
+        sale = Sale(card.id,price,0,4)
         db.session.add(sale)
     db.session.commit()
 '''
