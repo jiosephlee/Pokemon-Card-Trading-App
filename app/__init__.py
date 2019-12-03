@@ -108,7 +108,7 @@ with app.app_context():
         db.session.add(trade)
     db.session.commit()
     '''
-'''
+    '''
     user1 = User.query.filter_by(id = 4).first()
     for card in Card.query.all():
         #user1.cards.append(card)
@@ -128,7 +128,14 @@ with app.app_context():
         sale = Sale(card.id,price,0,4)
         db.session.add(sale)
     db.session.commit()
-'''
+    '''
+    '''
+    for i in range(30):
+        t = Trade(randint(1,11901),randint(1,11901),4)
+        db.session.add(t)
+    db.session.commit()
+    '''
+
 # set up login manager
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -140,12 +147,15 @@ login_manager.login_message_category = 'danger'
 def get_card_id(id):
     return Card.query.filter_by(id=id).first()
 
+
 def get_user_username(id):
-    return User.query.filter_by(id = id).first().username
+    return User.query.filter_by(id=id).first().username
+
 
 app.jinja_env.globals.update(get_card_id=get_card_id)
 app.jinja_env.globals.update(card_price=card_price)
 app.jinja_env.globals.update(get_user_username=get_user_username)
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -160,7 +170,6 @@ def before_request():
 
 @app.context_processor
 def make_global_variables():
-
     ip = request.remote_addr
 
     if request.headers.getlist('X-Forwarded-For'):
@@ -203,8 +212,6 @@ def index():
 
 @app.route('/update_user_currency/<currency>', methods=['POST'])
 def update_user_currency(currency):
-
-
     session['user_currency'] = currency
     rate = get_exhange_rate(currency)
     symbol = list(filter(lambda x: x[1] == currency, locations))[0][2]
@@ -215,9 +222,9 @@ def update_user_currency(currency):
 
 from app.forms import get_rarity_options
 
+
 @app.route('/test')
 def test():
-
     return str(get_type_options())
 
 

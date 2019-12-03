@@ -120,7 +120,7 @@ def purchases():
 @user.route('/profile/mytrades')
 @login_required
 def mytrades():
-    c = Trade.query.filter_by(user_id=current_user.id).all()
+    c = Trade.query.filter_by(user_id=current_user.id,status=0).all()
 
     if len(c) == 0:
         flash(
@@ -257,11 +257,11 @@ def trades():
             current_user.cards.append(given_card)
             other_user.cards.remove(given_card)
             other_user.cards.append(requested_card)
-            Trade.query.filter_by(id=request.form['trade']).delete()
+            Trade.query.filter_by(id=request.form['trade']).first().status += 1
             db.session.commit()
         else:
             flash('You don\'t have that card!', 'danger')
-    new = Trade.query.order_by(Trade.id.desc())
+    new = Trade.query.filter_by(status=0).order_by(Trade.id.desc())
     new1 = [new[:2], new[2:4], new[4:6]]
     new2 = [new[6:8], new[8:10], new[10:12]]
     return render_template('trades.html', new_first=new1, new_second=new2)

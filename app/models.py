@@ -85,6 +85,7 @@ class Trade(db.Model):
     request_card_id = db.Column(db.ForeignKey('card.id'))
     given_card_id = db.Column(db.ForeignKey('card.id'))
     user_id = db.Column(db.ForeignKey('user.id'))
+    status = db.Column(db.Integer, nullable=False)
 
     # relationships
     request_card = db.relationship('Card', foreign_keys=[request_card_id])
@@ -95,6 +96,7 @@ class Trade(db.Model):
         self.request_card_id = request_id
         self.given_card_id = given_id
         self.user_id = user_id
+        self.status = 0
 
 
 class Sale(db.Model):
