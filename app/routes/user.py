@@ -238,6 +238,9 @@ def buyCards():
         current_user.balance -= s.cost
         o.balance += s.cost
         current_user.cards.append(card)
+        trade = Trade.query.filter_by(status=0).filter_by(user_id=current_user.id).filter_by(given_card_id=card.id).first()
+        if len(trade) > 0:
+            db.session.remove(trade[0])
         if s.user_id != 4:
             s.buyer = current_user
             o.cards.remove(card)
@@ -313,6 +316,9 @@ def trades():
             flash('You can\'t trade with yourself!', 'danger')
         elif element_of(int(requested_card.id), current_user.cards):
             flash('Trade completed!', 'success')
+            sale = Sale.query.filter_by(status=0).filter_by(user_id=current_user.id).filter_by(card_id=requested_card.id).first()
+            if len(sale) > 0:
+                db.session.remove(sale[0])
             current_user.cards.remove(requested_card)
             current_user.cards.append(given_card)
             other_user.cards.remove(given_card)
