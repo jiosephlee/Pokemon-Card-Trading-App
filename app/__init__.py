@@ -147,7 +147,6 @@ login_manager.login_message_category = 'danger'
 def get_card_id(id):
     return Card.query.filter_by(id=id).first()
 
-
 def get_user_username(id):
     return User.query.filter_by(id=id).first().username
 

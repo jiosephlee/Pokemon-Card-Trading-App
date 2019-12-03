@@ -16,6 +16,8 @@ user = Blueprint('user', __name__)
 def get_card(id_str):
     return Card.query.filter_by(id_str=id_str).first()
 
+def get_card_id(id):
+    return Card.query.filter_by(id=id).first()
 
 def get_set(set):
     return Card.query.filter_by(set_name=set)
@@ -246,7 +248,7 @@ def buyCards():
             print(sale.buyer_id)
             db.session.add(sale)
             db.session.commit()
-        flash('You have brought ' + request.form['card'], 'success')
+        flash('You have bought ' + get_card_id(int(request.form['card'])).name, 'success')
     else:
         flash('You do not enough money to buy ' + request.form['card'],
               'danger')
