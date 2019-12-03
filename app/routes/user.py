@@ -31,13 +31,9 @@ def element_of(val, iterable):
         return False
 
 
-def card_price(id):
-    query = Sale.query.filter_by(card_id=id,
-                                 status=0).order_by(Sale.cost).first()
-    if query is None:
-        return None
-    else:
-        return query.cost
+def get_lowest_sale(card_id):
+    return Sale.query.filter_by(card_id=card_id,
+                                status=0).filter(Sale.user_id != current_user.id).order_by(Sale.cost).first()
 
 
 # list of locations a user can be in
@@ -73,7 +69,7 @@ def mycards():
 @login_required
 def mysales():
     #loop through user's sales and build a list of groups of 5 cards to make displaying easier'
-    c = Sale.query.filter_by(user_id=current_user.id).all()
+    c = Sale.query.filter_by(user_id=current_user.id, status = 0).all()
     if len(c) > 0:
         a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5)]
         while len(a[-1]) < 5:
@@ -99,7 +95,7 @@ def mysales():
 @login_required
 def purchaseHist():
     #loop through a query of cards the user have bought and build a list of groups of 5 cards to make displaying easier'
-    c = Sale.query.filter_by(status=1).filter_by(buyer_id = current_user.id).all()
+    c = Sale.query.filter_by(status=1, buyer_id = current_user.id).all()
     print(c)
     s = []
     for sale in c:
@@ -132,8 +128,8 @@ def purchaseHist():
 @login_required
 def saleHist():
     #loop through a query of cards the user have sold and build a list of groups of 5 cards to make displaying easier'
-    c = Sale.query.filter_by(status=1).filter_by(buyer_id = current_user.id).all()
-    c = Sale.query.filter_by(status=1).filter_by(user_id = current_user.id).all()
+    c = Sale.query.filter_by(status=1, buyer_id = current_user.id).all()
+    c = Sale.query.filter_by(status=1, user_id = current_user.id).all()
     if len(c) > 0:
         a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5)]
         while len(a[-1]) < 5:
@@ -160,8 +156,8 @@ def saleHist():
 @login_required
 def tradeHist():
     #loop through a query of trades the user have participated in and build a list of groups of 5 cards to make displaying easier'
-    c = Sale.query.filter_by(status=1).filter_by(buyer_id = current_user.id).all()
-    c = Trade.query.filter_by(status=1).filter_by(user_id = current_user.id).all()
+    c = Sale.query.filter_by(status=1, buyer_id = current_user.id).all()
+    c = Trade.query.filter_by(status=1, user_id = current_user.id).all()
     if len(c) > 0:
         a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5)]
         while len(a[-1]) < 5:
@@ -230,7 +226,7 @@ def buyCards():
     '''goes through all the necessary interactions that must happen when a card is bought'''
 
     card = Card.query.filter_by(id=request.form['card']).first()
-    s = Sale.query.filter_by(card_id=card.id).filter_by(status=0).order_by(
+    s = Sale.query.filter_by(card_id=card.id,status=0).order_by(
         Sale.cost).first()
     if s == None:
         flash('This card is no longer on sale', 'danger')
@@ -244,17 +240,19 @@ def buyCards():
         current_user.balance -= s.cost
         o.balance += s.cost
         current_user.cards.append(card)
-        trade = Trade.query.filter_by(status=0).filter_by(user_id=current_user.id).filter_by(given_card_id=card.id).first()
-        if len(trade) > 0:
-            db.session.remove(trade[0])
         if s.user_id != 4:
             s.buyer = current_user
             o.cards.remove(card)
             s.status = 1
+            if(card not in o.cards):
+                trades = Trade.query.filter_by(status=0,
+                                               user_id=current_user.id,
+                                               given_card_id=card.id).all()
+                if trades != None:
+                    for trade in trades:
+                        db.session.delete(trade)
         else:
             sale = Sale(s.card_id, s.cost, 1, 4, current_user.id)
-            print(current_user.id)
-            print(sale.buyer_id)
             db.session.add(sale)
             db.session.commit()
         flash('You have bought ' + get_card_id(int(request.form['card'])).name, 'success')
@@ -324,14 +322,28 @@ def trades():
             flash('You can\'t trade with yourself!', 'danger')
         elif element_of(int(requested_card.id), current_user.cards):
             flash('Trade completed!', 'success')
-            sale = Sale.query.filter_by(status=0).filter_by(user_id=current_user.id).filter_by(card_id=requested_card.id).first()
-            if len(sale) > 0:
-                db.session.remove(sale[0])
+            # sale = Sale.query.filter_by(status=0).filter_by(user_id=current_user.id).filter_by(card_id=requested_card.id).first()
+            # if len(sale) > 0:
+            #     db.session.remove(sale[0])
+
             current_user.cards.remove(requested_card)
             current_user.cards.append(given_card)
             other_user.cards.remove(given_card)
             other_user.cards.append(requested_card)
             Trade.query.filter_by(id=request.form['trade']).first().status += 1
+            if (requested_card not in current_user.cards):
+                trades = Trade.query.filter_by(user_id=current_user.id,
+                                               request_card_id = requested_card.id,
+                                               status = 0).all()
+                if trades != None:
+                    for trade in trades:
+                        db.session.delete(trade)
+                sales = Sale.query.filter_by(status=0,
+                                             user_id=current_user.id,
+                                             card_id=requested_card.id).all()
+                if sales != None:
+                    for sale in trades:
+                        db.session.delete(sale)
             db.session.commit()
         else:
             flash('You don\'t have that card!', 'danger')
@@ -372,16 +384,12 @@ def sell():
             if int(card.id) == int(request.form['card']):
                 num += 1
 
-        if (len(
-                Sale.query.filter_by(user_id=current_user.id).filter_by(
+        if (len(Sale.query.filter_by(user_id=current_user.id).filter_by(
                     card_id=request.form['card']).all()) >= num):
-            print(
-                Sale.query.filter_by(user_id=current_user.id).filter_by(
-                    card_id=request.form['card']).all())
-            flash(
+            flash( 'All of your copies of ' +
                 str(
                     Card.query.filter_by(id=request.form['card']).first().name)
-                + ' is already on sale!', 'danger')
+                + ' are already on sale!', 'danger')
             return render_template('sales.html')
 
         flash('Your sale has been posted!', 'success')
@@ -458,7 +466,7 @@ def search():
 @user.route('/viewcard/<id>')
 @login_required
 def view_card(id):
-    sales = Sale.query.filter_by(card_id=id).order_by(Sale.cost).all()
+    sales = Sale.query.filter_by(card_id=id,status=0).order_by(Sale.cost).all()
     print(sales)
     request_trades = Trade.query.filter_by(request_card_id=id).all()
     given_trades = Trade.query.filter_by(given_card_id=id).all()

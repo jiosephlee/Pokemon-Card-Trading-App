@@ -6,7 +6,7 @@ from flask_login import LoginManager, login_required
 from app.forms import SignUpForm, LogInForm, get_type_options, get_rarity_options
 from app.models import db, User, Card, Set, Sale, ExchangeRate, Trade, CardOwnership
 from app.routes.auth import auth
-from app.routes.user import user, locations, card_price
+from app.routes.user import user, locations, get_lowest_sale
 from app.ip_address import get_location
 from app.exchange_rates import get_exhange_rate
 
@@ -152,7 +152,7 @@ def get_user_username(id):
 
 
 app.jinja_env.globals.update(get_card_id=get_card_id)
-app.jinja_env.globals.update(card_price=card_price)
+app.jinja_env.globals.update(get_lowest_sale=get_lowest_sale)
 app.jinja_env.globals.update(get_user_username=get_user_username)
 
 
