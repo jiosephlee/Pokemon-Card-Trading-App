@@ -121,7 +121,7 @@ def purchases():
 
     return render_template('mycards.html',
                            page=3,
-                           title="Puchase History",
+                           title="Purchase History",
                            cards=a)
 
 
