@@ -94,9 +94,9 @@ def mysales():
     return render_template('mycards.html', page=1, title="My Sales", cards=a)
 
 
-@user.route('/profile/purchases')
+@user.route('/profile/purchaseHist')
 @login_required
-def purchases():
+def purchaseHist():
     c = Sale.query.filter_by(status=1).filter_by(buyer_id = current_user.id).all()
     print(c)
     s = []
@@ -126,6 +126,57 @@ def purchases():
                            title="Purchase History",
                            cards=a)
 
+@user.route('/profile/saleHist')
+@login_required
+def saleHist():
+    c = Sale.query.filter_by(status=1).filter_by(user_id = current_user.id).all()
+    if len(c) > 0:
+        a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5)]
+        while len(a[-1]) < 5:
+            a[-1].append(0)
+        x = 0
+        y = 0
+        while x < 5:
+            while y < 5:
+                if (a[x][y] != 0):
+                    a[x][y] = Card.query.filter_by(id=a[x][y].card_id).first()
+                y += 1
+            x += 1
+    else:
+        a = []
+        flash('You have not sold any cards. Sell cards in the Marketplace!',
+              'info')
+
+    return render_template('mycards.html',
+                           page=4,
+                           title="Sale History",
+                           cards=a)
+
+@user.route('/profile/tradeHist')
+@login_required
+def tradeHist():
+    c = Trade.query.filter_by(status=1).filter_by(user_id = current_user.id).all()
+    if len(c) > 0:
+        a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5)]
+        while len(a[-1]) < 5:
+            a[-1].append(0)
+        x = 0
+        y = 0
+        while x < 5:
+            while y < 5:
+                if (a[x][y] != 0):
+                    a[x][y] = Card.query.filter_by(id=a[x][y].card_id).first()
+                y += 1
+            x += 1
+    else:
+        a = []
+        flash('You have not traded any cards. Trade cards in the Marketplace!',
+              'info')
+
+    return render_template('mycards.html',
+                           page=5,
+                           title="Trade History",
+                           cards=a)
 
 @user.route('/profile/mytrades')
 @login_required
