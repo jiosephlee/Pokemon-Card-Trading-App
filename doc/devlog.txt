@@ -336,3 +336,6 @@ josephL & amandaC -- 2019-12-02 16:45
 
 ericL -- 2019-12-02 19:50
     Trade table now includes status column
+
+amandaC -- 2019-12-02 22:35
+    Added sale history and part of trade history
