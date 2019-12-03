@@ -226,12 +226,13 @@ def buyCards():
     '''goes through all the necessary interactions that must happen when a card is bought'''
 
     card = Card.query.filter_by(id=request.form['card']).first()
-    s = Sale.query.filter_by(card_id=card.id,status=0).order_by(
+    anysale = Sale.query.filter_by(card_id=card.id,status=0).first()
+    s = Sale.query.filter_by(card_id=card.id,status=0).filter(Sale.user_id != current_user.id).order_by(
         Sale.cost).first()
-    if s == None:
+    if anysale == None:
         flash('This card is no longer on sale', 'danger')
         return redirect(url_for('user.cards'))
-    if s.user_id == current_user.id:
+    elif s == None:
         flash('You cannot buy your own card', 'danger')
         return redirect(url_for('user.cards'))
 
