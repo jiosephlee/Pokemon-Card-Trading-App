@@ -1,8 +1,16 @@
 {% macro render_card(card, displayinfo=True,displaybuy = False, displaylink = True) %}
 
+{% if card %}
 <div class="card">
+{% else %}
+<div class="card" style="border: transparent; background-color: #002B36">
+{% endif %}
+
+  {% if card %}
     <img class="card-img-top" src={{ card.image_hires }} alt={{ card.name }}>
+    {% endif %}
     <div class="card-body">
+      {% if card %}
         <h5 class="card-title">
           {% if displaylink %}
           <a href="{{ url_for('user.view_card',id = card.id) }}">
@@ -13,15 +21,18 @@
           {% endif %}
         </h5>
         <p class="card-text">
-            {% if displayinfo %}
+          {% if card_price(card.id) is not none %}
+              {% set in_stock = True %}
+          {% else %}
+              {% set in_stock = False %}
+          {% endif %}
+          {% if displayinfo %}
             {% if card_price(card.id) is not none %}
                 {{ card_price(card.id)|change_currency|safe }}
-                {% set in_stock = True %}
-            {% else %}
-                {% set in_stock = False %}
             {% endif %}
-            {% endif %}
+          {% endif %}
         </p>
+        {% endif %}
     </div>
     {% if displaybuy %}
     <div class="card-footer bg-transparent">
