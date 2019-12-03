@@ -342,3 +342,6 @@ ericL -- 2019-12-02 19:50
 
 josephL -- 2019-12-02 21:58
     added transactions history dropdown to profilebar
+
+josephL -- 2019-12-02 22:30
+    fixed showing card id bug
