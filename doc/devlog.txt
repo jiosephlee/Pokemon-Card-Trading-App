@@ -320,3 +320,6 @@ ivanG -- 2019-12-02 8:38
 
 ericL -- 2019-12-02 13:33
     Updated profile with bootstrap tabs
+
+ericL -- 2019-12-02 19:50
+    Trade table now includes status column
