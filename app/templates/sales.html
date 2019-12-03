@@ -12,9 +12,6 @@
     .show .filter-option{
         color: #fff !important;
     }
-    .bootstrap-select .dropdown-toggle .filter-option{
-        color: #000;
-    }
     .bootstrap-select .dropdown-toggle[title="Select a Card"] .filter-option{
         color: #999999;
     }
@@ -29,7 +26,7 @@
             <label for="card">Card</label><br>
             <select id="card" name="card" class="selectpicker" data-live-search="true" data-style="btn-outline-primary" title="Select a Card" required>
                 {% for card in current_user.cards %}
-                    <option title={{ card.name }} data-tokens={{ card.name }} data-content="<img src={{ card.image_small }} style='height:50%'>">
+                    <option title="{{ card.name }}" data-tokens={{ card.name }} data-content="<img src={{ card.image_small }} style='height:50%'>">
                         {{ card.id }}
                     </option>
                 {% endfor %}
