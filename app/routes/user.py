@@ -148,7 +148,7 @@ def saleHist():
               'info')
 
     return render_template('mycards.html',
-                           page=4,
+                           page=3,
                            title="Sale History",
                            cards=a)
 
@@ -156,41 +156,40 @@ def saleHist():
 @login_required
 def tradeHist():
     #loop through a query of trades the user have participated in and build a list of groups of 5 cards to make displaying easier'
-    c = Sale.query.filter_by(status=1, buyer_id = current_user.id).all()
-    c = Trade.query.filter_by(status=1, user_id = current_user.id).all()
-    if len(c) > 0:
-        a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5)]
-        while len(a[-1]) < 5:
-            a[-1].append(0)
-        x = 0
-        y = 0
-        while x < 5:
-            while y < 5:
-                if (a[x][y] != 0):
-                    a[x][y] = Card.query.filter_by(id=a[x][y].card_id).first()
-                y += 1
-            x += 1
-    else:
-        a = []
+    c = Trade.query.filter_by(status=1, acceptor_id = current_user.id).all()
+    print(c)
+    if len(c) == 0:
         flash('You have not traded any cards. Trade cards in the Marketplace!',
               'info')
+    else:
+        a = [c[i * 2:(i + 1) * 2] for i in range((len(c) + 2 - 1) // 2)]
+        while len(a[-1]) < 2:
+            a[-1].append(0)
 
-    return render_template('mycards.html',
-                           page=5,
+    return render_template('mytrades.html',
+                           page=3,
                            title="Trade History",
-                           cards=a)
+                           list=a)
 
 @user.route('/profile/mytrades')
 @login_required
 def mytrades():
     c = Trade.query.filter_by(user_id=current_user.id,status=0).all()
-
+    print(c)
     if len(c) == 0:
         flash(
             'You do not have any cards up for trade. Trade cards in the Marketplace!',
             'info')
+    else:
+        a = [c[i * 2:(i + 1) * 2] for i in range((len(c) + 2 - 1) // 2)]
+        while len(a[-1]) < 2:
+            a[-1].append(0)
+        print(a)
 
-    return render_template('mytrades.html', list=c)
+    return render_template('mytrades.html',
+                            page=2,
+                            title="My Trades",
+                            list=a)
 
 
 @user.route('/marketplace/cards', methods=['GET'])
@@ -333,7 +332,9 @@ def trades():
             current_user.cards.append(given_card)
             other_user.cards.remove(given_card)
             other_user.cards.append(requested_card)
-            Trade.query.filter_by(id=request.form['trade']).first().status += 1
+            trade = Trade.query.filter_by(id=request.form['trade']).first()
+            trade.status += 1
+            trade.acceptor_id = current_user.id
             if (requested_card not in current_user.cards): #checks for other trades
                 trades = Trade.query.filter_by(user_id=current_user.id,
                                                request_card_id = requested_card.id,
@@ -401,8 +402,7 @@ def sell():
             if int(card.id) == int(request.form['card']):
                 num += 1
 
-        if (len(Sale.query.filter_by(user_id=current_user.id).filter_by(
-                    card_id=request.form['card']).all()) >= num):
+        if (len(Sale.query.filter_by(user_id=current_user.id,card_id=request.form['card']).all()) >= num):
             flash( 'All of your copies of ' +
                 str(
                     Card.query.filter_by(id=request.form['card']).first().name)

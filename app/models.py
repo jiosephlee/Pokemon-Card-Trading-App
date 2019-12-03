@@ -86,17 +86,20 @@ class Trade(db.Model):
     given_card_id = db.Column(db.ForeignKey('card.id'))
     user_id = db.Column(db.ForeignKey('user.id'))
     status = db.Column(db.Integer, nullable=False)
+    acceptor_id = db.Column(db.ForeignKey('user.id'))
 
     # relationships
     request_card = db.relationship('Card', foreign_keys=[request_card_id])
     given_card = db.relationship('Card', foreign_keys=[given_card_id])
-    user = db.relationship('User')
+    user = db.relationship('User',foreign_keys=[user_id])
+    acceptor = db.relationship('User', foreign_keys=[acceptor_id])
 
     def __init__(self, request_id, given_id, user_id):
         self.request_card_id = request_id
         self.given_card_id = given_id
         self.user_id = user_id
         self.status = 0
+        self.acceptor_id = None
 
 
 class Sale(db.Model):
