@@ -348,3 +348,6 @@ josephL -- 2019-12-02 22:30
 
 amandaC -- 2019-12-02 22:35
     Added sale history and part of trade history
+
+amandaC -- 2019-12-02 22:47
+    Fixed bug for trading and selling the same card
