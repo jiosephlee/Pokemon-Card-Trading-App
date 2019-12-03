@@ -162,14 +162,14 @@ def tradeHist():
         flash('You have not traded any cards. Trade cards in the Marketplace!',
               'info')
     else:
-        a = [c[i * 2:(i + 1) * 2] for i in range((len(c) + 2 - 1) // 2)]
+        c = [c[i * 2:(i + 1) * 2] for i in range((len(c) + 2 - 1) // 2)]
         while len(a[-1]) < 2:
-            a[-1].append(0)
+            c[-1].append(0)
 
     return render_template('mytrades.html',
                            page=3,
                            title="Trade History",
-                           list=a)
+                           list=c)
 
 @user.route('/profile/mytrades')
 @login_required
@@ -181,15 +181,15 @@ def mytrades():
             'You do not have any cards up for trade. Trade cards in the Marketplace!',
             'info')
     else:
-        a = [c[i * 2:(i + 1) * 2] for i in range((len(c) + 2 - 1) // 2)]
+        c = [c[i * 2:(i + 1) * 2] for i in range((len(c) + 2 - 1) // 2)]
         while len(a[-1]) < 2:
-            a[-1].append(0)
+            c[-1].append(0)
         print(a)
 
     return render_template('mytrades.html',
                             page=2,
                             title="My Trades",
-                            list=a)
+                            list=c)
 
 
 @user.route('/marketplace/cards', methods=['GET'])
@@ -306,6 +306,7 @@ def buyPacks():
               'danger')
     db.session.commit()
     cards = [cards[:5], cards[5:]]
+    print()
     return render_template('cardsinpack.html', pack=cards)
 
 
