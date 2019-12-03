@@ -37,7 +37,7 @@
     </div>
     {% if displaybuy %}
     <div class="card-footer bg-transparent">
-        <form action="/user/marketplace/cards" method="POST">
+        <form action = {{url_for('user.buyCards')}} method = "POST">
             {% if in_stock %}
             <button type="submit" name="card" value="{{ card.id }}"
                 class="btn btn-primary btn-block">

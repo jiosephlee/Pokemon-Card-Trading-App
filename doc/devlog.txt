@@ -359,4 +359,7 @@ josephL -- 2019-12-03 0:54
     made function formatting Consistent
     fixed trade and sales bug but still testing
     changed card_price to lowest_Sale
-    found more and fixed other minor bugs
+    found a major bug and fixed other minor bugs
+
+josephL -- 2019-12-03 0:58
+    fixed major bug

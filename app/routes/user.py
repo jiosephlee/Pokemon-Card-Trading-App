@@ -48,7 +48,7 @@ def profile():
     return redirect(url_for('user.mycards'))
 
 
-@user.route('/profile/mycards')
+@user.route('/profile/mycards', methods = ['GET','POST'])
 @login_required
 def mycards():
     #loop through user's cards and build a list of groups of 5 cards to make displaying easier'''
@@ -227,33 +227,35 @@ def buyCards():
 
     card = Card.query.filter_by(id=request.form['card']).first()
     anysale = Sale.query.filter_by(card_id=card.id,status=0).first()
-    s = Sale.query.filter_by(card_id=card.id,status=0).filter(Sale.user_id != current_user.id).order_by(
+    lowestsale = Sale.query.filter_by(card_id=card.id,status=0).filter(Sale.user_id != current_user.id).order_by(
         Sale.cost).first()
     if anysale == None:
         flash('This card is no longer on sale', 'danger')
         return redirect(url_for('user.cards'))
-    elif s == None:
+    elif lowestsale == None:
         flash('You cannot buy your own card', 'danger')
         return redirect(url_for('user.cards'))
 
-    o = User.query.filter_by(id=s.user_id).first()
-    if (float(s.cost) <= float(current_user.balance)): #if the user has enough money to buy it
-        current_user.balance -= s.cost
-        o.balance += s.cost
+    owner = User.query.filter_by(id=lowestsale.user_id).first()
+    if (float(lowestsale.cost) <= float(current_user.balance)): #if the user has enough money to buy it
+        current_user.balance -= lowestsale.cost
+        owner.balance += lowestsale.cost
         current_user.cards.append(card)
-        if s.user_id != 4:
-            s.buyer = current_user
-            o.cards.remove(card)
-            s.status = 1
-            if(card not in o.cards):
+        if lowestsale.user_id != 4:
+            lowestsale.buyer = current_user
+            owner.cards.remove(card)
+            lowestsale.status = 1
+            print(card not in owner.cards)
+            if(card not in owner.cards):
                 trades = Trade.query.filter_by(status=0,
-                                               user_id=current_user.id,
+                                               user_id=lowestsale.user_id,
                                                given_card_id=card.id).all()
+                print(trades)
                 if trades != None:
                     for trade in trades:
                         db.session.delete(trade)
         else:
-            sale = Sale(s.card_id, s.cost, 1, 4, current_user.id)
+            sale = Sale(lowestsale.card_id, lowestsale.cost, 1, 4, current_user.id)
             db.session.add(sale)
             db.session.commit()
         flash('You have bought ' + get_card_id(int(request.form['card'])).name, 'success')
@@ -332,7 +334,7 @@ def trades():
             other_user.cards.remove(given_card)
             other_user.cards.append(requested_card)
             Trade.query.filter_by(id=request.form['trade']).first().status += 1
-            if (requested_card not in current_user.cards):
+            if (requested_card not in current_user.cards): #checks for other trades
                 trades = Trade.query.filter_by(user_id=current_user.id,
                                                request_card_id = requested_card.id,
                                                status = 0).all()
@@ -342,6 +344,20 @@ def trades():
                 sales = Sale.query.filter_by(status=0,
                                              user_id=current_user.id,
                                              card_id=requested_card.id).all()
+                if sales != None:
+                    for sale in trades:
+                        db.session.delete(sale)
+
+            if (given_card not in other_user.cards):
+                trades = Trade.query.filter_by(user_id=other_user.id,
+                                               given_card = given_card.id,
+                                               status = 0).all()
+                if trades != None:
+                    for trade in trades:
+                        db.session.delete(trade)
+                sales = Sale.query.filter_by(status=0,
+                                             user_id=other_user.id,
+                                             card_id=given_card.id).all()
                 if sales != None:
                     for sale in trades:
                         db.session.delete(sale)
