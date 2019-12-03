@@ -35,9 +35,13 @@ This website is an interactive experience for Pokemon Trading Card Game enthusia
 1. run "git clone https://github.com/jiosephlee/Softdev-P01.git" to clone the repo
 
 ### If you have make installed
-2. run "make install"
-3. run "make run"
+``` 
+make install
+make run
+````
 
 ### If you don't
-2. run "pip install -r doc/requirements.txt" to get necessary packages
-3. run "python run.py" to start the app
+```
+pip install -r doc/requirements.txt
+python run.py
+```
