@@ -1,5 +1,3 @@
-# IP address manipulation
-
 import urllib.request
 import json
 from app.models import db, IPAddress
@@ -7,11 +5,13 @@ from app.models import db, IPAddress
 base_url = 'http://ip-api.com/json/%s'
 
 def api_query(ip_addr):
+    '''returns the information regarding the ip_address from an API'''
     full_query = base_url % (ip_addr)
     req = urllib.request.Request(full_query)
     return json.loads(urllib.request.urlopen(req).read())
 
 def get_location(ip_addr):
+    '''gets the location of an ip_address and adds that info to the database'''
     # first, check the databse to see if there is a matching record
     match = IPAddress.query.filter_by(ip_str=str(ip_addr)).first()
 

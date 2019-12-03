@@ -4,8 +4,7 @@ from wtforms.validators import DataRequired, Length, EqualTo
 from app.models import Card
 from wtforms import widgets
 
-
-# figure out all the options we can have for selecting card rarity. This select relies on some things
+'''These two functions return options for search filtering'''
 def get_rarity_options():
     all_cards = Card.query.all()
     all_rarities = list(set([i.rarity for i in all_cards]))

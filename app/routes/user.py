@@ -13,7 +13,7 @@ from app.forms import SearchForm
 user = Blueprint('user', __name__)
 
 
-def get_card(id_str):
+def get_card_str(id_str):
     return Card.query.filter_by(id_str=id_str).first()
 
 def get_card_id(id):
@@ -50,12 +50,12 @@ locations = [('United States', 'USD', '$'), ('Russia', 'RUB', '₽'),
 @login_required
 def profile():
     return redirect(url_for('user.mycards'))
-    #return render_template('profile.ht
 
 
 @user.route('/profile/mycards')
 @login_required
 def mycards():
+    #loop through user's cards and build a list of groups of 5 cards to make displaying easier'''
     c = current_user.cards
     if len(c) > 0:
         a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5)]
@@ -72,6 +72,7 @@ def mycards():
 @user.route('/profile/mysales')
 @login_required
 def mysales():
+    #loop through user's sales and build a list of groups of 5 cards to make displaying easier'
     c = Sale.query.filter_by(user_id=current_user.id).all()
     if len(c) > 0:
         a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5)]
@@ -97,6 +98,7 @@ def mysales():
 @user.route('/profile/purchaseHist')
 @login_required
 def purchaseHist():
+    #loop through a query of cards the user have bought and build a list of groups of 5 cards to make displaying easier'
     c = Sale.query.filter_by(status=1).filter_by(buyer_id = current_user.id).all()
     print(c)
     s = []
@@ -129,6 +131,8 @@ def purchaseHist():
 @user.route('/profile/saleHist')
 @login_required
 def saleHist():
+    #loop through a query of cards the user have sold and build a list of groups of 5 cards to make displaying easier'
+    c = Sale.query.filter_by(status=1).filter_by(buyer_id = current_user.id).all()
     c = Sale.query.filter_by(status=1).filter_by(user_id = current_user.id).all()
     if len(c) > 0:
         a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5)]
@@ -155,6 +159,8 @@ def saleHist():
 @user.route('/profile/tradeHist')
 @login_required
 def tradeHist():
+    #loop through a query of trades the user have participated in and build a list of groups of 5 cards to make displaying easier'
+    c = Sale.query.filter_by(status=1).filter_by(buyer_id = current_user.id).all()
     c = Trade.query.filter_by(status=1).filter_by(user_id = current_user.id).all()
     if len(c) > 0:
         a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5)]
@@ -194,18 +200,21 @@ def mytrades():
 @user.route('/marketplace/cards', methods=['GET'])
 @login_required
 def cards():
+    #set certain cards as featured
     f = [
         'xy6-61', 'xy8-63', 'xy8-64', 'xy2-69', 'xy2-13', 'sm5-161', 'sm5-163',
         'sm6-140', 'sm11-247', 'smp-SM210'
     ]
-    f = [get_card(n) for n in f]
+    f = [get_card_str(n) for n in f]
     featured = [f[:5], f[5:]]
 
+    #get the cards of a set that we manually call the newest one
     newest_set = 'Cosmic Eclipse'
     n = [c for c in get_set(newest_set)]
     n = sample(n, 10)
     new = [n[:5], n[5:]]
 
+    #order the cards by how many times they've been sold and grab the 10 most popular
     p = Card.query.order_by(Card.num_sales)[:10]
     popular = [p[:5], p[5:]]
 
@@ -218,14 +227,11 @@ def cards():
 @user.route('/marketplace/cards', methods=['POST'])
 @login_required
 def buyCards():
+    '''goes through all the necessary interactions that must happen when a card is bought'''
+
     card = Card.query.filter_by(id=request.form['card']).first()
     s = Sale.query.filter_by(card_id=card.id).filter_by(status=0).order_by(
         Sale.cost).first()
-    #sales = Sale.query.filter_by(card_id=card.id).filter_by(status=0).all()
-    #i = 0;
-    #while i < len(sales):
-    #    if sales[i].user_id == current_user.id:
-    #        i += 1
     if s == None:
         flash('This card is no longer on sale', 'danger')
         return redirect(url_for('user.cards'))
@@ -234,7 +240,7 @@ def buyCards():
         return redirect(url_for('user.cards'))
 
     o = User.query.filter_by(id=s.user_id).first()
-    if (float(s.cost) <= float(current_user.balance)):
+    if (float(s.cost) <= float(current_user.balance)): #if the user has enough money to buy it
         current_user.balance -= s.cost
         o.balance += s.cost
         current_user.cards.append(card)
@@ -306,6 +312,8 @@ def buyPacks():
 @user.route('/marketplace/trades', methods=['GET', 'POST'])
 @login_required
 def trades():
+    '''goes through all the necessary interactions that must happen when a trade is accpeted'''
+
     if 'trade' in request.form.keys():
         requested_card = Card.query.filter_by(
             id=request.form['requested_card']).first()
