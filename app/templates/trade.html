@@ -26,7 +26,7 @@
             <label for="first_card">Your Card</label><br>
             <select id="first_card" name="first_card" class="selectpicker" data-live-search="true" data-style="btn-outline-primary" title="Select a Card" required>
                 {% for card in current_user.cards %}
-                    <option title={{ card.name }} data-tokens={{ card.name }} data-content="<img src={{ card.image_small }} style='height:50%'>">
+                    <option title="{{ card.name }}" data-tokens={{ card.name }} data-content="<img src={{ card.image_small }} style='height:50%'>">
                         {{ card.id }}
                     </option>
                 {% endfor %}
@@ -36,7 +36,7 @@
             <label for="second_card">Requested Card</label><br>
             <select id="second_card" name="second_card" class="selectpicker" data-live-search="true" data-style="btn-outline-primary" title="Select a Card" required>
                 {% for card in query %}
-                    <option title={{ card.name }} data-tokens={{ card.name }} data-content='<a href="#" style="text-decoration:none" data-toggle="tooltip" data-placement="right" title={{ card.set_name }}>{{ card.name }}</a>'>
+                    <option title="{{ card.name }}" data-tokens={{ card.name }} data-content='<a href="#" style="text-decoration:none" data-toggle="tooltip" data-placement="right" title={{ card.set_name }}>{{ card.name }}</a>'>
                         {{ card.id }}
                     </option>
                 {% endfor %}

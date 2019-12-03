@@ -150,10 +150,14 @@ def get_card_id(id):
 def get_user_username(id):
     return User.query.filter_by(id=id).first().username
 
+def debug(test):
+    print(test)
+    return ''
 
 app.jinja_env.globals.update(get_card_id=get_card_id)
 app.jinja_env.globals.update(get_lowest_sale=get_lowest_sale)
 app.jinja_env.globals.update(get_user_username=get_user_username)
+app.jinja_env.filters['debug'] = debug
 
 
 @login_manager.user_loader
