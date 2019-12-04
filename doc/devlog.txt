@@ -378,3 +378,7 @@ amandaC -- 2019-12-03 13:13
 
 amandaC -- 2019-12-03 20:40
     Fixed typo and my trade bug
+
+amandaC -- 2019-12-03 21:29
+    Added comments
+    Fixed bug when showing cards bought in a pack

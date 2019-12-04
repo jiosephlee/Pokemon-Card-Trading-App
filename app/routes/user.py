@@ -51,7 +51,7 @@ def profile():
 @user.route('/profile/mycards', methods = ['GET','POST'])
 @login_required
 def mycards():
-    #loop through user's cards and build a list of groups of 5 cards to make displaying easier'''
+    '''Loop through user's cards and build a list of groups of 5 cards to make displaying easier.'''
     c = current_user.cards
     if len(c) > 0:
         a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5)]
@@ -62,13 +62,16 @@ def mycards():
         flash(
             'You currently do not own any cards. Buy cards or packs from the Marketplace!',
             'info')
-    return render_template('mycards.html', page=0, title="My Cards", cards=a)
+    return render_template('mycards.html',
+                            page=0,
+                            title="My Cards",
+                            cards=a)
 
 
 @user.route('/profile/mysales')
 @login_required
 def mysales():
-    #loop through user's sales and build a list of groups of 5 cards to make displaying easier'
+    '''Loop through user's sales and build a list of groups of 5 cards to make displaying easier.'''
     c = Sale.query.filter_by(user_id=current_user.id, status = 0).all()
     if len(c) > 0:
         a = [c[i * 5:(i + 1) * 5] for i in range((len(c) + 5 - 1) // 5)]
@@ -88,13 +91,16 @@ def mysales():
             'None of your cards are up for sale. Sell cards in the Marketplace!',
             'info')
 
-    return render_template('mycards.html', page=1, title="My Sales", cards=a)
+    return render_template('mycards.html',
+                            page=1,
+                            title="My Sales",
+                            cards=a)
 
 
 @user.route('/profile/purchaseHist')
 @login_required
 def purchaseHist():
-    #loop through a query of cards the user have bought and build a list of groups of 5 cards to make displaying easier'
+    '''Loop through a query of cards the user have bought and build a list of groups of 5 cards to make displaying easier.'''
     c = Sale.query.filter_by(status=1, buyer_id = current_user.id).all()
     print(c)
     s = []
@@ -127,7 +133,7 @@ def purchaseHist():
 @user.route('/profile/saleHist')
 @login_required
 def saleHist():
-    #loop through a query of cards the user have sold and build a list of groups of 5 cards to make displaying easier'
+    '''Loop through a query of cards the user have sold and build a list of groups of 5 cards to make displaying easier.'''
     c = Sale.query.filter_by(status=1, buyer_id = current_user.id).all()
     c = Sale.query.filter_by(status=1, user_id = current_user.id).all()
     if len(c) > 0:
@@ -155,7 +161,7 @@ def saleHist():
 @user.route('/profile/tradeHist')
 @login_required
 def tradeHist():
-    #loop through a query of trades the user have participated in and build a list of groups of 5 cards to make displaying easier'
+    '''Loop through a query of trades the user have participated in and build a list of groups of 2 cards to make displaying easier.'''
     c = Trade.query.filter_by(status=1, acceptor_id = current_user.id).all()
     print(c)
     if len(c) == 0:
@@ -174,6 +180,7 @@ def tradeHist():
 @user.route('/profile/mytrades')
 @login_required
 def mytrades():
+    '''Loop through user's trades and build a list of groups of 2 cards to make displaying easier.'''
     c = Trade.query.filter_by(user_id=current_user.id,status=0).all()
     print(c)
     if len(c) == 0:
@@ -194,6 +201,7 @@ def mytrades():
 @user.route('/marketplace/cards', methods=['GET'])
 @login_required
 def cards():
+    '''Display cards up for sale in the marketplace.'''
     #set certain cards as featured
     f = [
         'xy6-61', 'xy8-63', 'xy8-64', 'xy2-69', 'xy2-13', 'sm5-161', 'sm5-163',
@@ -221,8 +229,7 @@ def cards():
 @user.route('/marketplace/cards', methods=['POST'])
 @login_required
 def buyCards():
-    '''goes through all the necessary interactions that must happen when a card is bought'''
-
+    '''Goes through all the necessary interactions that must happen when a card is bought.'''
     card = Card.query.filter_by(id=request.form['card']).first()
     anysale = Sale.query.filter_by(card_id=card.id,status=0).first()
     lowestsale = Sale.query.filter_by(card_id=card.id,status=0).filter(Sale.user_id != current_user.id).order_by(
@@ -267,6 +274,7 @@ def buyCards():
 @user.route('/marketplace/packs', methods=['GET'])
 @login_required
 def packs():
+    '''Display packs up for sale in the marketplace.'''
     f = [
         'Legendary Collection', 'Legends Awakened', 'Legend Maker',
         'Legendary Treasures', 'Shining Legends'
@@ -294,6 +302,7 @@ def packs():
 @user.route('/marketplace/packs', methods=['POST'])
 @login_required
 def buyPacks():
+    '''Goes through all the necessary interactions that must happen when a pack is bought.'''
     cards = get_pack(request.form['set'])
     if (float(current_user.balance) >= 10):
         current_user.balance -= 10
@@ -305,15 +314,16 @@ def buyPacks():
               'danger')
     db.session.commit()
     cards = [cards[:5], cards[5:]]
-    print()
-    return render_template('cardsinpack.html', pack=cards)
+    print(cards)
+    return render_template('cardsinpack.html',
+                            title="You Got:",
+                            cards=cards)
 
 
 @user.route('/marketplace/trades', methods=['GET', 'POST'])
 @login_required
 def trades():
-    '''goes through all the necessary interactions that must happen when a trade is accpeted'''
-
+    '''Goes through all the necessary interactions that must happen when a trade is accepted.'''
     if 'trade' in request.form.keys():
         requested_card = Card.query.filter_by(
             id=request.form['requested_card']).first()
@@ -324,9 +334,6 @@ def trades():
             flash('You can\'t trade with yourself!', 'danger')
         elif element_of(int(requested_card.id), current_user.cards):
             flash('Trade completed!', 'success')
-            # sale = Sale.query.filter_by(status=0).filter_by(user_id=current_user.id).filter_by(card_id=requested_card.id).first()
-            # if len(sale) > 0:
-            #     db.session.remove(sale[0])
 
             current_user.cards.remove(requested_card)
             current_user.cards.append(given_card)
@@ -368,12 +375,15 @@ def trades():
     new = Trade.query.filter_by(status=0).order_by(Trade.id.desc())
     new1 = [new[:2], new[2:4], new[4:6]]
     new2 = [new[6:8], new[8:10], new[10:12]]
-    return render_template('trades.html', new_first=new1, new_second=new2)
+    return render_template('trades.html',
+                            new_first=new1,
+                            new_second=new2)
 
 
 @user.route('/trade', methods=['GET', 'POST'])
 @login_required
 def trade():
+    '''Goes through all the necessary interactions that must happen when a trade request is made.'''
     if len(current_user.cards) == 0:
         flash('You do not have any cards to trade!', 'danger')
         return redirect(url_for('user.trades'))
@@ -387,12 +397,14 @@ def trade():
             db.session.add(t)
             db.session.commit()
             return redirect(url_for('user.trades'))
-    return render_template('trade.html', query=Card.query)
+    return render_template('trade.html',
+                            query=Card.query)
 
 
 @user.route('/sell', methods=['GET', 'POST'])
 @login_required
 def sell():
+    '''Goes through all the necessary interactions that must happen when a sale request is made.'''
     if len(current_user.cards) == 0:
         flash('You do not have any cards to sell!', 'danger')
         return redirect(url_for('user.cards'))
