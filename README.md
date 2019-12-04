@@ -2,23 +2,31 @@
 This website is an interactive experience for Pokemon Trading Card Game enthusiasts. Users will be able to buy, sell, and trade digital Pokemon cards with people from all over the world
 
 ## Task Division
-#### Amanda
-- Front-End:  Login, Registration, Homepage, Marketplace, and Trading
-  - HTML Templates and App routes
-- Back-end: Viewing
-  - All the functions that handle viewing of cards
-- Managing: checking for logical flow of website and best user-experience
 
-#### Eric Lam
-- Front-End: Buying and Selling
-   - HTML Templates and App routes
-- Back-end: Trading
-   - The functions that involve requesting and accepting trades
+### Amanda
+- Front-End: Profile (All Six Parts), Buying (minor), and Packs
+- Back-end: Profile (All Six Parts), Buying (minor), and Card Packs
+- Managing: checking for logical flow of website and checking for bugs
+
+### Eric
+- Front-End: Buying (major), Selling, Trading, and Profile Bar
+- Back-end: Buying (major), Trading, and Selling
 - Managing: checking for logical setup of functions and database relationships
 
-#### Ivan Galakhov
-- Backend: Buying, Selling, and Login/Registration
+### Ivan
+- Backend: Login/Registration, Search, Individual Card Pages, IP Address/Location
+- Front-end: IP Address/Location, Individual Card Pages,
 - Managing: checking for logical setup of database tables
+
+### Joseph
+- Managing: App Routing, Team and individual Tasks, and Project Pacing
+  - Checking for logical setup and connection of app routes
+  - Making sure project members are on top of tasks
+  - Setting deadlines for crucial phases of product
+- Helping With: Frontend and backend tasks when applicable
+- Updating: Devlog and Design Doc
+- Fixing Bugs
+
 
 
 ## APIs
@@ -35,13 +43,15 @@ This website is an interactive experience for Pokemon Trading Card Game enthusia
 1. run "git clone https://github.com/jiosephlee/Softdev-P01.git" to clone the repo
 
 ### If you have make installed
-``` 
+```
 make install
 make run
 ````
 
 ### If you don't
 ```
+pip install --upgrade pip
+pip install wheel
 pip install -r doc/requirements.txt
 python run.py
 ```
