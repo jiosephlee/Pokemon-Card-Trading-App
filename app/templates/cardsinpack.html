@@ -1,9 +1,18 @@
 {% extends "_base.html" %}
 
-{% from "macros/profile_cards.html" import profile_cards %}
+{% from 'macros/render_card.html' import render_card %}
 
 {% block content %}
-    {{ profile_cards("You Got:", pack) }}
+    <h2>{{ title }}</h2>
+      <hr>
+    {% for group in cards %}
+      <div class="card-deck">
+        {% for card in group %}
+          {{ render_card(card,False) }}
+        {% endfor %}
+      </div>
+    <hr>
+    {% endfor %}
     <br>
     <form method="get" action={{ url_for('user.packs') }}>
         <button type="submit" class="btn btn-primary btn-block">Back</button>

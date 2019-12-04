@@ -4,22 +4,26 @@
 {% from 'macros/render_card.html' import render_card %}
 
 {% block content %}
-    <h2>My Trades</h2>
+    <h2>{{title}}</h2>
     <hr>
-    {{ profile_bar(2)}}
-    {% for trade in list %}
+    {{ profile_bar(page)}}
+    {% for duo in list %}
     <div class="card-deck">
-      <div style="display: flex; justify-content: space-evenly; align-items: center">
-            {% set given = get_card_id(trade.given_card_id) %}
-            {% set request = get_card_id(trade.request_card_id) %}
+      <div style="display: flex; justify-content: space-evenly; align-items: center; max-width: 50%">
+            {% set given = get_card_id(duo[0].given_card_id) %}
+            {% set request = get_card_id(duo[0].request_card_id) %}
             {{ render_card(given,displayinfo=False) }}
             <div style="max-height: 30px"><i class="material-icons">swap_horizontal_circle</i></div>
             {{ render_card(request,displayinfo=False) }}
-                <!-- <div style="display: flex; justify-content: space-evenly; align-items: center"> -->
-                    <!-- <div style="text-align: center"><h5>Giving</h5><img src={{ given.image_small }}></div> -->
-                    <!-- <div style="text-align: center"><h5>Requesting</h5><img src={{ request.image_small }}></div> -->
-                <!-- </div><br>
-            </div> -->
+        </div>
+        <div style="display: flex; justify-content: space-evenly; align-items: center; max-width: 50%">
+            {% if duo[1] %}
+              {% set given = get_card_id(duo[1].given_card_id) %}
+              {% set request = get_card_id(duo[1].request_card_id) %}
+              {{ render_card(given,displayinfo=False) }}
+              <div style="max-height: 30px"><i class="material-icons">swap_horizontal_circle</i></div>
+              {{ render_card(request,displayinfo=False) }}
+            {% endif %}
         </div>
     </div>
     <br>
