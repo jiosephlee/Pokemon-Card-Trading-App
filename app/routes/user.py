@@ -358,7 +358,7 @@ def trades():
 
             if (given_card not in other_user.cards):
                 trades = Trade.query.filter_by(user_id=other_user.id,
-                                               given_card = given_card.id,
+                                               given_card_id = given_card.id,
                                                status = 0).all()
                 if trades != None:
                     for trade in trades:
