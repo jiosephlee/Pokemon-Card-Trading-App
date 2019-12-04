@@ -163,7 +163,7 @@ def tradeHist():
               'info')
     else:
         c = [c[i * 2:(i + 1) * 2] for i in range((len(c) + 2 - 1) // 2)]
-        while len(a[-1]) < 2:
+        while len(c[-1]) < 2:
             c[-1].append(0)
 
     return render_template('mytrades.html',
@@ -182,9 +182,8 @@ def mytrades():
             'info')
     else:
         c = [c[i * 2:(i + 1) * 2] for i in range((len(c) + 2 - 1) // 2)]
-        while len(a[-1]) < 2:
+        while len(c[-1]) < 2:
             c[-1].append(0)
-        print(a)
 
     return render_template('mytrades.html',
                             page=2,
